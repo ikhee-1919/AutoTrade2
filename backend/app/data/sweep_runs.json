@@ -1,0 +1,1911 @@
+[
+  {
+    "sweep_run_id": "382f6688a5194863a88096db4d5974b2",
+    "rerun_of_sweep_run_id": null,
+    "request_hash": "ffcc92cb9b6582896456e907308e0e70d0cc1ca27debee583c36c96546a30fd9",
+    "created_at": "2026-04-23T11:24:01.508867",
+    "strategy_id": "mtf_trend_pullback_v1",
+    "strategy_version": "1.0.0",
+    "code_version": "unknown-local",
+    "symbol": "BTC-KRW",
+    "timeframe": "5m",
+    "timeframe_mapping": {
+      "trend": "60m",
+      "setup": "15m",
+      "entry": "5m"
+    },
+    "start_date": "2025-01-01",
+    "end_date": "2025-12-31",
+    "execution_config": {
+      "execution_policy": "next_open",
+      "fee_rate": 0.0005,
+      "entry_fee_rate": 0.0005,
+      "exit_fee_rate": 0.0005,
+      "apply_fee_on_entry": true,
+      "apply_fee_on_exit": true,
+      "slippage_rate": 0.0003,
+      "entry_slippage_rate": 0.0003,
+      "exit_slippage_rate": 0.0003,
+      "benchmark_enabled": true
+    },
+    "benchmark_enabled": true,
+    "sweep_space": {
+      "score_threshold": [
+        0.6,
+        0.7,
+        0.8
+      ],
+      "volume_multiplier": [
+        1,
+        1.2
+      ]
+    },
+    "total_combinations": 6,
+    "completed_combinations": 0,
+    "failed_combinations": 6,
+    "run_tag": null,
+    "note": null,
+    "ranking_summary": {
+      "best_by_net_return": null,
+      "best_by_excess_return": null,
+      "lowest_drawdown_group": [],
+      "top_n": [],
+      "profitable_count": 0,
+      "losing_count": 0,
+      "average_net_return": 0.0,
+      "median_net_return": 0.0,
+      "average_max_drawdown": 0.0
+    },
+    "results": [
+      {
+        "combination_id": "combo_1",
+        "params_snapshot": {
+          "score_threshold": 0.6,
+          "volume_multiplier": 1
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/15m"
+      },
+      {
+        "combination_id": "combo_2",
+        "params_snapshot": {
+          "score_threshold": 0.6,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/15m"
+      },
+      {
+        "combination_id": "combo_3",
+        "params_snapshot": {
+          "score_threshold": 0.7,
+          "volume_multiplier": 1
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/15m"
+      },
+      {
+        "combination_id": "combo_4",
+        "params_snapshot": {
+          "score_threshold": 0.7,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/15m"
+      },
+      {
+        "combination_id": "combo_5",
+        "params_snapshot": {
+          "score_threshold": 0.8,
+          "volume_multiplier": 1
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/15m"
+      },
+      {
+        "combination_id": "combo_6",
+        "params_snapshot": {
+          "score_threshold": 0.8,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/15m"
+      }
+    ]
+  },
+  {
+    "sweep_run_id": "3f8755584109498fad3697e5a129bbc9",
+    "rerun_of_sweep_run_id": null,
+    "request_hash": "395e6db03d017652972a66a34976f98240c40ca086de5ae17070e08d86a02175",
+    "created_at": "2026-04-23T11:23:46.707644",
+    "strategy_id": "trend_momentum_volume_score_v2",
+    "strategy_version": "2.0.0",
+    "code_version": "unknown-local",
+    "symbol": "KRW-BTC",
+    "timeframe": "5m",
+    "timeframe_mapping": {
+      "trend": "60m",
+      "setup": "15m",
+      "entry": "5m"
+    },
+    "start_date": "2025-01-01",
+    "end_date": "2025-12-31",
+    "execution_config": {
+      "execution_policy": "next_open",
+      "fee_rate": 0.0005,
+      "entry_fee_rate": 0.0005,
+      "exit_fee_rate": 0.0005,
+      "apply_fee_on_entry": true,
+      "apply_fee_on_exit": true,
+      "slippage_rate": 0.0003,
+      "entry_slippage_rate": 0.0003,
+      "exit_slippage_rate": 0.0003,
+      "benchmark_enabled": true
+    },
+    "benchmark_enabled": true,
+    "sweep_space": {
+      "score_threshold": [
+        0.6,
+        0.7,
+        0.8
+      ],
+      "volume_multiplier": [
+        1,
+        1.2
+      ]
+    },
+    "total_combinations": 6,
+    "completed_combinations": 0,
+    "failed_combinations": 6,
+    "run_tag": null,
+    "note": null,
+    "ranking_summary": {
+      "best_by_net_return": null,
+      "best_by_excess_return": null,
+      "lowest_drawdown_group": [],
+      "top_n": [],
+      "profitable_count": 0,
+      "losing_count": 0,
+      "average_net_return": 0.0,
+      "median_net_return": 0.0,
+      "average_max_drawdown": 0.0
+    },
+    "results": [
+      {
+        "combination_id": "combo_1",
+        "params_snapshot": {
+          "score_threshold": 0.6,
+          "volume_multiplier": 1
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for KRW-BTC/15m"
+      },
+      {
+        "combination_id": "combo_2",
+        "params_snapshot": {
+          "score_threshold": 0.6,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for KRW-BTC/15m"
+      },
+      {
+        "combination_id": "combo_3",
+        "params_snapshot": {
+          "score_threshold": 0.7,
+          "volume_multiplier": 1
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for KRW-BTC/15m"
+      },
+      {
+        "combination_id": "combo_4",
+        "params_snapshot": {
+          "score_threshold": 0.7,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for KRW-BTC/15m"
+      },
+      {
+        "combination_id": "combo_5",
+        "params_snapshot": {
+          "score_threshold": 0.8,
+          "volume_multiplier": 1
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for KRW-BTC/15m"
+      },
+      {
+        "combination_id": "combo_6",
+        "params_snapshot": {
+          "score_threshold": 0.8,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for KRW-BTC/15m"
+      }
+    ]
+  },
+  {
+    "sweep_run_id": "5215075a52ae4876952c99bd8dd8950b",
+    "rerun_of_sweep_run_id": null,
+    "request_hash": "c10a244b46c9c6a886e984dcde0731760c672cbab374bc830baf666368afe6af",
+    "created_at": "2026-04-23T11:20:16.954042",
+    "strategy_id": "mtf_trend_pullback_v1",
+    "strategy_version": "1.0.0",
+    "code_version": "unknown-local",
+    "symbol": "BTC-KRW",
+    "timeframe": "5m",
+    "timeframe_mapping": {
+      "trend": "60m",
+      "setup": "15m",
+      "entry": "5m"
+    },
+    "start_date": "2025-01-01",
+    "end_date": "2025-12-31",
+    "execution_config": {
+      "execution_policy": "next_open",
+      "fee_rate": 0.0005,
+      "entry_fee_rate": 0.0005,
+      "exit_fee_rate": 0.0005,
+      "apply_fee_on_entry": true,
+      "apply_fee_on_exit": true,
+      "slippage_rate": 0.0003,
+      "entry_slippage_rate": 0.0003,
+      "exit_slippage_rate": 0.0003,
+      "benchmark_enabled": true
+    },
+    "benchmark_enabled": true,
+    "sweep_space": {
+      "trend_ema_length": [
+        50,
+        100
+      ],
+      "setup_rsi_threshold": [
+        30,
+        35,
+        40
+      ],
+      "entry_score_cutoff": [
+        60,
+        70
+      ]
+    },
+    "total_combinations": 12,
+    "completed_combinations": 0,
+    "failed_combinations": 12,
+    "run_tag": null,
+    "note": null,
+    "ranking_summary": {
+      "best_by_net_return": null,
+      "best_by_excess_return": null,
+      "lowest_drawdown_group": [],
+      "top_n": [],
+      "profitable_count": 0,
+      "losing_count": 0,
+      "average_net_return": 0.0,
+      "median_net_return": 0.0,
+      "average_max_drawdown": 0.0
+    },
+    "results": [
+      {
+        "combination_id": "combo_1",
+        "params_snapshot": {
+          "entry_score_cutoff": 60,
+          "setup_rsi_threshold": 30,
+          "trend_ema_length": 50
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/15m"
+      },
+      {
+        "combination_id": "combo_2",
+        "params_snapshot": {
+          "entry_score_cutoff": 60,
+          "setup_rsi_threshold": 30,
+          "trend_ema_length": 100
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/15m"
+      },
+      {
+        "combination_id": "combo_3",
+        "params_snapshot": {
+          "entry_score_cutoff": 60,
+          "setup_rsi_threshold": 35,
+          "trend_ema_length": 50
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/15m"
+      },
+      {
+        "combination_id": "combo_4",
+        "params_snapshot": {
+          "entry_score_cutoff": 60,
+          "setup_rsi_threshold": 35,
+          "trend_ema_length": 100
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/15m"
+      },
+      {
+        "combination_id": "combo_5",
+        "params_snapshot": {
+          "entry_score_cutoff": 60,
+          "setup_rsi_threshold": 40,
+          "trend_ema_length": 50
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/15m"
+      },
+      {
+        "combination_id": "combo_6",
+        "params_snapshot": {
+          "entry_score_cutoff": 60,
+          "setup_rsi_threshold": 40,
+          "trend_ema_length": 100
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/15m"
+      },
+      {
+        "combination_id": "combo_7",
+        "params_snapshot": {
+          "entry_score_cutoff": 70,
+          "setup_rsi_threshold": 30,
+          "trend_ema_length": 50
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/15m"
+      },
+      {
+        "combination_id": "combo_8",
+        "params_snapshot": {
+          "entry_score_cutoff": 70,
+          "setup_rsi_threshold": 30,
+          "trend_ema_length": 100
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/15m"
+      },
+      {
+        "combination_id": "combo_9",
+        "params_snapshot": {
+          "entry_score_cutoff": 70,
+          "setup_rsi_threshold": 35,
+          "trend_ema_length": 50
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/15m"
+      },
+      {
+        "combination_id": "combo_10",
+        "params_snapshot": {
+          "entry_score_cutoff": 70,
+          "setup_rsi_threshold": 35,
+          "trend_ema_length": 100
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/15m"
+      },
+      {
+        "combination_id": "combo_11",
+        "params_snapshot": {
+          "entry_score_cutoff": 70,
+          "setup_rsi_threshold": 40,
+          "trend_ema_length": 50
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/15m"
+      },
+      {
+        "combination_id": "combo_12",
+        "params_snapshot": {
+          "entry_score_cutoff": 70,
+          "setup_rsi_threshold": 40,
+          "trend_ema_length": 100
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/15m"
+      }
+    ]
+  },
+  {
+    "sweep_run_id": "7183ea58a4b7455cafd08692f522c445",
+    "rerun_of_sweep_run_id": null,
+    "request_hash": "06feb6471a497b70c186a9b679faaa80397b6e6e7d02fea2c1548985db339731",
+    "created_at": "2026-04-23T11:17:23.966939",
+    "strategy_id": "ma_regime_v1",
+    "strategy_version": "1.0.0",
+    "code_version": "unknown-local",
+    "symbol": "ETH-KRW",
+    "timeframe": "1d",
+    "timeframe_mapping": {
+      "entry": "1d"
+    },
+    "start_date": "2025-01-01",
+    "end_date": "2025-12-31",
+    "execution_config": {
+      "execution_policy": "next_open",
+      "fee_rate": 0.0005,
+      "entry_fee_rate": 0.0005,
+      "exit_fee_rate": 0.0005,
+      "apply_fee_on_entry": true,
+      "apply_fee_on_exit": true,
+      "slippage_rate": 0.0003,
+      "entry_slippage_rate": 0.0003,
+      "exit_slippage_rate": 0.0003,
+      "benchmark_enabled": true
+    },
+    "benchmark_enabled": true,
+    "sweep_space": {
+      "score_threshold": [
+        0.6,
+        0.7,
+        0.8
+      ],
+      "volume_multiplier": [
+        1,
+        1.2
+      ]
+    },
+    "total_combinations": 6,
+    "completed_combinations": 6,
+    "failed_combinations": 0,
+    "run_tag": null,
+    "note": null,
+    "ranking_summary": {
+      "best_by_net_return": {
+        "combination_id": "combo_6",
+        "params_snapshot": {
+          "score_threshold": 0.8,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": "405d59fc89dd4ac0a013d2eaa1326582",
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": -3.7212,
+        "excess_return_pct": 3.7212,
+        "status": "completed",
+        "error_summary": null
+      },
+      "best_by_excess_return": {
+        "combination_id": "combo_6",
+        "params_snapshot": {
+          "score_threshold": 0.8,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": "405d59fc89dd4ac0a013d2eaa1326582",
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": -3.7212,
+        "excess_return_pct": 3.7212,
+        "status": "completed",
+        "error_summary": null
+      },
+      "lowest_drawdown_group": [
+        {
+          "combination_id": "combo_6",
+          "params_snapshot": {
+            "score_threshold": 0.8,
+            "volume_multiplier": 1.2
+          },
+          "related_run_id": "405d59fc89dd4ac0a013d2eaa1326582",
+          "gross_return_pct": 0.0,
+          "net_return_pct": 0.0,
+          "max_drawdown": 0.0,
+          "trade_count": 0,
+          "win_rate": 0.0,
+          "benchmark_buy_and_hold_return_pct": -3.7212,
+          "excess_return_pct": 3.7212,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_5",
+          "params_snapshot": {
+            "score_threshold": 0.8,
+            "volume_multiplier": 1
+          },
+          "related_run_id": "61ea5fd3a157481c8abf4c673b6eba1e",
+          "gross_return_pct": -10.5207,
+          "net_return_pct": -11.0969,
+          "max_drawdown": 11.0969,
+          "trade_count": 4,
+          "win_rate": 0.0,
+          "benchmark_buy_and_hold_return_pct": -3.7212,
+          "excess_return_pct": -7.3757,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_2",
+          "params_snapshot": {
+            "score_threshold": 0.6,
+            "volume_multiplier": 1.2
+          },
+          "related_run_id": "5971d758c03d44beaea8dbfa35e2f177",
+          "gross_return_pct": -15.5629,
+          "net_return_pct": -16.6446,
+          "max_drawdown": 16.6446,
+          "trade_count": 8,
+          "win_rate": 12.5,
+          "benchmark_buy_and_hold_return_pct": -3.7212,
+          "excess_return_pct": -12.9234,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_4",
+          "params_snapshot": {
+            "score_threshold": 0.7,
+            "volume_multiplier": 1.2
+          },
+          "related_run_id": "b71ae47dcfc14f659980e63c29d4900f",
+          "gross_return_pct": -16.1713,
+          "net_return_pct": -17.1128,
+          "max_drawdown": 17.1128,
+          "trade_count": 7,
+          "win_rate": 0.0,
+          "benchmark_buy_and_hold_return_pct": -3.7212,
+          "excess_return_pct": -13.3916,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_3",
+          "params_snapshot": {
+            "score_threshold": 0.7,
+            "volume_multiplier": 1
+          },
+          "related_run_id": "6318578b3466472b99357232c2f3b9d5",
+          "gross_return_pct": -16.8718,
+          "net_return_pct": -18.3305,
+          "max_drawdown": 19.7321,
+          "trade_count": 11,
+          "win_rate": 18.18,
+          "benchmark_buy_and_hold_return_pct": -3.7212,
+          "excess_return_pct": -14.6093,
+          "status": "completed",
+          "error_summary": null
+        }
+      ],
+      "top_n": [
+        {
+          "combination_id": "combo_6",
+          "params_snapshot": {
+            "score_threshold": 0.8,
+            "volume_multiplier": 1.2
+          },
+          "related_run_id": "405d59fc89dd4ac0a013d2eaa1326582",
+          "gross_return_pct": 0.0,
+          "net_return_pct": 0.0,
+          "max_drawdown": 0.0,
+          "trade_count": 0,
+          "win_rate": 0.0,
+          "benchmark_buy_and_hold_return_pct": -3.7212,
+          "excess_return_pct": 3.7212,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_5",
+          "params_snapshot": {
+            "score_threshold": 0.8,
+            "volume_multiplier": 1
+          },
+          "related_run_id": "61ea5fd3a157481c8abf4c673b6eba1e",
+          "gross_return_pct": -10.5207,
+          "net_return_pct": -11.0969,
+          "max_drawdown": 11.0969,
+          "trade_count": 4,
+          "win_rate": 0.0,
+          "benchmark_buy_and_hold_return_pct": -3.7212,
+          "excess_return_pct": -7.3757,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_2",
+          "params_snapshot": {
+            "score_threshold": 0.6,
+            "volume_multiplier": 1.2
+          },
+          "related_run_id": "5971d758c03d44beaea8dbfa35e2f177",
+          "gross_return_pct": -15.5629,
+          "net_return_pct": -16.6446,
+          "max_drawdown": 16.6446,
+          "trade_count": 8,
+          "win_rate": 12.5,
+          "benchmark_buy_and_hold_return_pct": -3.7212,
+          "excess_return_pct": -12.9234,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_4",
+          "params_snapshot": {
+            "score_threshold": 0.7,
+            "volume_multiplier": 1.2
+          },
+          "related_run_id": "b71ae47dcfc14f659980e63c29d4900f",
+          "gross_return_pct": -16.1713,
+          "net_return_pct": -17.1128,
+          "max_drawdown": 17.1128,
+          "trade_count": 7,
+          "win_rate": 0.0,
+          "benchmark_buy_and_hold_return_pct": -3.7212,
+          "excess_return_pct": -13.3916,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_3",
+          "params_snapshot": {
+            "score_threshold": 0.7,
+            "volume_multiplier": 1
+          },
+          "related_run_id": "6318578b3466472b99357232c2f3b9d5",
+          "gross_return_pct": -16.8718,
+          "net_return_pct": -18.3305,
+          "max_drawdown": 19.7321,
+          "trade_count": 11,
+          "win_rate": 18.18,
+          "benchmark_buy_and_hold_return_pct": -3.7212,
+          "excess_return_pct": -14.6093,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_1",
+          "params_snapshot": {
+            "score_threshold": 0.6,
+            "volume_multiplier": 1
+          },
+          "related_run_id": "63c39771c6e34021b194a9dff99b3d90",
+          "gross_return_pct": -22.3029,
+          "net_return_pct": -27.3645,
+          "max_drawdown": 28.6111,
+          "trade_count": 42,
+          "win_rate": 54.76,
+          "benchmark_buy_and_hold_return_pct": -3.7212,
+          "excess_return_pct": -23.6433,
+          "status": "completed",
+          "error_summary": null
+        }
+      ],
+      "profitable_count": 0,
+      "losing_count": 6,
+      "average_net_return": -15.0915,
+      "median_net_return": -16.8787,
+      "average_max_drawdown": 15.5329
+    },
+    "results": [
+      {
+        "combination_id": "combo_1",
+        "params_snapshot": {
+          "score_threshold": 0.6,
+          "volume_multiplier": 1
+        },
+        "related_run_id": "63c39771c6e34021b194a9dff99b3d90",
+        "gross_return_pct": -22.3029,
+        "net_return_pct": -27.3645,
+        "max_drawdown": 28.6111,
+        "trade_count": 42,
+        "win_rate": 54.76,
+        "benchmark_buy_and_hold_return_pct": -3.7212,
+        "excess_return_pct": -23.6433,
+        "status": "completed",
+        "error_summary": null
+      },
+      {
+        "combination_id": "combo_2",
+        "params_snapshot": {
+          "score_threshold": 0.6,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": "5971d758c03d44beaea8dbfa35e2f177",
+        "gross_return_pct": -15.5629,
+        "net_return_pct": -16.6446,
+        "max_drawdown": 16.6446,
+        "trade_count": 8,
+        "win_rate": 12.5,
+        "benchmark_buy_and_hold_return_pct": -3.7212,
+        "excess_return_pct": -12.9234,
+        "status": "completed",
+        "error_summary": null
+      },
+      {
+        "combination_id": "combo_3",
+        "params_snapshot": {
+          "score_threshold": 0.7,
+          "volume_multiplier": 1
+        },
+        "related_run_id": "6318578b3466472b99357232c2f3b9d5",
+        "gross_return_pct": -16.8718,
+        "net_return_pct": -18.3305,
+        "max_drawdown": 19.7321,
+        "trade_count": 11,
+        "win_rate": 18.18,
+        "benchmark_buy_and_hold_return_pct": -3.7212,
+        "excess_return_pct": -14.6093,
+        "status": "completed",
+        "error_summary": null
+      },
+      {
+        "combination_id": "combo_4",
+        "params_snapshot": {
+          "score_threshold": 0.7,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": "b71ae47dcfc14f659980e63c29d4900f",
+        "gross_return_pct": -16.1713,
+        "net_return_pct": -17.1128,
+        "max_drawdown": 17.1128,
+        "trade_count": 7,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": -3.7212,
+        "excess_return_pct": -13.3916,
+        "status": "completed",
+        "error_summary": null
+      },
+      {
+        "combination_id": "combo_5",
+        "params_snapshot": {
+          "score_threshold": 0.8,
+          "volume_multiplier": 1
+        },
+        "related_run_id": "61ea5fd3a157481c8abf4c673b6eba1e",
+        "gross_return_pct": -10.5207,
+        "net_return_pct": -11.0969,
+        "max_drawdown": 11.0969,
+        "trade_count": 4,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": -3.7212,
+        "excess_return_pct": -7.3757,
+        "status": "completed",
+        "error_summary": null
+      },
+      {
+        "combination_id": "combo_6",
+        "params_snapshot": {
+          "score_threshold": 0.8,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": "405d59fc89dd4ac0a013d2eaa1326582",
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": -3.7212,
+        "excess_return_pct": 3.7212,
+        "status": "completed",
+        "error_summary": null
+      }
+    ]
+  },
+  {
+    "sweep_run_id": "8fcf28b511ef46cd92dd6288fb2436fc",
+    "rerun_of_sweep_run_id": null,
+    "request_hash": "ad44e5d54ce3eb39e3ffa77cec210f5ccb0a10fe159e0a5cb8d5c0e9e3fc1ecc",
+    "created_at": "2026-04-23T11:17:11.371304",
+    "strategy_id": "ma_regime_v1",
+    "strategy_version": "1.0.0",
+    "code_version": "unknown-local",
+    "symbol": "BTC-KRW",
+    "timeframe": "1d",
+    "timeframe_mapping": {
+      "entry": "1d"
+    },
+    "start_date": "2025-11-12",
+    "end_date": "2026-02-19",
+    "execution_config": {
+      "execution_policy": "next_open",
+      "fee_rate": 0.0005,
+      "entry_fee_rate": 0.0005,
+      "exit_fee_rate": 0.0005,
+      "apply_fee_on_entry": true,
+      "apply_fee_on_exit": true,
+      "slippage_rate": 0.0003,
+      "entry_slippage_rate": 0.0003,
+      "exit_slippage_rate": 0.0003,
+      "benchmark_enabled": true
+    },
+    "benchmark_enabled": true,
+    "sweep_space": {
+      "score_threshold": [
+        0.6,
+        0.7,
+        0.8
+      ],
+      "volume_multiplier": [
+        1,
+        1.2
+      ]
+    },
+    "total_combinations": 6,
+    "completed_combinations": 6,
+    "failed_combinations": 0,
+    "run_tag": null,
+    "note": null,
+    "ranking_summary": {
+      "best_by_net_return": {
+        "combination_id": "combo_6",
+        "params_snapshot": {
+          "score_threshold": 0.8,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": "54cad356c74e4a39ba2c878a74ef6ddf",
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 1.6173,
+        "excess_return_pct": -1.6173,
+        "status": "completed",
+        "error_summary": null
+      },
+      "best_by_excess_return": {
+        "combination_id": "combo_6",
+        "params_snapshot": {
+          "score_threshold": 0.8,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": "54cad356c74e4a39ba2c878a74ef6ddf",
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 1.6173,
+        "excess_return_pct": -1.6173,
+        "status": "completed",
+        "error_summary": null
+      },
+      "lowest_drawdown_group": [
+        {
+          "combination_id": "combo_6",
+          "params_snapshot": {
+            "score_threshold": 0.8,
+            "volume_multiplier": 1.2
+          },
+          "related_run_id": "54cad356c74e4a39ba2c878a74ef6ddf",
+          "gross_return_pct": 0.0,
+          "net_return_pct": 0.0,
+          "max_drawdown": 0.0,
+          "trade_count": 0,
+          "win_rate": 0.0,
+          "benchmark_buy_and_hold_return_pct": 1.6173,
+          "excess_return_pct": -1.6173,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_5",
+          "params_snapshot": {
+            "score_threshold": 0.8,
+            "volume_multiplier": 1
+          },
+          "related_run_id": "7285808b7c454c97a7c9677421d6768b",
+          "gross_return_pct": -2.9995,
+          "net_return_pct": -3.1562,
+          "max_drawdown": 3.1562,
+          "trade_count": 1,
+          "win_rate": 0.0,
+          "benchmark_buy_and_hold_return_pct": 1.6173,
+          "excess_return_pct": -4.7734,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_2",
+          "params_snapshot": {
+            "score_threshold": 0.6,
+            "volume_multiplier": 1.2
+          },
+          "related_run_id": "8fb88a6a81004b69b8da5e2e48e68af1",
+          "gross_return_pct": -1.5798,
+          "net_return_pct": -2.0521,
+          "max_drawdown": 5.7605,
+          "trade_count": 3,
+          "win_rate": 33.33,
+          "benchmark_buy_and_hold_return_pct": 1.6173,
+          "excess_return_pct": -3.6694,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_4",
+          "params_snapshot": {
+            "score_threshold": 0.7,
+            "volume_multiplier": 1.2
+          },
+          "related_run_id": "33761459d6ff4b11a57cb94af82a058f",
+          "gross_return_pct": -1.5798,
+          "net_return_pct": -2.0521,
+          "max_drawdown": 5.7605,
+          "trade_count": 3,
+          "win_rate": 33.33,
+          "benchmark_buy_and_hold_return_pct": 1.6173,
+          "excess_return_pct": -3.6694,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_3",
+          "params_snapshot": {
+            "score_threshold": 0.7,
+            "volume_multiplier": 1
+          },
+          "related_run_id": "a4f47eb714c74935b60e4842e913bc33",
+          "gross_return_pct": -7.8179,
+          "net_return_pct": -8.4101,
+          "max_drawdown": 8.4101,
+          "trade_count": 4,
+          "win_rate": 25.0,
+          "benchmark_buy_and_hold_return_pct": 1.6173,
+          "excess_return_pct": -10.0273,
+          "status": "completed",
+          "error_summary": null
+        }
+      ],
+      "top_n": [
+        {
+          "combination_id": "combo_6",
+          "params_snapshot": {
+            "score_threshold": 0.8,
+            "volume_multiplier": 1.2
+          },
+          "related_run_id": "54cad356c74e4a39ba2c878a74ef6ddf",
+          "gross_return_pct": 0.0,
+          "net_return_pct": 0.0,
+          "max_drawdown": 0.0,
+          "trade_count": 0,
+          "win_rate": 0.0,
+          "benchmark_buy_and_hold_return_pct": 1.6173,
+          "excess_return_pct": -1.6173,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_2",
+          "params_snapshot": {
+            "score_threshold": 0.6,
+            "volume_multiplier": 1.2
+          },
+          "related_run_id": "8fb88a6a81004b69b8da5e2e48e68af1",
+          "gross_return_pct": -1.5798,
+          "net_return_pct": -2.0521,
+          "max_drawdown": 5.7605,
+          "trade_count": 3,
+          "win_rate": 33.33,
+          "benchmark_buy_and_hold_return_pct": 1.6173,
+          "excess_return_pct": -3.6694,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_4",
+          "params_snapshot": {
+            "score_threshold": 0.7,
+            "volume_multiplier": 1.2
+          },
+          "related_run_id": "33761459d6ff4b11a57cb94af82a058f",
+          "gross_return_pct": -1.5798,
+          "net_return_pct": -2.0521,
+          "max_drawdown": 5.7605,
+          "trade_count": 3,
+          "win_rate": 33.33,
+          "benchmark_buy_and_hold_return_pct": 1.6173,
+          "excess_return_pct": -3.6694,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_5",
+          "params_snapshot": {
+            "score_threshold": 0.8,
+            "volume_multiplier": 1
+          },
+          "related_run_id": "7285808b7c454c97a7c9677421d6768b",
+          "gross_return_pct": -2.9995,
+          "net_return_pct": -3.1562,
+          "max_drawdown": 3.1562,
+          "trade_count": 1,
+          "win_rate": 0.0,
+          "benchmark_buy_and_hold_return_pct": 1.6173,
+          "excess_return_pct": -4.7734,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_1",
+          "params_snapshot": {
+            "score_threshold": 0.6,
+            "volume_multiplier": 1
+          },
+          "related_run_id": "61cc221f4d7b483898324f4d57715610",
+          "gross_return_pct": -3.8771,
+          "net_return_pct": -4.7979,
+          "max_drawdown": 8.6433,
+          "trade_count": 6,
+          "win_rate": 50.0,
+          "benchmark_buy_and_hold_return_pct": 1.6173,
+          "excess_return_pct": -6.4151,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_3",
+          "params_snapshot": {
+            "score_threshold": 0.7,
+            "volume_multiplier": 1
+          },
+          "related_run_id": "a4f47eb714c74935b60e4842e913bc33",
+          "gross_return_pct": -7.8179,
+          "net_return_pct": -8.4101,
+          "max_drawdown": 8.4101,
+          "trade_count": 4,
+          "win_rate": 25.0,
+          "benchmark_buy_and_hold_return_pct": 1.6173,
+          "excess_return_pct": -10.0273,
+          "status": "completed",
+          "error_summary": null
+        }
+      ],
+      "profitable_count": 0,
+      "losing_count": 6,
+      "average_net_return": -3.4114,
+      "median_net_return": -2.6041,
+      "average_max_drawdown": 5.2884
+    },
+    "results": [
+      {
+        "combination_id": "combo_1",
+        "params_snapshot": {
+          "score_threshold": 0.6,
+          "volume_multiplier": 1
+        },
+        "related_run_id": "61cc221f4d7b483898324f4d57715610",
+        "gross_return_pct": -3.8771,
+        "net_return_pct": -4.7979,
+        "max_drawdown": 8.6433,
+        "trade_count": 6,
+        "win_rate": 50.0,
+        "benchmark_buy_and_hold_return_pct": 1.6173,
+        "excess_return_pct": -6.4151,
+        "status": "completed",
+        "error_summary": null
+      },
+      {
+        "combination_id": "combo_2",
+        "params_snapshot": {
+          "score_threshold": 0.6,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": "8fb88a6a81004b69b8da5e2e48e68af1",
+        "gross_return_pct": -1.5798,
+        "net_return_pct": -2.0521,
+        "max_drawdown": 5.7605,
+        "trade_count": 3,
+        "win_rate": 33.33,
+        "benchmark_buy_and_hold_return_pct": 1.6173,
+        "excess_return_pct": -3.6694,
+        "status": "completed",
+        "error_summary": null
+      },
+      {
+        "combination_id": "combo_3",
+        "params_snapshot": {
+          "score_threshold": 0.7,
+          "volume_multiplier": 1
+        },
+        "related_run_id": "a4f47eb714c74935b60e4842e913bc33",
+        "gross_return_pct": -7.8179,
+        "net_return_pct": -8.4101,
+        "max_drawdown": 8.4101,
+        "trade_count": 4,
+        "win_rate": 25.0,
+        "benchmark_buy_and_hold_return_pct": 1.6173,
+        "excess_return_pct": -10.0273,
+        "status": "completed",
+        "error_summary": null
+      },
+      {
+        "combination_id": "combo_4",
+        "params_snapshot": {
+          "score_threshold": 0.7,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": "33761459d6ff4b11a57cb94af82a058f",
+        "gross_return_pct": -1.5798,
+        "net_return_pct": -2.0521,
+        "max_drawdown": 5.7605,
+        "trade_count": 3,
+        "win_rate": 33.33,
+        "benchmark_buy_and_hold_return_pct": 1.6173,
+        "excess_return_pct": -3.6694,
+        "status": "completed",
+        "error_summary": null
+      },
+      {
+        "combination_id": "combo_5",
+        "params_snapshot": {
+          "score_threshold": 0.8,
+          "volume_multiplier": 1
+        },
+        "related_run_id": "7285808b7c454c97a7c9677421d6768b",
+        "gross_return_pct": -2.9995,
+        "net_return_pct": -3.1562,
+        "max_drawdown": 3.1562,
+        "trade_count": 1,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 1.6173,
+        "excess_return_pct": -4.7734,
+        "status": "completed",
+        "error_summary": null
+      },
+      {
+        "combination_id": "combo_6",
+        "params_snapshot": {
+          "score_threshold": 0.8,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": "54cad356c74e4a39ba2c878a74ef6ddf",
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 1.6173,
+        "excess_return_pct": -1.6173,
+        "status": "completed",
+        "error_summary": null
+      }
+    ]
+  },
+  {
+    "sweep_run_id": "d2a916738f854d2d9f4ef16f65f11d62",
+    "rerun_of_sweep_run_id": null,
+    "request_hash": "d8535e5e4d42382d32b55fdbe0b26626808d02a974a980fd2b6c6f6e714a09bb",
+    "created_at": "2026-04-23T11:15:59.001396",
+    "strategy_id": "trend_momentum_volume_score_v2",
+    "strategy_version": "2.0.0",
+    "code_version": "unknown-local",
+    "symbol": "BTC-KRW",
+    "timeframe": "5m",
+    "timeframe_mapping": {
+      "trend": "60m",
+      "setup": "15m",
+      "entry": "5m"
+    },
+    "start_date": "2025-01-01",
+    "end_date": "2025-12-31",
+    "execution_config": {
+      "execution_policy": "next_open",
+      "fee_rate": 0.0005,
+      "entry_fee_rate": 0.0005,
+      "exit_fee_rate": 0.0005,
+      "apply_fee_on_entry": true,
+      "apply_fee_on_exit": true,
+      "slippage_rate": 0.0003,
+      "entry_slippage_rate": 0.0003,
+      "exit_slippage_rate": 0.0003,
+      "benchmark_enabled": true
+    },
+    "benchmark_enabled": true,
+    "sweep_space": {
+      "score_threshold": [
+        0.6,
+        0.7,
+        0.8
+      ],
+      "volume_multiplier": [
+        1,
+        1.2
+      ]
+    },
+    "total_combinations": 6,
+    "completed_combinations": 0,
+    "failed_combinations": 6,
+    "run_tag": null,
+    "note": null,
+    "ranking_summary": {
+      "best_by_net_return": null,
+      "best_by_excess_return": null,
+      "lowest_drawdown_group": [],
+      "top_n": [],
+      "profitable_count": 0,
+      "losing_count": 0,
+      "average_net_return": 0.0,
+      "median_net_return": 0.0,
+      "average_max_drawdown": 0.0
+    },
+    "results": [
+      {
+        "combination_id": "combo_1",
+        "params_snapshot": {
+          "score_threshold": 0.6,
+          "volume_multiplier": 1
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/60m"
+      },
+      {
+        "combination_id": "combo_2",
+        "params_snapshot": {
+          "score_threshold": 0.6,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/60m"
+      },
+      {
+        "combination_id": "combo_3",
+        "params_snapshot": {
+          "score_threshold": 0.7,
+          "volume_multiplier": 1
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/60m"
+      },
+      {
+        "combination_id": "combo_4",
+        "params_snapshot": {
+          "score_threshold": 0.7,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/60m"
+      },
+      {
+        "combination_id": "combo_5",
+        "params_snapshot": {
+          "score_threshold": 0.8,
+          "volume_multiplier": 1
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/60m"
+      },
+      {
+        "combination_id": "combo_6",
+        "params_snapshot": {
+          "score_threshold": 0.8,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": null,
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": 0.0,
+        "excess_return_pct": 0.0,
+        "status": "failed",
+        "error_summary": "Missing data file for BTC-KRW/60m"
+      }
+    ]
+  },
+  {
+    "sweep_run_id": "9a0ffb0a874f482385739d719cb6edfc",
+    "rerun_of_sweep_run_id": null,
+    "request_hash": "9085e5a65648113775aed7a84456402b3777bb74d99fb7b6feb9001a2f8185d5",
+    "created_at": "2026-04-23T11:03:45.236440",
+    "strategy_id": "ma_regime_v1",
+    "strategy_version": "1.0.0",
+    "code_version": "unknown-local",
+    "symbol": "BTC-KRW",
+    "timeframe": "1d",
+    "timeframe_mapping": {
+      "entry": "1d"
+    },
+    "start_date": "2025-01-01",
+    "end_date": "2025-12-31",
+    "execution_config": {
+      "execution_policy": "next_open",
+      "fee_rate": 0.0005,
+      "entry_fee_rate": 0.0005,
+      "exit_fee_rate": 0.0005,
+      "apply_fee_on_entry": true,
+      "apply_fee_on_exit": true,
+      "slippage_rate": 0.0003,
+      "entry_slippage_rate": 0.0003,
+      "exit_slippage_rate": 0.0003,
+      "benchmark_enabled": true
+    },
+    "benchmark_enabled": true,
+    "sweep_space": {
+      "score_threshold": [
+        0.6,
+        0.7,
+        0.8
+      ],
+      "volume_multiplier": [
+        1,
+        1.2
+      ]
+    },
+    "total_combinations": 6,
+    "completed_combinations": 6,
+    "failed_combinations": 0,
+    "run_tag": null,
+    "note": null,
+    "ranking_summary": {
+      "best_by_net_return": {
+        "combination_id": "combo_6",
+        "params_snapshot": {
+          "score_threshold": 0.8,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": "2a642e140ab94c8f937765ac3d45e859",
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": -3.6744,
+        "excess_return_pct": 3.6744,
+        "status": "completed",
+        "error_summary": null
+      },
+      "best_by_excess_return": {
+        "combination_id": "combo_6",
+        "params_snapshot": {
+          "score_threshold": 0.8,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": "2a642e140ab94c8f937765ac3d45e859",
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": -3.6744,
+        "excess_return_pct": 3.6744,
+        "status": "completed",
+        "error_summary": null
+      },
+      "lowest_drawdown_group": [
+        {
+          "combination_id": "combo_6",
+          "params_snapshot": {
+            "score_threshold": 0.8,
+            "volume_multiplier": 1.2
+          },
+          "related_run_id": "2a642e140ab94c8f937765ac3d45e859",
+          "gross_return_pct": 0.0,
+          "net_return_pct": 0.0,
+          "max_drawdown": 0.0,
+          "trade_count": 0,
+          "win_rate": 0.0,
+          "benchmark_buy_and_hold_return_pct": -3.6744,
+          "excess_return_pct": 3.6744,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_5",
+          "params_snapshot": {
+            "score_threshold": 0.8,
+            "volume_multiplier": 1
+          },
+          "related_run_id": "ece49a8c5ba14edda72e3dc15f193379",
+          "gross_return_pct": -10.629,
+          "net_return_pct": -11.2045,
+          "max_drawdown": 11.2045,
+          "trade_count": 4,
+          "win_rate": 0.0,
+          "benchmark_buy_and_hold_return_pct": -3.6744,
+          "excess_return_pct": -7.5301,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_2",
+          "params_snapshot": {
+            "score_threshold": 0.6,
+            "volume_multiplier": 1.2
+          },
+          "related_run_id": "9bc9d32d3e214a4fb53888fa8795eef8",
+          "gross_return_pct": -17.5638,
+          "net_return_pct": -18.8809,
+          "max_drawdown": 18.8809,
+          "trade_count": 10,
+          "win_rate": 20.0,
+          "benchmark_buy_and_hold_return_pct": -3.6744,
+          "excess_return_pct": -15.2065,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_4",
+          "params_snapshot": {
+            "score_threshold": 0.7,
+            "volume_multiplier": 1.2
+          },
+          "related_run_id": "43647f14f7974d079dedc2d2a944bd8a",
+          "gross_return_pct": -19.451,
+          "net_return_pct": -20.4847,
+          "max_drawdown": 20.4847,
+          "trade_count": 8,
+          "win_rate": 0.0,
+          "benchmark_buy_and_hold_return_pct": -3.6744,
+          "excess_return_pct": -16.8103,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_3",
+          "params_snapshot": {
+            "score_threshold": 0.7,
+            "volume_multiplier": 1
+          },
+          "related_run_id": "0c36e36dca5f4e848cf9dfecfad803f9",
+          "gross_return_pct": -19.9034,
+          "net_return_pct": -21.4362,
+          "max_drawdown": 22.2512,
+          "trade_count": 12,
+          "win_rate": 16.67,
+          "benchmark_buy_and_hold_return_pct": -3.6744,
+          "excess_return_pct": -17.7618,
+          "status": "completed",
+          "error_summary": null
+        }
+      ],
+      "top_n": [
+        {
+          "combination_id": "combo_6",
+          "params_snapshot": {
+            "score_threshold": 0.8,
+            "volume_multiplier": 1.2
+          },
+          "related_run_id": "2a642e140ab94c8f937765ac3d45e859",
+          "gross_return_pct": 0.0,
+          "net_return_pct": 0.0,
+          "max_drawdown": 0.0,
+          "trade_count": 0,
+          "win_rate": 0.0,
+          "benchmark_buy_and_hold_return_pct": -3.6744,
+          "excess_return_pct": 3.6744,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_5",
+          "params_snapshot": {
+            "score_threshold": 0.8,
+            "volume_multiplier": 1
+          },
+          "related_run_id": "ece49a8c5ba14edda72e3dc15f193379",
+          "gross_return_pct": -10.629,
+          "net_return_pct": -11.2045,
+          "max_drawdown": 11.2045,
+          "trade_count": 4,
+          "win_rate": 0.0,
+          "benchmark_buy_and_hold_return_pct": -3.6744,
+          "excess_return_pct": -7.5301,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_2",
+          "params_snapshot": {
+            "score_threshold": 0.6,
+            "volume_multiplier": 1.2
+          },
+          "related_run_id": "9bc9d32d3e214a4fb53888fa8795eef8",
+          "gross_return_pct": -17.5638,
+          "net_return_pct": -18.8809,
+          "max_drawdown": 18.8809,
+          "trade_count": 10,
+          "win_rate": 20.0,
+          "benchmark_buy_and_hold_return_pct": -3.6744,
+          "excess_return_pct": -15.2065,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_4",
+          "params_snapshot": {
+            "score_threshold": 0.7,
+            "volume_multiplier": 1.2
+          },
+          "related_run_id": "43647f14f7974d079dedc2d2a944bd8a",
+          "gross_return_pct": -19.451,
+          "net_return_pct": -20.4847,
+          "max_drawdown": 20.4847,
+          "trade_count": 8,
+          "win_rate": 0.0,
+          "benchmark_buy_and_hold_return_pct": -3.6744,
+          "excess_return_pct": -16.8103,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_3",
+          "params_snapshot": {
+            "score_threshold": 0.7,
+            "volume_multiplier": 1
+          },
+          "related_run_id": "0c36e36dca5f4e848cf9dfecfad803f9",
+          "gross_return_pct": -19.9034,
+          "net_return_pct": -21.4362,
+          "max_drawdown": 22.2512,
+          "trade_count": 12,
+          "win_rate": 16.67,
+          "benchmark_buy_and_hold_return_pct": -3.6744,
+          "excess_return_pct": -17.7618,
+          "status": "completed",
+          "error_summary": null
+        },
+        {
+          "combination_id": "combo_1",
+          "params_snapshot": {
+            "score_threshold": 0.6,
+            "volume_multiplier": 1
+          },
+          "related_run_id": "2ad25c0a903c4b95840fea4ce103f753",
+          "gross_return_pct": -21.4438,
+          "net_return_pct": -26.6784,
+          "max_drawdown": 27.439,
+          "trade_count": 43,
+          "win_rate": 55.81,
+          "benchmark_buy_and_hold_return_pct": -3.6744,
+          "excess_return_pct": -23.004,
+          "status": "completed",
+          "error_summary": null
+        }
+      ],
+      "profitable_count": 0,
+      "losing_count": 6,
+      "average_net_return": -16.4474,
+      "median_net_return": -19.6828,
+      "average_max_drawdown": 16.71
+    },
+    "results": [
+      {
+        "combination_id": "combo_1",
+        "params_snapshot": {
+          "score_threshold": 0.6,
+          "volume_multiplier": 1
+        },
+        "related_run_id": "2ad25c0a903c4b95840fea4ce103f753",
+        "gross_return_pct": -21.4438,
+        "net_return_pct": -26.6784,
+        "max_drawdown": 27.439,
+        "trade_count": 43,
+        "win_rate": 55.81,
+        "benchmark_buy_and_hold_return_pct": -3.6744,
+        "excess_return_pct": -23.004,
+        "status": "completed",
+        "error_summary": null
+      },
+      {
+        "combination_id": "combo_2",
+        "params_snapshot": {
+          "score_threshold": 0.6,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": "9bc9d32d3e214a4fb53888fa8795eef8",
+        "gross_return_pct": -17.5638,
+        "net_return_pct": -18.8809,
+        "max_drawdown": 18.8809,
+        "trade_count": 10,
+        "win_rate": 20.0,
+        "benchmark_buy_and_hold_return_pct": -3.6744,
+        "excess_return_pct": -15.2065,
+        "status": "completed",
+        "error_summary": null
+      },
+      {
+        "combination_id": "combo_3",
+        "params_snapshot": {
+          "score_threshold": 0.7,
+          "volume_multiplier": 1
+        },
+        "related_run_id": "0c36e36dca5f4e848cf9dfecfad803f9",
+        "gross_return_pct": -19.9034,
+        "net_return_pct": -21.4362,
+        "max_drawdown": 22.2512,
+        "trade_count": 12,
+        "win_rate": 16.67,
+        "benchmark_buy_and_hold_return_pct": -3.6744,
+        "excess_return_pct": -17.7618,
+        "status": "completed",
+        "error_summary": null
+      },
+      {
+        "combination_id": "combo_4",
+        "params_snapshot": {
+          "score_threshold": 0.7,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": "43647f14f7974d079dedc2d2a944bd8a",
+        "gross_return_pct": -19.451,
+        "net_return_pct": -20.4847,
+        "max_drawdown": 20.4847,
+        "trade_count": 8,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": -3.6744,
+        "excess_return_pct": -16.8103,
+        "status": "completed",
+        "error_summary": null
+      },
+      {
+        "combination_id": "combo_5",
+        "params_snapshot": {
+          "score_threshold": 0.8,
+          "volume_multiplier": 1
+        },
+        "related_run_id": "ece49a8c5ba14edda72e3dc15f193379",
+        "gross_return_pct": -10.629,
+        "net_return_pct": -11.2045,
+        "max_drawdown": 11.2045,
+        "trade_count": 4,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": -3.6744,
+        "excess_return_pct": -7.5301,
+        "status": "completed",
+        "error_summary": null
+      },
+      {
+        "combination_id": "combo_6",
+        "params_snapshot": {
+          "score_threshold": 0.8,
+          "volume_multiplier": 1.2
+        },
+        "related_run_id": "2a642e140ab94c8f937765ac3d45e859",
+        "gross_return_pct": 0.0,
+        "net_return_pct": 0.0,
+        "max_drawdown": 0.0,
+        "trade_count": 0,
+        "win_rate": 0.0,
+        "benchmark_buy_and_hold_return_pct": -3.6744,
+        "excess_return_pct": 3.6744,
+        "status": "completed",
+        "error_summary": null
+      }
+    ]
+  }
+]
