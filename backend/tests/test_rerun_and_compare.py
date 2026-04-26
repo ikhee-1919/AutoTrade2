@@ -50,6 +50,9 @@ def test_compare_api_structure(api_client) -> None:
     detail = api_client.get(f"/backtests/{r1['run_id']}")
     assert detail.status_code == 200
     assert detail.json().get("timeframe_mapping", {}).get("entry") == "1d"
+    detail_body = detail.json()
+    assert "monthly_returns" in detail_body["summary"]
+    assert "exit_reason_counts" in detail_body["summary"]
 
     payload2 = {**payload, "symbol": "SOL-KRW"}
     r2 = api_client.post("/backtests/run", json=payload2).json()
@@ -66,4 +69,12 @@ def test_compare_api_structure(api_client) -> None:
     assert all("cost_drag_pct" in item for item in body["items"])
     assert all("benchmark_buy_and_hold_return_pct" in item for item in body["items"])
     assert all("strategy_excess_return_pct" in item for item in body["items"])
+    assert all("profit_factor" in item for item in body["items"])
+    assert all("avg_win_pct" in item for item in body["items"])
+    assert all("avg_loss_pct" in item for item in body["items"])
+    assert all("expectancy_per_trade" in item for item in body["items"])
+    assert all("max_consecutive_losses" in item for item in body["items"])
+    assert all("exposure_pct" in item for item in body["items"])
+    assert all("exit_reason_counts" in item for item in body["items"])
+    assert all("reject_reason_counts" in item for item in body["items"])
     assert all("timeframe_mapping" in item for item in body["items"])

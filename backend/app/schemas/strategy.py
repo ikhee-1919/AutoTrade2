@@ -8,7 +8,9 @@ class StrategyMetaResponse(BaseModel):
     name: str
     version: str
     description: str
+    short_description: str | None = None
     mode: str = "single_timeframe"
+    spot_long_only: bool = False
     required_roles: list[str] = Field(default_factory=list)
     optional_roles: list[str] = Field(default_factory=list)
 

@@ -95,7 +95,20 @@ class BacktestJobRepository:
 
     def _load(self) -> list[dict[str, Any]]:
         raw = self._file_path.read_text(encoding="utf-8")
-        return json.loads(raw)
+        if not raw.strip():
+            # Recover from truncated/empty file.
+            self._save([])
+            return []
+        try:
+            payload = json.loads(raw)
+            if isinstance(payload, list):
+                return payload
+            self._save([])
+            return []
+        except json.JSONDecodeError:
+            # Recover corrupt JSON to keep the service available.
+            self._save([])
+            return []
 
     def _save(self, payload: list[dict[str, Any]]) -> None:
         self._file_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")

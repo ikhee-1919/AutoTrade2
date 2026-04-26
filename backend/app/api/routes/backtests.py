@@ -215,6 +215,26 @@ def recent_backtests(
             symbol=run["symbol"],
             timeframe=run["timeframe"],
             timeframe_mapping=run.get("timeframe_mapping"),
+            indicator_start=(
+                datetime.fromisoformat(run["indicator_start"]).date()
+                if run.get("indicator_start")
+                else None
+            ),
+            warmup_start=(
+                datetime.fromisoformat(run["warmup_start"]).date()
+                if run.get("warmup_start")
+                else None
+            ),
+            trade_start=(
+                datetime.fromisoformat(run["trade_start"]).date()
+                if run.get("trade_start")
+                else datetime.fromisoformat(run["start_date"]).date()
+            ),
+            trade_end=(
+                datetime.fromisoformat(run["trade_end"]).date()
+                if run.get("trade_end")
+                else datetime.fromisoformat(run["end_date"]).date()
+            ),
             start_date=datetime.fromisoformat(run["start_date"]).date(),
             end_date=datetime.fromisoformat(run["end_date"]).date(),
             params_used=run.get("params_used", {}),

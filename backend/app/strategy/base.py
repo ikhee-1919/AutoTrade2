@@ -12,9 +12,11 @@ class StrategyMetadata:
     name: str
     version: str
     description: str
+    short_description: str | None = None
     mode: str = "single_timeframe"
     required_roles: list[str] | None = None
     optional_roles: list[str] | None = None
+    spot_long_only: bool = False
 
 
 @dataclass(frozen=True)
@@ -39,6 +41,7 @@ class StrategyContext:
     metadata_by_role: dict[str, dict[str, Any]]
     as_of: datetime
     entry_role: str = "entry"
+    runtime_state: dict[str, Any] | None = None
 
 
 class BaseStrategy(ABC):

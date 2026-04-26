@@ -5,6 +5,7 @@ from app.core.config import settings
 from app.data_collectors.upbit_collector import UpbitHistoricalCollector
 from app.data.providers.csv_provider import CSVDataProvider
 from app.repositories.market_data_repository import MarketDataRepository
+from app.repositories.top10_universe_repository import Top10UniverseRepository
 from app.repositories.backtest_run_repository import BacktestRunRepository
 from app.repositories.backtest_job_repository import BacktestJobRepository
 from app.repositories.sweep_run_repository import SweepRunRepository
@@ -14,13 +15,18 @@ from app.services.backtest_job_service import BacktestJobService
 from app.services.backtest_service import BacktestService
 from app.services.market_data_job_service import MarketDataJobService
 from app.services.market_data_service import MarketDataService
+from app.services.market_cap_provider import CoinGeckoMarketCapProvider
 from app.services.parameter_sweep_job_service import ParameterSweepJobService
 from app.services.parameter_sweep_service import ParameterSweepService
+from app.services.chart_service import ChartService
 from app.services.signal_service import SignalService
 from app.services.strategy_service import StrategyService
 from app.services.symbol_service import SymbolService
 from app.services.walkforward_job_service import WalkforwardJobService
 from app.services.walkforward_service import WalkforwardService
+from app.services.top10_universe_service import Top10UniverseService
+from app.services.regime_analysis_service import RegimeAnalysisService
+from app.services.regime_classifier import RegimeClassifier
 from app.strategy.registry import StrategyRegistry
 
 
@@ -85,9 +91,33 @@ def get_market_data_service() -> MarketDataService:
 
 
 @lru_cache
+def get_market_cap_provider() -> CoinGeckoMarketCapProvider:
+    return CoinGeckoMarketCapProvider()
+
+
+@lru_cache
+def get_top10_universe_repository() -> Top10UniverseRepository:
+    return Top10UniverseRepository(
+        current_file=settings.top10_universe_current_file,
+        snapshots_dir=settings.top10_universe_snapshots_dir,
+    )
+
+
+@lru_cache
+def get_top10_universe_service() -> Top10UniverseService:
+    return Top10UniverseService(
+        collector=get_upbit_collector(),
+        market_data_service=get_market_data_service(),
+        repository=get_top10_universe_repository(),
+        market_cap_provider=get_market_cap_provider(),
+    )
+
+
+@lru_cache
 def get_market_data_job_service() -> MarketDataJobService:
     return MarketDataJobService(
         market_data_service=get_market_data_service(),
+        top10_universe_service=get_top10_universe_service(),
         job_repo=get_backtest_jobs_repo(),
         max_concurrent_jobs=settings.max_concurrent_backtest_jobs,
     )
@@ -170,4 +200,20 @@ def get_signal_service() -> SignalService:
     return SignalService(
         strategy_service=get_strategy_service(),
         data_provider=get_data_provider(),
+    )
+
+
+@lru_cache
+def get_chart_service() -> ChartService:
+    return ChartService(
+        data_provider=get_data_provider(),
+        run_repository=get_backtest_runs_repo(),
+    )
+
+
+@lru_cache
+def get_regime_analysis_service() -> RegimeAnalysisService:
+    return RegimeAnalysisService(
+        data_provider=get_data_provider(),
+        classifier=RegimeClassifier(),
     )

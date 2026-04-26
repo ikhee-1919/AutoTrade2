@@ -1,0 +1,33 @@
+{
+  "dataset_id": "upbit__KRW-APT__60m",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-APT",
+  "timeframe": "60m",
+  "start_at": "2022-10-19T08:00:00",
+  "end_at": "2026-04-24T03:00:00",
+  "row_count": 30719,
+  "created_at": "2026-04-24T03:18:22.054942",
+  "updated_at": "2026-04-24T03:18:22.199472",
+  "data_signature": "9dc93fbfdb0b35306d1951be9147170b3dc526cc2c28f51d809087001a71653b",
+  "quality_status": "warning",
+  "quality_report_summary": "rows=30719, dup=0, missing=69, null=0, invalid=0, suspicious=0",
+  "quality_report": {
+    "status": "warning",
+    "row_count": 30719,
+    "duplicate_count": 0,
+    "missing_interval_count": 69,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 0,
+    "summary_message": "rows=30719, dup=0, missing=69, null=0, invalid=0, suspicious=0",
+    "detail_messages": [
+      "missing intervals detected: 69"
+    ]
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T03:18:22.199453",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-APT/60m/candles.csv",
+  "notes": null
+}

@@ -2,7 +2,7 @@ from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 
-from app.api.dependencies import get_market_data_job_service, get_market_data_service
+from app.api.dependencies import get_market_data_job_service, get_market_data_service, get_top10_universe_service
 from app.schemas.market_data import (
     MarketDataBatchRequest,
     MarketDataBatchResult,
@@ -16,9 +16,18 @@ from app.schemas.market_data import (
     MarketDataSummaryResponse,
     MarketDataUpdateRequest,
     MarketDataValidateRequest,
+    Top10UniverseActionResponse,
+    Top10UniverseCollectRequest,
+    Top10UniverseMissingResponse,
+    Top10UniverseRefreshRequest,
+    Top10UniverseRetryMissingRequest,
+    Top10UniverseResponse,
+    Top10UniverseSummaryResponse,
+    Top10UniverseUpdateRequest,
 )
 from app.services.market_data_job_service import MarketDataJobService
 from app.services.market_data_service import MarketDataService
+from app.services.top10_universe_service import Top10UniverseService
 
 router = APIRouter(prefix="/market-data", tags=["market-data"])
 
@@ -168,6 +177,137 @@ def market_data_summary(
     market_data_service: MarketDataService = Depends(get_market_data_service),
 ) -> MarketDataSummaryResponse:
     return MarketDataSummaryResponse(**market_data_service.summary(source=source))
+
+
+@router.post("/top10-universe/refresh", response_model=Top10UniverseActionResponse)
+def refresh_top10_universe(
+    body: Top10UniverseRefreshRequest,
+    top10_service: Top10UniverseService = Depends(get_top10_universe_service),
+    market_data_job_service: MarketDataJobService = Depends(get_market_data_job_service),
+) -> Top10UniverseActionResponse:
+    try:
+        if body.use_job:
+            job = market_data_job_service.create_top10_refresh_job(
+                market_scope=body.market_scope,
+                top_n=body.top_n,
+            )
+            return Top10UniverseActionResponse(mode="job", job_id=job["job_id"], message="top10 refresh job queued")
+        result = top10_service.refresh_universe(market_scope=body.market_scope, top_n=body.top_n)
+        return Top10UniverseActionResponse(mode="sync", result=result)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.get("/top10-universe", response_model=Top10UniverseResponse)
+def get_top10_universe(
+    top10_service: Top10UniverseService = Depends(get_top10_universe_service),
+) -> Top10UniverseResponse:
+    try:
+        return Top10UniverseResponse(**top10_service.get_current_universe())
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@router.post("/top10-universe/collect-all", response_model=Top10UniverseActionResponse)
+def collect_top10_universe_all(
+    body: Top10UniverseCollectRequest,
+    top10_service: Top10UniverseService = Depends(get_top10_universe_service),
+    market_data_job_service: MarketDataJobService = Depends(get_market_data_job_service),
+) -> Top10UniverseActionResponse:
+    try:
+        if body.use_job:
+            job = market_data_job_service.create_top10_collect_all_job(
+                include_seconds=body.include_seconds,
+                validate_after_collect=body.validate_after_collect,
+                overwrite_existing=body.overwrite_existing,
+                start_date=body.start_date.isoformat() if body.start_date else None,
+                end_date=body.end_date.isoformat() if body.end_date else None,
+            )
+            return Top10UniverseActionResponse(mode="job", job_id=job["job_id"], message="top10 collect-all job queued")
+        result = top10_service.collect_all(
+            include_seconds=body.include_seconds,
+            validate_after_collect=body.validate_after_collect,
+            overwrite_existing=body.overwrite_existing,
+            start_date=body.start_date,
+            end_date=body.end_date,
+        )
+        return Top10UniverseActionResponse(mode="sync", result=result)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.post("/top10-universe/update-all", response_model=Top10UniverseActionResponse)
+def update_top10_universe_all(
+    body: Top10UniverseUpdateRequest,
+    top10_service: Top10UniverseService = Depends(get_top10_universe_service),
+    market_data_job_service: MarketDataJobService = Depends(get_market_data_job_service),
+) -> Top10UniverseActionResponse:
+    try:
+        if body.use_job:
+            job = market_data_job_service.create_top10_update_all_job(
+                include_seconds=body.include_seconds,
+                validate_after_collect=body.validate_after_collect,
+                end_date=body.end_date.isoformat() if body.end_date else None,
+            )
+            return Top10UniverseActionResponse(mode="job", job_id=job["job_id"], message="top10 update-all job queued")
+        result = top10_service.update_all(
+            include_seconds=body.include_seconds,
+            validate_after_collect=body.validate_after_collect,
+            end_date=body.end_date,
+        )
+        return Top10UniverseActionResponse(mode="sync", result=result)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.get("/top10-universe/summary", response_model=Top10UniverseSummaryResponse)
+def top10_universe_summary(
+    include_seconds: bool = Query(default=False),
+    top10_service: Top10UniverseService = Depends(get_top10_universe_service),
+) -> Top10UniverseSummaryResponse:
+    try:
+        return Top10UniverseSummaryResponse(**top10_service.summary(include_seconds=include_seconds))
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@router.get("/top10-universe/missing", response_model=Top10UniverseMissingResponse)
+def top10_universe_missing(
+    include_seconds: bool = Query(default=False),
+    top10_service: Top10UniverseService = Depends(get_top10_universe_service),
+) -> Top10UniverseMissingResponse:
+    try:
+        return Top10UniverseMissingResponse(**top10_service.missing(include_seconds=include_seconds))
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@router.post("/top10-universe/retry-missing", response_model=Top10UniverseActionResponse)
+def retry_missing_top10_universe(
+    body: Top10UniverseRetryMissingRequest,
+    top10_service: Top10UniverseService = Depends(get_top10_universe_service),
+    market_data_job_service: MarketDataJobService = Depends(get_market_data_job_service),
+) -> Top10UniverseActionResponse:
+    try:
+        if body.use_job:
+            job = market_data_job_service.create_top10_retry_missing_job(
+                include_seconds=body.include_seconds,
+                validate_after_collect=body.validate_after_collect,
+                overwrite_existing=body.overwrite_existing,
+                start_date=body.start_date.isoformat() if body.start_date else None,
+                end_date=body.end_date.isoformat() if body.end_date else None,
+            )
+            return Top10UniverseActionResponse(mode="job", job_id=job["job_id"], message="top10 retry-missing job queued")
+        result = top10_service.retry_missing(
+            include_seconds=body.include_seconds,
+            validate_after_collect=body.validate_after_collect,
+            overwrite_existing=body.overwrite_existing,
+            start_date=body.start_date,
+            end_date=body.end_date,
+        )
+        return Top10UniverseActionResponse(mode="sync", result=result)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @router.get("/by-symbol/{symbol}", response_model=MarketDataListResponse)

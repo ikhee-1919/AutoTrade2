@@ -51,7 +51,7 @@ class CSVDataProvider(BaseDataProvider):
     def normalize_timeframe(self, timeframe: str) -> str:
         tf = timeframe.lower().strip()
         tf = {"1h": "60m", "4h": "240m"}.get(tf, tf)
-        allowed = {"1m", "3m", "5m", "10m", "15m", "30m", "60m", "240m", "1d"}
+        allowed = {"1s", "1m", "3m", "5m", "10m", "15m", "30m", "60m", "240m", "1d", "1w", "1mo", "1y"}
         if tf not in allowed:
             raise ValueError(f"unsupported timeframe: {timeframe}")
         return tf

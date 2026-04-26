@@ -1,0 +1,144 @@
+{
+  "universe_id": "upbit_krw_top10_no_stables_20260424T020551",
+  "generated_at": "2026-04-24T02:05:51.792062",
+  "updated_at": "2026-04-24T02:05:51.792062",
+  "source_exchange": "upbit",
+  "market_scope": "KRW",
+  "ranking_source": "coingecko_coins_markets_usd",
+  "selected_count": 10,
+  "selected_markets": [
+    "KRW-BTC",
+    "KRW-ETH",
+    "KRW-XRP",
+    "KRW-SOL",
+    "KRW-TRX",
+    "KRW-DOGE",
+    "KRW-ADA",
+    "KRW-BCH",
+    "KRW-LINK",
+    "KRW-XLM"
+  ],
+  "selected_symbols": [
+    "BTC",
+    "ETH",
+    "XRP",
+    "SOL",
+    "TRX",
+    "DOGE",
+    "ADA",
+    "BCH",
+    "LINK",
+    "XLM"
+  ],
+  "selected_rows": [
+    {
+      "market": "KRW-BTC",
+      "symbol": "BTC",
+      "coin_id": "bitcoin",
+      "name": "Bitcoin",
+      "market_cap": 1571151900307.0,
+      "market_cap_rank": 1
+    },
+    {
+      "market": "KRW-ETH",
+      "symbol": "ETH",
+      "coin_id": "ethereum",
+      "name": "Ethereum",
+      "market_cap": 281578542643.0,
+      "market_cap_rank": 2
+    },
+    {
+      "market": "KRW-XRP",
+      "symbol": "XRP",
+      "coin_id": "ripple",
+      "name": "XRP",
+      "market_cap": 88946351371.0,
+      "market_cap_rank": 4
+    },
+    {
+      "market": "KRW-SOL",
+      "symbol": "SOL",
+      "coin_id": "solana",
+      "name": "Solana",
+      "market_cap": 49688966279.0,
+      "market_cap_rank": 7
+    },
+    {
+      "market": "KRW-TRX",
+      "symbol": "TRX",
+      "coin_id": "tron",
+      "name": "TRON",
+      "market_cap": 31116095351.0,
+      "market_cap_rank": 8
+    },
+    {
+      "market": "KRW-DOGE",
+      "symbol": "DOGE",
+      "coin_id": "dogecoin",
+      "name": "Dogecoin",
+      "market_cap": 15085943231.0,
+      "market_cap_rank": 10
+    },
+    {
+      "market": "KRW-ADA",
+      "symbol": "ADA",
+      "coin_id": "cardano",
+      "name": "Cardano",
+      "market_cap": 9299507336.0,
+      "market_cap_rank": 15
+    },
+    {
+      "market": "KRW-BCH",
+      "symbol": "BCH",
+      "coin_id": "bitcoin-cash",
+      "name": "Bitcoin Cash",
+      "market_cap": 9224379370.0,
+      "market_cap_rank": 16
+    },
+    {
+      "market": "KRW-LINK",
+      "symbol": "LINK",
+      "coin_id": "chainlink",
+      "name": "Chainlink",
+      "market_cap": 6825001409.0,
+      "market_cap_rank": 18
+    },
+    {
+      "market": "KRW-XLM",
+      "symbol": "XLM",
+      "coin_id": "stellar",
+      "name": "Stellar",
+      "market_cap": 5845325662.0,
+      "market_cap_rank": 20
+    }
+  ],
+  "market_cap_snapshot": {
+    "exclude_symbols": [
+      "USDC",
+      "USDS",
+      "USDT"
+    ]
+  },
+  "collection_policy": {
+    "all_supported_historical_candles": true,
+    "include_seconds": false,
+    "base_timeframes": [
+      "1m",
+      "3m",
+      "5m",
+      "10m",
+      "15m",
+      "30m",
+      "60m",
+      "240m",
+      "1d",
+      "1w",
+      "1mo",
+      "1y"
+    ],
+    "second_timeframes": [
+      "1s"
+    ]
+  },
+  "notes": "stablecoins removed by operator request"
+}

@@ -1,0 +1,31 @@
+{
+  "dataset_id": "upbit__KRW-ALGO__1y",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-ALGO",
+  "timeframe": "1y",
+  "start_at": "2021-01-01T00:00:00",
+  "end_at": "2026-01-01T00:00:00",
+  "row_count": 6,
+  "created_at": "2026-04-24T03:13:25.673300",
+  "updated_at": "2026-04-24T03:13:25.734273",
+  "data_signature": "5288cb4dc880b55b47e8f246bc3c662414ecfa53848c42c52752fd31b4bbc0fb",
+  "quality_status": "pass",
+  "quality_report_summary": "rows=6, dup=0, missing=0, null=0, invalid=0, suspicious=0",
+  "quality_report": {
+    "status": "pass",
+    "row_count": 6,
+    "duplicate_count": 0,
+    "missing_interval_count": 0,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 0,
+    "summary_message": "rows=6, dup=0, missing=0, null=0, invalid=0, suspicious=0",
+    "detail_messages": []
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T03:13:25.734260",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-ALGO/1y/candles.csv",
+  "notes": null
+}

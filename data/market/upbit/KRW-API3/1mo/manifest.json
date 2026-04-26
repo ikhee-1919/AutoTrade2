@@ -1,0 +1,31 @@
+{
+  "dataset_id": "upbit__KRW-API3__1mo",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-API3",
+  "timeframe": "1mo",
+  "start_at": "2025-08-01T00:00:00",
+  "end_at": "2026-04-01T00:00:00",
+  "row_count": 9,
+  "created_at": "2026-04-24T03:17:22.746930",
+  "updated_at": "2026-04-24T03:17:22.786843",
+  "data_signature": "723509bae73d9f8d1458f8e7f189d5c1cd1c23a306cff97612c039daae0eaa74",
+  "quality_status": "pass",
+  "quality_report_summary": "rows=9, dup=0, missing=0, null=0, invalid=0, suspicious=0",
+  "quality_report": {
+    "status": "pass",
+    "row_count": 9,
+    "duplicate_count": 0,
+    "missing_interval_count": 0,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 0,
+    "summary_message": "rows=9, dup=0, missing=0, null=0, invalid=0, suspicious=0",
+    "detail_messages": []
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T03:17:22.786807",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-API3/1mo/candles.csv",
+  "notes": null
+}

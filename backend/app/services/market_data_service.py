@@ -381,7 +381,7 @@ class MarketDataService:
         tf = timeframe.lower().strip()
         alias = {"1h": "60m", "4h": "240m"}
         tf = alias.get(tf, tf)
-        allowed = {"1m", "3m", "5m", "10m", "15m", "30m", "60m", "240m", "1d"}
+        allowed = {"1s", "1m", "3m", "5m", "10m", "15m", "30m", "60m", "240m", "1d", "1w", "1mo", "1y"}
         if tf not in allowed:
             raise ValueError(f"unsupported timeframe: {timeframe}")
         return tf
@@ -483,16 +483,32 @@ class MarketDataService:
 
     def _timeframe_delta(self, timeframe: str) -> timedelta:
         timeframe = self.normalize_timeframe(timeframe)
+        if timeframe == "1s":
+            return timedelta(seconds=1)
         if timeframe == "1d":
             return timedelta(days=1)
+        if timeframe == "1w":
+            return timedelta(days=7)
+        if timeframe == "1mo":
+            return timedelta(days=30)
+        if timeframe == "1y":
+            return timedelta(days=365)
         if timeframe.endswith("m"):
             return timedelta(minutes=int(timeframe[:-1]))
         return timedelta(days=1)
 
     def _timeframe_sort_key(self, timeframe: str) -> int:
         tf = timeframe or ""
+        if tf == "1s":
+            return 0
         if tf == "1d":
             return 1440
+        if tf == "1w":
+            return 10080
+        if tf == "1mo":
+            return 43200
+        if tf == "1y":
+            return 525600
         if tf.endswith("m"):
             try:
                 return int(tf[:-1])

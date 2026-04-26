@@ -3,7 +3,9 @@ export type StrategyMeta = {
   name: string;
   version: string;
   description: string;
+  short_description?: string | null;
   mode?: "single_timeframe" | "multi_timeframe" | string;
+  spot_long_only?: boolean;
   required_roles?: string[];
   optional_roles?: string[];
 };
@@ -22,17 +24,45 @@ export type BacktestSummary = {
   total_return_pct: number;
   gross_return_pct: number;
   net_return_pct: number;
+  buy_and_hold_return_pct: number;
+  excess_return_vs_buy_and_hold: number;
   trade_count: number;
   win_rate: number;
   max_drawdown: number;
   avg_profit: number;
   avg_loss: number;
+  profit_factor: number;
+  avg_win_pct: number;
+  avg_loss_pct: number;
+  expectancy_per_trade: number;
+  max_consecutive_losses: number;
+  avg_holding_time: number;
+  exposure_pct: number;
   total_fees_paid: number;
   total_slippage_cost: number;
   total_trading_cost: number;
+  fee_total: number;
+  slippage_total: number;
   fee_impact_pct: number;
   slippage_impact_pct: number;
   cost_drag_pct: number;
+  exit_reason_counts: Record<string, number>;
+  reject_reason_counts: Record<string, number>;
+  regime_counts?: Record<string, number>;
+  regime_segment_summaries?: Array<Record<string, unknown>>;
+  above_200_days?: number;
+  below_200_days?: number;
+  insufficient_regime_history_count?: number;
+  above_200_return?: number;
+  below_200_return?: number;
+  monthly_returns: {
+    period: string;
+    gross_return_pct: number;
+    net_return_pct: number;
+    trade_count: number;
+    benchmark_return_pct: number;
+    excess_return_pct: number;
+  }[];
 };
 
 export type BacktestTrade = {
@@ -56,6 +86,21 @@ export type BacktestTrade = {
   exit_price: number;
   pnl: number;
   reason: string;
+  gross_pnl_pct?: number;
+  net_pnl_pct?: number;
+  fees?: number;
+  slippage?: number;
+  holding_time: number;
+  entry_reason?: string | null;
+  exit_reason?: string | null;
+  stop_price?: number | null;
+  highest_price_during_trade?: number | null;
+  lowest_price_during_trade?: number | null;
+  r_multiple?: number | null;
+  entry_signal_score?: number | null;
+  exit_signal_score?: number | null;
+  max_favorable_excursion_pct?: number | null;
+  max_adverse_excursion_pct?: number | null;
 };
 
 export type BacktestRunResponse = {
@@ -68,6 +113,10 @@ export type BacktestRunResponse = {
   symbol: string;
   timeframe: string;
   timeframe_mapping?: Record<string, string> | null;
+  indicator_start?: string | null;
+  warmup_start?: string | null;
+  trade_start?: string | null;
+  trade_end?: string | null;
   start_date: string;
   end_date: string;
   params_used: Record<string, number>;
@@ -120,6 +169,15 @@ export type BacktestRunResponse = {
   diagnostics: {
     reject_reason_counts: Record<string, number>;
     regime_counts: Record<string, number>;
+    exit_reason_counts: Record<string, number>;
+    regime_segment_summaries?: Array<Record<string, unknown>>;
+    above_200_segments?: Array<Record<string, unknown>>;
+    below_200_segments?: Array<Record<string, unknown>>;
+    above_200_days?: number;
+    below_200_days?: number;
+    insufficient_regime_history_count?: number;
+    above_200_return?: number;
+    below_200_return?: number;
   };
 };
 
@@ -201,12 +259,23 @@ export type BacktestCompareItem = {
   trade_count: number;
   summary_avg_profit: number;
   summary_avg_loss: number;
+  profit_factor: number;
+  avg_win_pct: number;
+  avg_loss_pct: number;
+  expectancy_per_trade: number;
+  max_consecutive_losses: number;
+  avg_holding_time: number;
+  exposure_pct: number;
   total_fees_paid: number;
   total_slippage_cost: number;
   total_trading_cost: number;
+  fee_total: number;
+  slippage_total: number;
   cost_drag_pct: number;
   benchmark_buy_and_hold_return_pct: number;
   strategy_excess_return_pct: number;
+  exit_reason_counts: Record<string, number>;
+  reject_reason_counts: Record<string, number>;
   top_reject_reason?: string | null;
   return_gap_vs_best: number;
   mdd_gap_vs_best: number;
@@ -277,6 +346,76 @@ export type SignalResponse = {
   signals: SignalItem[];
 };
 
+export type ChartDatasetMeta = {
+  source_type: string;
+  dataset_id?: string | null;
+  symbol: string;
+  timeframe: string;
+  dataset_signature?: string | null;
+  quality_status?: string | null;
+  updated_at?: string | null;
+};
+
+export type ChartCandleItem = {
+  time: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+};
+
+export type ChartCandlesResponse = {
+  symbol: string;
+  timeframe: string;
+  start_date: string;
+  end_date: string;
+  dataset?: ChartDatasetMeta | null;
+  items: ChartCandleItem[];
+};
+
+export type ChartIndicatorItem = {
+  time: string;
+  ema20?: number | null;
+  ema50?: number | null;
+  ema120?: number | null;
+  rsi14?: number | null;
+  volume_ma20?: number | null;
+};
+
+export type ChartIndicatorsResponse = {
+  symbol: string;
+  timeframe: string;
+  start_date: string;
+  end_date: string;
+  dataset?: ChartDatasetMeta | null;
+  indicators: string[];
+  items: ChartIndicatorItem[];
+};
+
+export type ChartBacktestOverlayTrade = {
+  entry_time: string;
+  entry_price: number;
+  exit_time: string;
+  exit_price: number;
+  exit_reason: string;
+  gross_pct: number;
+  net_pct: number;
+};
+
+export type ChartBacktestOverlayResponse = {
+  run_id: string;
+  run_meta: {
+    strategy_id: string;
+    strategy_version: string;
+    code_version: string;
+    symbol: string;
+    timeframe: string;
+    timeframe_mapping?: Record<string, string> | null;
+  };
+  trades: ChartBacktestOverlayTrade[];
+};
+
 export type WalkforwardRunRequest = {
   strategy_id: string;
   symbol: string;
@@ -284,6 +423,8 @@ export type WalkforwardRunRequest = {
   timeframe_mapping?: Record<string, string>;
   start_date: string;
   end_date: string;
+  indicator_start?: string | null;
+  warmup_days?: number | null;
   train_window_size: number;
   test_window_size: number;
   step_size: number;
@@ -320,6 +461,10 @@ export type WalkforwardSegment = {
   benchmark_buy_and_hold_return_pct: number;
   excess_return_pct: number;
   timeframe_mapping?: Record<string, string> | null;
+  regime_counts?: Record<string, number>;
+  above_200_days?: number;
+  below_200_days?: number;
+  insufficient_regime_history_count?: number;
 };
 
 export type WalkforwardSummary = {
@@ -333,6 +478,9 @@ export type WalkforwardSummary = {
   average_max_drawdown: number;
   total_trade_count: number;
   benchmark_comparison_summary?: string | null;
+  above_200_days?: number;
+  below_200_days?: number;
+  insufficient_regime_history_count?: number;
 };
 
 export type WalkforwardDiagnostics = {
@@ -340,6 +488,8 @@ export type WalkforwardDiagnostics = {
   losing_segments: number;
   segments_beating_benchmark: number;
   segments_underperforming_benchmark: number;
+  regime_counts?: Record<string, number>;
+  insufficient_regime_history_count?: number;
 };
 
 export type WalkforwardRunResponse = {
@@ -353,6 +503,9 @@ export type WalkforwardRunResponse = {
   symbol: string;
   timeframe: string;
   timeframe_mapping?: Record<string, string> | null;
+  indicator_start?: string | null;
+  warmup_start?: string | null;
+  warmup_days?: number | null;
   requested_period: { start_date: string; end_date: string };
   train_window_size: number;
   test_window_size: number;
@@ -368,6 +521,59 @@ export type WalkforwardRunResponse = {
   summary: WalkforwardSummary;
   diagnostics: WalkforwardDiagnostics;
   interpretation_summary: string;
+};
+
+export type RegimeDailyPoint = {
+  date: string;
+  close: number;
+  sma200?: number | null;
+  ema20?: number | null;
+  ema50?: number | null;
+  ema200?: number | null;
+  sma200_slope_5d?: number | null;
+  sma200_slope_20d?: number | null;
+  distance_from_sma200_pct?: number | null;
+  above_sma200?: boolean | null;
+  has_sufficient_history: boolean;
+  regime: string;
+};
+
+export type RegimeSegment = {
+  label: string;
+  start_date: string;
+  end_date: string;
+  days: number;
+  start_close: number;
+  end_close: number;
+  return_pct: number;
+  avg_distance_from_sma200_pct: number;
+  sma200_slope_state: string;
+};
+
+export type RegimeAnalyzeResponse = {
+  symbol: string;
+  indicator_start: string;
+  analysis_start: string;
+  analysis_end: string;
+  dataset: Record<string, string | null>;
+  regime_counts: Record<string, number>;
+  above_200_days: number;
+  below_200_days: number;
+  insufficient_history_days: number;
+  above_200_return: number;
+  below_200_return: number;
+  daily_points: RegimeDailyPoint[];
+  regime_segments: RegimeSegment[];
+  above_200_segments: RegimeSegment[];
+  below_200_segments: RegimeSegment[];
+};
+
+export type RegimeBatchAnalyzeResponse = {
+  indicator_start: string;
+  analysis_start: string;
+  analysis_end: string;
+  items: RegimeAnalyzeResponse[];
+  summary: Record<string, number>;
 };
 
 export type WalkforwardListItem = {
@@ -772,4 +978,76 @@ export type MarketDataPreview = {
     close: number;
     volume: number;
   }[];
+};
+
+export type Top10Universe = {
+  universe_id: string;
+  generated_at: string;
+  updated_at: string;
+  source_exchange: string;
+  market_scope: string;
+  ranking_source: string;
+  selected_count: number;
+  selected_markets: string[];
+  selected_symbols: string[];
+  selected_rows: {
+    market: string;
+    symbol: string;
+    coin_id: string;
+    name: string;
+    market_cap: number;
+    market_cap_rank?: number | null;
+  }[];
+  market_cap_snapshot: Record<string, unknown>;
+  collection_policy: Record<string, unknown>;
+  notes?: string | null;
+};
+
+export type Top10UniverseSummary = {
+  universe_id?: string | null;
+  generated_at?: string | null;
+  market_scope?: string | null;
+  selected_markets: string[];
+  selected_symbols: string[];
+  included_timeframes: string[];
+  include_seconds: boolean;
+  total_combinations: number;
+  pass_count: number;
+  warning_count: number;
+  fail_count: number;
+  missing_dataset_count: number;
+  failed_dataset_count: number;
+  latest_updated_at?: string | null;
+  total_row_count: number;
+  coverage_by_symbol: Record<
+    string,
+    {
+      timeframes: Record<
+        string,
+        {
+          dataset_id?: string | null;
+          quality_status?: "pass" | "warning" | "fail" | null;
+          updated_at?: string | null;
+          row_count?: number;
+          status?: "available" | "missing";
+        }
+      >;
+      missing_count: number;
+      failed_count: number;
+    }
+  >;
+};
+
+export type Top10UniverseActionResponse = {
+  mode: "sync" | "job";
+  job_id?: string | null;
+  message?: string | null;
+  result?: Record<string, unknown> | null;
+};
+
+export type Top10UniverseMissingResponse = {
+  universe_id?: string | null;
+  include_seconds: boolean;
+  total_missing: number;
+  items: { symbol: string; timeframe: string }[];
 };

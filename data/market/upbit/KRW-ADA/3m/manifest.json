@@ -1,0 +1,33 @@
+{
+  "dataset_id": "upbit__KRW-ADA__3m",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-ADA",
+  "timeframe": "3m",
+  "start_at": "2025-01-01T19:30:00",
+  "end_at": "2026-04-24T04:21:00",
+  "row_count": 227800,
+  "created_at": "2026-04-24T04:26:12.015680",
+  "updated_at": "2026-04-24T04:26:12.754406",
+  "data_signature": "b726996958db0f78133d7363967a9e3b878e8be2c06c0b6a65b8c4a9ebb94d72",
+  "quality_status": "warning",
+  "quality_report_summary": "rows=227800, dup=0, missing=1338, null=0, invalid=0, suspicious=6",
+  "quality_report": {
+    "status": "warning",
+    "row_count": 227800,
+    "duplicate_count": 0,
+    "missing_interval_count": 1338,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 6,
+    "summary_message": "rows=227800, dup=0, missing=1338, null=0, invalid=0, suspicious=6",
+    "detail_messages": [
+      "missing intervals detected: 1338"
+    ]
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T04:26:12.754398",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-ADA/3m/candles.csv",
+  "notes": null
+}

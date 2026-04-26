@@ -54,6 +54,24 @@ export function BacktestResult({ result }: BacktestResultProps) {
             <strong>{result.benchmark.benchmark_buy_and_hold_return_pct.toFixed(2)}%</strong>
           </div>
         ) : null}
+        <div className="card">
+          <div className="small">초과수익(BH 대비)</div>
+          <strong>{(summary.excess_return_vs_buy_and_hold ?? 0).toFixed(2)}%</strong>
+        </div>
+        <div className="card">
+          <div className="small">Profit Factor</div>
+          <strong>{(summary.profit_factor ?? 0).toFixed(2)}</strong>
+        </div>
+        <div className="card">
+          <div className="small">평균 이익/손실</div>
+          <strong>
+            {(summary.avg_win_pct ?? 0).toFixed(2)}% / {(summary.avg_loss_pct ?? 0).toFixed(2)}%
+          </strong>
+        </div>
+        <div className="card">
+          <div className="small">연속 손실 최대</div>
+          <strong>{summary.max_consecutive_losses ?? 0}</strong>
+        </div>
       </div>
 
       <div className="card">
@@ -73,6 +91,9 @@ export function BacktestResult({ result }: BacktestResultProps) {
                 <th>Fees</th>
                 <th>Slippage</th>
                 <th>사유</th>
+                <th>보유시간(h)</th>
+                <th>R</th>
+                <th>MFE/MAE(%)</th>
               </tr>
             </thead>
             <tbody>
@@ -87,6 +108,11 @@ export function BacktestResult({ result }: BacktestResultProps) {
                   <td>{trade.total_fees.toFixed(4)}</td>
                   <td>{trade.total_slippage_cost.toFixed(4)}</td>
                   <td>{trade.reason}</td>
+                  <td>{trade.holding_time.toFixed(2)}</td>
+                  <td>{(trade.r_multiple ?? 0).toFixed(2)}</td>
+                  <td>
+                    {(trade.max_favorable_excursion_pct ?? 0).toFixed(2)} / {(trade.max_adverse_excursion_pct ?? 0).toFixed(2)}
+                  </td>
                 </tr>
               ))}
             </tbody>

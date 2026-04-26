@@ -1,0 +1,31 @@
+{
+  "dataset_id": "upbit__KRW-RED__1w",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-RED",
+  "timeframe": "1w",
+  "start_at": "2025-09-01T00:00:00",
+  "end_at": "2026-04-20T00:00:00",
+  "row_count": 34,
+  "created_at": "2026-04-24T02:10:23.064250",
+  "updated_at": "2026-04-24T02:10:23.146251",
+  "data_signature": "de35db1b32ca2817c7cab306f460de6a16f1386943a2c015ffd99c96c26dad60",
+  "quality_status": "pass",
+  "quality_report_summary": "rows=34, dup=0, missing=0, null=0, invalid=0, suspicious=0",
+  "quality_report": {
+    "status": "pass",
+    "row_count": 34,
+    "duplicate_count": 0,
+    "missing_interval_count": 0,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 0,
+    "summary_message": "rows=34, dup=0, missing=0, null=0, invalid=0, suspicious=0",
+    "detail_messages": []
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T02:10:23.146239",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-RED/1w/candles.csv",
+  "notes": null
+}

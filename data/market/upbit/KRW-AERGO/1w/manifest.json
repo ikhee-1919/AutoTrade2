@@ -1,0 +1,31 @@
+{
+  "dataset_id": "upbit__KRW-AERGO__1w",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-AERGO",
+  "timeframe": "1w",
+  "start_at": "2019-04-22T00:00:00",
+  "end_at": "2026-04-20T00:00:00",
+  "row_count": 366,
+  "created_at": "2026-04-24T02:52:05.952607",
+  "updated_at": "2026-04-24T02:52:05.991414",
+  "data_signature": "44b5a67ad00f653701664296eba54cefbc2c8576f8da48f62414940ce79266e5",
+  "quality_status": "pass",
+  "quality_report_summary": "rows=366, dup=0, missing=0, null=0, invalid=0, suspicious=0",
+  "quality_report": {
+    "status": "pass",
+    "row_count": 366,
+    "duplicate_count": 0,
+    "missing_interval_count": 0,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 0,
+    "summary_message": "rows=366, dup=0, missing=0, null=0, invalid=0, suspicious=0",
+    "detail_messages": []
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T02:52:05.991399",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-AERGO/1w/candles.csv",
+  "notes": null
+}

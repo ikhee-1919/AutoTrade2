@@ -1,0 +1,31 @@
+{
+  "dataset_id": "upbit__KRW-PIEVERSE__1y",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-PIEVERSE",
+  "timeframe": "1y",
+  "start_at": "2026-01-01T00:00:00",
+  "end_at": "2026-01-01T00:00:00",
+  "row_count": 1,
+  "created_at": "2026-04-24T02:09:37.441023",
+  "updated_at": "2026-04-24T02:09:37.472288",
+  "data_signature": "9b03457cc5a716f3256218f4cc23b7bc30e50132cb8fa2aae9b6cd5d75128444",
+  "quality_status": "pass",
+  "quality_report_summary": "rows=1, dup=0, missing=0, null=0, invalid=0, suspicious=0",
+  "quality_report": {
+    "status": "pass",
+    "row_count": 1,
+    "duplicate_count": 0,
+    "missing_interval_count": 0,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 0,
+    "summary_message": "rows=1, dup=0, missing=0, null=0, invalid=0, suspicious=0",
+    "detail_messages": []
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T02:09:37.472272",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-PIEVERSE/1y/candles.csv",
+  "notes": null
+}

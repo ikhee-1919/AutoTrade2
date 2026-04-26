@@ -1,0 +1,31 @@
+{
+  "dataset_id": "upbit__KRW-BIO__1d",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-BIO",
+  "timeframe": "1d",
+  "start_at": "2025-10-20T00:00:00",
+  "end_at": "2026-04-24T00:00:00",
+  "row_count": 187,
+  "created_at": "2026-04-24T02:09:19.893771",
+  "updated_at": "2026-04-24T02:09:19.928528",
+  "data_signature": "669c31ab74a52a1520d30ff6fcfa31687a8d5445c38b1b739e6aa2fa01a3cdd4",
+  "quality_status": "pass",
+  "quality_report_summary": "rows=187, dup=0, missing=0, null=0, invalid=0, suspicious=0",
+  "quality_report": {
+    "status": "pass",
+    "row_count": 187,
+    "duplicate_count": 0,
+    "missing_interval_count": 0,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 0,
+    "summary_message": "rows=187, dup=0, missing=0, null=0, invalid=0, suspicious=0",
+    "detail_messages": []
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T02:09:19.928520",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-BIO/1d/candles.csv",
+  "notes": null
+}

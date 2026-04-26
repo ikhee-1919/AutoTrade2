@@ -184,3 +184,106 @@ def test_market_data_batch_job_progress_fields(api_client) -> None:
     assert terminal["total_combinations"] is not None
     assert "completed_combinations" in terminal
     assert "failed_combinations" in terminal
+
+
+def test_top10_universe_refresh_collect_summary(api_client) -> None:
+    refresh = api_client.post(
+        "/market-data/top10-universe/refresh",
+        json={"market_scope": "KRW", "top_n": 10, "use_job": False},
+    )
+    assert refresh.status_code == 200
+    assert refresh.json()["mode"] == "sync"
+
+    current = api_client.get("/market-data/top10-universe")
+    assert current.status_code == 200
+    payload = current.json()
+    assert payload["selected_count"] == 10
+    assert len(payload["selected_markets"]) == 10
+
+    collect = api_client.post(
+        "/market-data/top10-universe/collect-all",
+        json={
+            "include_seconds": False,
+            "validate_after_collect": True,
+            "overwrite_existing": False,
+            "use_job": False,
+            "start_date": "2025-01-01",
+            "end_date": "2025-01-03",
+        },
+    )
+    assert collect.status_code == 200
+    assert collect.json()["mode"] == "sync"
+
+    summary = api_client.get("/market-data/top10-universe/summary")
+    assert summary.status_code == 200
+    s = summary.json()
+    assert s["total_combinations"] == 120
+    assert len(s["coverage_by_symbol"]) == 10
+
+
+def test_top10_universe_jobs(api_client) -> None:
+    refresh_job = api_client.post(
+        "/market-data/top10-universe/refresh",
+        json={"market_scope": "KRW", "top_n": 1, "use_job": True},
+    )
+    assert refresh_job.status_code == 200
+    refresh_terminal = _wait_market_job(api_client, refresh_job.json()["job_id"])
+    assert refresh_terminal["status"] in {"completed", "failed", "cancelled"}
+
+    collect_job = api_client.post(
+        "/market-data/top10-universe/collect-all",
+        json={
+            "include_seconds": False,
+            "validate_after_collect": False,
+            "overwrite_existing": False,
+            "use_job": True,
+            "start_date": "2025-01-01",
+            "end_date": "2025-01-03",
+        },
+    )
+    assert collect_job.status_code == 200
+    collect_terminal = _wait_market_job(api_client, collect_job.json()["job_id"])
+    assert collect_terminal["status"] in {"completed", "failed", "cancelled"}
+    assert collect_terminal.get("total_combinations") is not None
+
+
+def test_top10_universe_missing_and_retry_missing(api_client) -> None:
+    refresh = api_client.post(
+        "/market-data/top10-universe/refresh",
+        json={"market_scope": "KRW", "top_n": 3, "use_job": False},
+    )
+    assert refresh.status_code == 200
+
+    missing_before = api_client.get("/market-data/top10-universe/missing?include_seconds=false")
+    assert missing_before.status_code == 200
+    total_missing = missing_before.json()["total_missing"]
+    assert total_missing > 0
+
+    retry_sync = api_client.post(
+        "/market-data/top10-universe/retry-missing",
+        json={
+            "include_seconds": False,
+            "validate_after_collect": True,
+            "overwrite_existing": False,
+            "use_job": False,
+            "start_date": "2025-01-01",
+            "end_date": "2025-01-02",
+        },
+    )
+    assert retry_sync.status_code == 200
+    assert retry_sync.json()["mode"] == "sync"
+
+    retry_job = api_client.post(
+        "/market-data/top10-universe/retry-missing",
+        json={
+            "include_seconds": False,
+            "validate_after_collect": False,
+            "overwrite_existing": False,
+            "use_job": True,
+            "start_date": "2025-01-01",
+            "end_date": "2025-01-02",
+        },
+    )
+    assert retry_job.status_code == 200
+    terminal = _wait_market_job(api_client, retry_job.json()["job_id"])
+    assert terminal["status"] in {"completed", "failed", "cancelled"}

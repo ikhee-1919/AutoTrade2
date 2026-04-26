@@ -188,3 +188,29 @@ th {
   color: #b42318;
   font-weight: 700;
 }
+
+.chart-toggle-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.chart-toggle-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  margin: 0;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.chart-toggle-item input {
+  width: auto;
+  margin: 0;
+  padding: 0;
+}

@@ -41,23 +41,17 @@ export default function BacktestsPage() {
 
   useEffect(() => {
     async function bootstrap() {
-      try {
-        const [strategyData, symbolData, historyData, jobData] = await Promise.all([
-          api.listStrategies(),
-          api.listSymbols(),
-          api.listBacktestHistory(20),
-          api.listBacktestJobs(10),
-        ]);
-        setStrategies(strategyData);
-        setSymbols(symbolData.symbols);
-        setHistory(historyData);
-        setJobs(jobData);
-      } catch {
-        setStrategies([]);
-        setSymbols([]);
-        setHistory([]);
-        setJobs([]);
-      }
+      const [strategyRes, symbolRes, historyRes, jobRes] = await Promise.allSettled([
+        api.listStrategies(),
+        api.listSymbols(),
+        api.listBacktestHistory(20),
+        api.listBacktestJobs(10),
+      ]);
+
+      setStrategies(strategyRes.status === "fulfilled" ? strategyRes.value : []);
+      setSymbols(symbolRes.status === "fulfilled" ? symbolRes.value.symbols : []);
+      setHistory(historyRes.status === "fulfilled" ? historyRes.value : []);
+      setJobs(jobRes.status === "fulfilled" ? jobRes.value : []);
     }
     bootstrap();
   }, []);

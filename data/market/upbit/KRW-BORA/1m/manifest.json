@@ -1,0 +1,33 @@
+{
+  "dataset_id": "upbit__KRW-BORA__1m",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-BORA",
+  "timeframe": "1m",
+  "start_at": "2024-04-10T16:03:00",
+  "end_at": "2026-04-24T02:37:00",
+  "row_count": 600000,
+  "created_at": "2026-04-24T02:50:21.237625",
+  "updated_at": "2026-04-24T02:50:25.830707",
+  "data_signature": "24239656180222d2fe0075eeeba6abfa73c7753981ab2f8734300cb1f8081254",
+  "quality_status": "warning",
+  "quality_report_summary": "rows=600000, dup=0, missing=470555, null=0, invalid=0, suspicious=6473",
+  "quality_report": {
+    "status": "warning",
+    "row_count": 600000,
+    "duplicate_count": 0,
+    "missing_interval_count": 470555,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 6473,
+    "summary_message": "rows=600000, dup=0, missing=470555, null=0, invalid=0, suspicious=6473",
+    "detail_messages": [
+      "missing intervals detected: 470555"
+    ]
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T02:50:25.830674",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-BORA/1m/candles.csv",
+  "notes": null
+}

@@ -1,7 +1,8 @@
-from datetime import date
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 from app.data.providers.csv_provider import CSVDataProvider
+from app.models.candle import Candle
 from app.schemas.walkforward import WalkforwardRunRequest
 
 
@@ -99,3 +100,49 @@ def test_walkforward_rerun_reproducibility(service_bundle) -> None:
         rerun["execution_config"]["execution_policy"]
         == first["execution_config"]["execution_policy"]
     )
+
+
+def test_walkforward_segments_include_role_history_debug(service_bundle) -> None:
+    service = service_bundle["walkforward_service"]
+    result = service.run(
+        WalkforwardRunRequest(
+            strategy_id="ma_regime_v1",
+            symbol="ETH-KRW",
+            timeframe="1d",
+            start_date=date(2025, 1, 1),
+            end_date=date(2025, 12, 31),
+            train_window_size=60,
+            test_window_size=30,
+            step_size=30,
+            window_unit="candles",
+            walkforward_mode="rolling",
+        )
+    )
+    seg = result["segments"][0]
+    assert "role_history_counts" in seg
+    assert "role_history_required" in seg
+    assert "role_history_sufficient" in seg
+    assert "role_history_missing_roles" in seg
+    assert isinstance(seg["role_history_sufficient"], bool)
+
+
+def test_role_history_diag_flags_missing_role_history(service_bundle) -> None:
+    service = service_bundle["walkforward_service"]
+    rows = [
+        Candle(
+            timestamp=datetime(2026, 1, 1) + timedelta(hours=i),
+            open=1.0,
+            high=1.1,
+            low=0.9,
+            close=1.0,
+            volume=10.0,
+        )
+        for i in range(5)
+    ]
+    diag = service._segment_role_history_diag(  # noqa: SLF001 - targeted unit test
+        role_rows={"setup": rows},
+        role_required={"setup": 20},
+        segment_test_start=date(2026, 1, 2),
+    )
+    assert diag["sufficient"] is False
+    assert "setup" in diag["missing_roles"]

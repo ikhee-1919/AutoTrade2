@@ -1,0 +1,33 @@
+{
+  "dataset_id": "upbit__KRW-USDS__1m",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-USDS",
+  "timeframe": "1m",
+  "start_at": "2026-03-31T04:05:00",
+  "end_at": "2026-04-24T02:00:00",
+  "row_count": 4311,
+  "created_at": "2026-04-24T02:29:49.851076",
+  "updated_at": "2026-04-24T02:29:49.903244",
+  "data_signature": "64eff9b1f4f65fcf20177f0fc9ba88cbcd2b21e2ed5685c408ef8fb5e603cf1b",
+  "quality_status": "warning",
+  "quality_report_summary": "rows=4311, dup=0, missing=30125, null=0, invalid=0, suspicious=778",
+  "quality_report": {
+    "status": "warning",
+    "row_count": 4311,
+    "duplicate_count": 0,
+    "missing_interval_count": 30125,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 778,
+    "summary_message": "rows=4311, dup=0, missing=30125, null=0, invalid=0, suspicious=778",
+    "detail_messages": [
+      "missing intervals detected: 30125"
+    ]
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T02:29:49.903240",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-USDS/1m/candles.csv",
+  "notes": null
+}

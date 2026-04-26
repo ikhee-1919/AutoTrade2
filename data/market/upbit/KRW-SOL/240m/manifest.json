@@ -1,0 +1,33 @@
+{
+  "dataset_id": "upbit__KRW-SOL__240m",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-SOL",
+  "timeframe": "240m",
+  "start_at": "2021-10-15T04:00:00",
+  "end_at": "2026-04-24T00:00:00",
+  "row_count": 9911,
+  "created_at": "2026-04-24T02:15:57.265433",
+  "updated_at": "2026-04-24T02:15:57.317307",
+  "data_signature": "7a4dd0dc4013b6fe136f4c95dd9f226fa122448e7544907602f844eac4b7ffbb",
+  "quality_status": "warning",
+  "quality_report_summary": "rows=9911, dup=0, missing=1, null=0, invalid=0, suspicious=0",
+  "quality_report": {
+    "status": "warning",
+    "row_count": 9911,
+    "duplicate_count": 0,
+    "missing_interval_count": 1,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 0,
+    "summary_message": "rows=9911, dup=0, missing=1, null=0, invalid=0, suspicious=0",
+    "detail_messages": [
+      "missing intervals detected: 1"
+    ]
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T02:15:57.317292",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-SOL/240m/candles.csv",
+  "notes": null
+}

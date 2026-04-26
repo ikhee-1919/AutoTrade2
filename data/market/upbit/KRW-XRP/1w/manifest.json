@@ -1,0 +1,31 @@
+{
+  "dataset_id": "upbit__KRW-XRP__1w",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-XRP",
+  "timeframe": "1w",
+  "start_at": "2017-09-25T00:00:00",
+  "end_at": "2026-04-20T00:00:00",
+  "row_count": 448,
+  "created_at": "2026-04-24T02:08:09.467053",
+  "updated_at": "2026-04-24T02:08:09.490110",
+  "data_signature": "2ae288aa84a7d97d201bf5b691312a2b0d32a002754933b7af33db97ac674276",
+  "quality_status": "pass",
+  "quality_report_summary": "rows=448, dup=0, missing=0, null=0, invalid=0, suspicious=0",
+  "quality_report": {
+    "status": "pass",
+    "row_count": 448,
+    "duplicate_count": 0,
+    "missing_interval_count": 0,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 0,
+    "summary_message": "rows=448, dup=0, missing=0, null=0, invalid=0, suspicious=0",
+    "detail_messages": []
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T02:08:09.490090",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-XRP/1w/candles.csv",
+  "notes": null
+}

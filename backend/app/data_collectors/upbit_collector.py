@@ -13,6 +13,16 @@ class UpbitHistoricalCollector(HistoricalCandleCollector):
         self._base_url = base_url.rstrip("/")
         self._timeout_seconds = timeout_seconds
 
+    def fetch_markets(self) -> list[str]:
+        url = f"{self._base_url}/v1/market/all"
+        with httpx.Client(timeout=self._timeout_seconds, headers={"User-Agent": "trading-console/0.1"}) as client:
+            response = client.get(url, params={"isDetails": "false"})
+            if response.status_code != 200:
+                raise ValueError(f"upbit markets fetch failed: status={response.status_code}, body={response.text[:200]}")
+            payload = response.json()
+        markets = [str(item.get("market")) for item in payload if item.get("market")]
+        return sorted(markets)
+
     def fetch_ohlcv(
         self,
         symbol: str,
@@ -104,6 +114,14 @@ class UpbitHistoricalCollector(HistoricalCandleCollector):
         timeframe = {"1h": "60m", "4h": "240m"}.get(timeframe, timeframe)
         if timeframe == "1d":
             return "/v1/candles/days"
+        if timeframe == "1w":
+            return "/v1/candles/weeks"
+        if timeframe == "1mo":
+            return "/v1/candles/months"
+        if timeframe == "1y":
+            return "/v1/candles/years"
+        if timeframe == "1s":
+            return "/v1/candles/seconds/1"
         if timeframe.endswith("m"):
             unit = timeframe[:-1]
             if unit not in {"1", "3", "5", "10", "15", "30", "60", "240"}:

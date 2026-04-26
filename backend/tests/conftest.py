@@ -21,14 +21,20 @@ from app.repositories.market_data_repository import MarketDataRepository
 from app.repositories.sweep_run_repository import SweepRunRepository
 from app.repositories.walkforward_run_repository import WalkforwardRunRepository
 from app.repositories.strategy_params_repository import StrategyParamsRepository
+from app.repositories.top10_universe_repository import Top10UniverseRepository
 from app.schemas.backtest import BacktestRunRequest
 from app.services.backtest_job_service import BacktestJobService
 from app.services.backtest_service import BacktestService
+from app.services.chart_service import ChartService
+from app.services.market_cap_provider import RankedCoin
 from app.services.market_data_job_service import MarketDataJobService
 from app.services.market_data_service import MarketDataService
 from app.services.parameter_sweep_job_service import ParameterSweepJobService
 from app.services.parameter_sweep_service import ParameterSweepService
+from app.services.regime_analysis_service import RegimeAnalysisService
+from app.services.regime_classifier import RegimeClassifier
 from app.services.strategy_service import StrategyService
+from app.services.top10_universe_service import Top10UniverseService
 from app.services.walkforward_job_service import WalkforwardJobService
 from app.services.walkforward_service import WalkforwardService
 from app.strategy.registry import StrategyRegistry
@@ -42,12 +48,36 @@ class SlowBacktestService(BacktestService):
 
 
 class FakeCollector(HistoricalCandleCollector):
+    def fetch_markets(self) -> list[str]:
+        return [
+            "KRW-BTC",
+            "KRW-ETH",
+            "KRW-SOL",
+            "KRW-XRP",
+            "KRW-ADA",
+            "KRW-DOGE",
+            "KRW-DOT",
+            "KRW-LINK",
+            "KRW-TRX",
+            "KRW-AVAX",
+            "KRW-MATIC",
+            "USDT-BTC",
+        ]
+
     def fetch_ohlcv(self, symbol, timeframe, start_date, end_date, progress_callback=None):  # type: ignore[override]
         current = datetime.combine(start_date, datetime.min.time())
         end_dt = datetime.combine(end_date, datetime.min.time())
         delta = timedelta(days=1)
+        if timeframe == "1s":
+            delta = timedelta(seconds=1)
         if timeframe.endswith("m"):
             delta = timedelta(minutes=int(timeframe[:-1]))
+        elif timeframe == "1w":
+            delta = timedelta(days=7)
+        elif timeframe == "1mo":
+            delta = timedelta(days=30)
+        elif timeframe == "1y":
+            delta = timedelta(days=365)
         rows = []
         idx = 0
         while current <= end_dt:
@@ -71,6 +101,27 @@ class FakeCollector(HistoricalCandleCollector):
         if progress_callback:
             progress_callback(100)
         return rows
+
+
+class FakeMarketCapProvider:
+    def fetch_ranked_coins(self, max_items: int = 400):  # type: ignore[override]
+        coins = [
+            ("bitcoin", "BTC", 1_000_000_000_000, 1),
+            ("ethereum", "ETH", 500_000_000_000, 2),
+            ("solana", "SOL", 100_000_000_000, 3),
+            ("xrp", "XRP", 90_000_000_000, 4),
+            ("cardano", "ADA", 70_000_000_000, 5),
+            ("dogecoin", "DOGE", 60_000_000_000, 6),
+            ("polkadot", "DOT", 50_000_000_000, 7),
+            ("chainlink", "LINK", 45_000_000_000, 8),
+            ("tron", "TRX", 40_000_000_000, 9),
+            ("avalanche-2", "AVAX", 35_000_000_000, 10),
+            ("matic-network", "MATIC", 30_000_000_000, 11),
+        ]
+        return [
+            RankedCoin(coin_id=cid, symbol=sym, name=sym, market_cap=float(cap), rank=rank)
+            for cid, sym, cap, rank in coins[:max_items]
+        ]
 
 
 def _project_root() -> Path:
@@ -111,11 +162,29 @@ def service_bundle(tmp_path: Path):
         repository=market_repo,
         project_root=str(_project_root()),
     )
+    top10_repo = Top10UniverseRepository(
+        current_file=tmp_path / "universes" / "upbit_top10_marketcap" / "current.json",
+        snapshots_dir=tmp_path / "universes" / "upbit_top10_marketcap" / "snapshots",
+    )
+    top10_service = Top10UniverseService(
+        collector=FakeCollector(),
+        market_data_service=market_data_service,
+        repository=top10_repo,
+        market_cap_provider=FakeMarketCapProvider(),
+    )
     sweep_service = ParameterSweepService(
         strategy_service=strategy_service,
         backtest_service=backtest_service,
         sweep_repository=sweep_repo,
         project_root=str(_project_root()),
+    )
+    chart_service = ChartService(
+        data_provider=CSVDataProvider(_sample_dir()),
+        run_repository=run_repo,
+    )
+    regime_service = RegimeAnalysisService(
+        data_provider=CSVDataProvider(_sample_dir()),
+        classifier=RegimeClassifier(),
     )
     return {
         "strategy_service": strategy_service,
@@ -127,6 +196,8 @@ def service_bundle(tmp_path: Path):
         "walkforward_repo": walkforward_repo,
         "market_repo": market_repo,
         "sweep_repo": sweep_repo,
+        "top10_service": top10_service,
+        "regime_service": regime_service,
     }
 
 
@@ -172,8 +243,19 @@ def api_client(tmp_path: Path):
         repository=market_repo,
         project_root=str(_project_root()),
     )
+    top10_repo = Top10UniverseRepository(
+        current_file=tmp_path / "universes" / "upbit_top10_marketcap" / "current.json",
+        snapshots_dir=tmp_path / "universes" / "upbit_top10_marketcap" / "snapshots",
+    )
+    top10_service = Top10UniverseService(
+        collector=FakeCollector(),
+        market_data_service=market_data_service,
+        repository=top10_repo,
+        market_cap_provider=FakeMarketCapProvider(),
+    )
     market_data_job_service = MarketDataJobService(
         market_data_service=market_data_service,
+        top10_universe_service=top10_service,
         job_repo=job_repo,
         max_concurrent_jobs=1,
     )
@@ -188,6 +270,14 @@ def api_client(tmp_path: Path):
         job_repo=job_repo,
         max_concurrent_jobs=1,
     )
+    chart_service = ChartService(
+        data_provider=CSVDataProvider(_sample_dir()),
+        run_repository=run_repo,
+    )
+    regime_service = RegimeAnalysisService(
+        data_provider=CSVDataProvider(_sample_dir()),
+        classifier=RegimeClassifier(),
+    )
 
     app.dependency_overrides[dependencies.get_strategy_service] = lambda: strategy_service
     app.dependency_overrides[dependencies.get_backtest_service] = lambda: backtest_service
@@ -196,8 +286,11 @@ def api_client(tmp_path: Path):
     app.dependency_overrides[dependencies.get_walkforward_job_service] = lambda: walkforward_job_service
     app.dependency_overrides[dependencies.get_market_data_service] = lambda: market_data_service
     app.dependency_overrides[dependencies.get_market_data_job_service] = lambda: market_data_job_service
+    app.dependency_overrides[dependencies.get_top10_universe_service] = lambda: top10_service
     app.dependency_overrides[dependencies.get_parameter_sweep_service] = lambda: sweep_service
     app.dependency_overrides[dependencies.get_parameter_sweep_job_service] = lambda: sweep_job_service
+    app.dependency_overrides[dependencies.get_chart_service] = lambda: chart_service
+    app.dependency_overrides[dependencies.get_regime_analysis_service] = lambda: regime_service
 
     with TestClient(app) as client:
         yield client

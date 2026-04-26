@@ -1,0 +1,33 @@
+{
+  "dataset_id": "upbit__KRW-AERO__15m",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-AERO",
+  "timeframe": "15m",
+  "start_at": "2025-08-22T02:30:00",
+  "end_at": "2026-04-24T02:45:00",
+  "row_count": 20863,
+  "created_at": "2026-04-24T02:53:15.458755",
+  "updated_at": "2026-04-24T02:53:15.552230",
+  "data_signature": "c53c14626ac9c6531ea8d186f1d7417a8ad4e5d384b7662e09118f8b7719c135",
+  "quality_status": "warning",
+  "quality_report_summary": "rows=20863, dup=0, missing=2659, null=0, invalid=0, suspicious=3",
+  "quality_report": {
+    "status": "warning",
+    "row_count": 20863,
+    "duplicate_count": 0,
+    "missing_interval_count": 2659,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 3,
+    "summary_message": "rows=20863, dup=0, missing=2659, null=0, invalid=0, suspicious=3",
+    "detail_messages": [
+      "missing intervals detected: 2659"
+    ]
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T02:53:15.552207",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-AERO/15m/candles.csv",
+  "notes": null
+}

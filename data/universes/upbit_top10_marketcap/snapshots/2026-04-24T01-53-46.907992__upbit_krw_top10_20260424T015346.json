@@ -1,0 +1,381 @@
+{
+  "universe_id": "upbit_krw_top10_20260424T015346",
+  "generated_at": "2026-04-24T01:53:46.907992",
+  "source_exchange": "upbit",
+  "market_scope": "KRW",
+  "ranking_source": "coingecko_coins_markets_usd",
+  "selected_count": 10,
+  "selected_markets": [
+    "KRW-BTC",
+    "KRW-ETH",
+    "KRW-USDT",
+    "KRW-XRP",
+    "KRW-USDC",
+    "KRW-SOL",
+    "KRW-TRX",
+    "KRW-DOGE",
+    "KRW-USDS",
+    "KRW-ADA"
+  ],
+  "selected_symbols": [
+    "BTC",
+    "ETH",
+    "USDT",
+    "XRP",
+    "USDC",
+    "SOL",
+    "TRX",
+    "DOGE",
+    "USDS",
+    "ADA"
+  ],
+  "selected_rows": [
+    {
+      "market": "KRW-BTC",
+      "symbol": "BTC",
+      "coin_id": "bitcoin",
+      "name": "Bitcoin",
+      "market_cap": 1569506454026.0,
+      "market_cap_rank": 1
+    },
+    {
+      "market": "KRW-ETH",
+      "symbol": "ETH",
+      "coin_id": "ethereum",
+      "name": "Ethereum",
+      "market_cap": 281550224170.0,
+      "market_cap_rank": 2
+    },
+    {
+      "market": "KRW-USDT",
+      "symbol": "USDT",
+      "coin_id": "tether",
+      "name": "Tether",
+      "market_cap": 189704927890.0,
+      "market_cap_rank": 3
+    },
+    {
+      "market": "KRW-XRP",
+      "symbol": "XRP",
+      "coin_id": "ripple",
+      "name": "XRP",
+      "market_cap": 88795539574.0,
+      "market_cap_rank": 4
+    },
+    {
+      "market": "KRW-USDC",
+      "symbol": "USDC",
+      "coin_id": "usd-coin",
+      "name": "USDC",
+      "market_cap": 78040566488.0,
+      "market_cap_rank": 6
+    },
+    {
+      "market": "KRW-SOL",
+      "symbol": "SOL",
+      "coin_id": "solana",
+      "name": "Solana",
+      "market_cap": 49570772616.0,
+      "market_cap_rank": 7
+    },
+    {
+      "market": "KRW-TRX",
+      "symbol": "TRX",
+      "coin_id": "tron",
+      "name": "TRON",
+      "market_cap": 31134255922.0,
+      "market_cap_rank": 8
+    },
+    {
+      "market": "KRW-DOGE",
+      "symbol": "DOGE",
+      "coin_id": "dogecoin",
+      "name": "Dogecoin",
+      "market_cap": 15027779525.0,
+      "market_cap_rank": 10
+    },
+    {
+      "market": "KRW-USDS",
+      "symbol": "USDS",
+      "coin_id": "usds",
+      "name": "USDS",
+      "market_cap": 10968963055.0,
+      "market_cap_rank": 12
+    },
+    {
+      "market": "KRW-ADA",
+      "symbol": "ADA",
+      "coin_id": "cardano",
+      "name": "Cardano",
+      "market_cap": 9281084765.0,
+      "market_cap_rank": 15
+    }
+  ],
+  "market_cap_snapshot": {
+    "snapshot_count": 500,
+    "top_preview": [
+      {
+        "coin_id": "bitcoin",
+        "symbol": "BTC",
+        "market_cap": 1569506454026.0,
+        "rank": 1
+      },
+      {
+        "coin_id": "ethereum",
+        "symbol": "ETH",
+        "market_cap": 281550224170.0,
+        "rank": 2
+      },
+      {
+        "coin_id": "tether",
+        "symbol": "USDT",
+        "market_cap": 189704927890.0,
+        "rank": 3
+      },
+      {
+        "coin_id": "ripple",
+        "symbol": "XRP",
+        "market_cap": 88795539574.0,
+        "rank": 4
+      },
+      {
+        "coin_id": "binancecoin",
+        "symbol": "BNB",
+        "market_cap": 86174391722.0,
+        "rank": 5
+      },
+      {
+        "coin_id": "usd-coin",
+        "symbol": "USDC",
+        "market_cap": 78040566488.0,
+        "rank": 6
+      },
+      {
+        "coin_id": "solana",
+        "symbol": "SOL",
+        "market_cap": 49570772616.0,
+        "rank": 7
+      },
+      {
+        "coin_id": "tron",
+        "symbol": "TRX",
+        "market_cap": 31134255922.0,
+        "rank": 8
+      },
+      {
+        "coin_id": "figure-heloc",
+        "symbol": "FIGR_HELOC",
+        "market_cap": 17567778771.0,
+        "rank": 9
+      },
+      {
+        "coin_id": "dogecoin",
+        "symbol": "DOGE",
+        "market_cap": 15027779525.0,
+        "rank": 10
+      },
+      {
+        "coin_id": "whitebit",
+        "symbol": "WBT",
+        "market_cap": 11796642014.0,
+        "rank": 11
+      },
+      {
+        "coin_id": "usds",
+        "symbol": "USDS",
+        "market_cap": 10968963055.0,
+        "rank": 12
+      },
+      {
+        "coin_id": "hyperliquid",
+        "symbol": "HYPE",
+        "market_cap": 9840388828.0,
+        "rank": 13
+      },
+      {
+        "coin_id": "leo-token",
+        "symbol": "LEO",
+        "market_cap": 9484383405.0,
+        "rank": 14
+      },
+      {
+        "coin_id": "cardano",
+        "symbol": "ADA",
+        "market_cap": 9281084765.0,
+        "rank": 15
+      },
+      {
+        "coin_id": "bitcoin-cash",
+        "symbol": "BCH",
+        "market_cap": 9211331469.0,
+        "rank": 16
+      },
+      {
+        "coin_id": "monero",
+        "symbol": "XMR",
+        "market_cap": 7004268523.0,
+        "rank": 17
+      },
+      {
+        "coin_id": "chainlink",
+        "symbol": "LINK",
+        "market_cap": 6817937596.0,
+        "rank": 18
+      },
+      {
+        "coin_id": "memecore",
+        "symbol": "M",
+        "market_cap": 6035299049.0,
+        "rank": 19
+      },
+      {
+        "coin_id": "stellar",
+        "symbol": "XLM",
+        "market_cap": 5836209557.0,
+        "rank": 20
+      },
+      {
+        "coin_id": "canton-network",
+        "symbol": "CC",
+        "market_cap": 5768186081.0,
+        "rank": 21
+      },
+      {
+        "coin_id": "zcash",
+        "symbol": "ZEC",
+        "market_cap": 5714029509.0,
+        "rank": 22
+      },
+      {
+        "coin_id": "dai",
+        "symbol": "DAI",
+        "market_cap": 4425125718.0,
+        "rank": 23
+      },
+      {
+        "coin_id": "litecoin",
+        "symbol": "LTC",
+        "market_cap": 4315470277.0,
+        "rank": 24
+      },
+      {
+        "coin_id": "usd1-wlfi",
+        "symbol": "USD1",
+        "market_cap": 4309514900.0,
+        "rank": 25
+      }
+    ],
+    "unmatched_upbit_symbols": [
+      "AERGO",
+      "AGLD",
+      "AHT",
+      "ANIME",
+      "API3",
+      "AQT",
+      "ARDR",
+      "ARK",
+      "AUCTION",
+      "BIGTIME",
+      "BIRB",
+      "BLAST",
+      "BORA",
+      "BOUNTY",
+      "BREV",
+      "CARV",
+      "CBK",
+      "CPOOL",
+      "CVC",
+      "CYBER",
+      "DKA",
+      "DOOD",
+      "DRIFT",
+      "ELSA",
+      "ENSO",
+      "ERA",
+      "ESP",
+      "F",
+      "FCT2",
+      "FLOCK",
+      "G",
+      "GAME2",
+      "GMT",
+      "HIVE",
+      "HOLO",
+      "HP",
+      "HYPER",
+      "ICX",
+      "ID",
+      "IN",
+      "IOST",
+      "IQ",
+      "KAT",
+      "KERNEL",
+      "KNC",
+      "LA",
+      "LAYER",
+      "LSK",
+      "MBL",
+      "MED",
+      "MET2",
+      "MIRA",
+      "MLK",
+      "MMT",
+      "MOC",
+      "MTL",
+      "MVL",
+      "NEWT",
+      "ONG",
+      "ORBS",
+      "ORDER",
+      "POKT",
+      "POWR",
+      "PUNDIX",
+      "QKC",
+      "SIGN",
+      "SNT",
+      "SOMI",
+      "SONIC",
+      "SOPH",
+      "STEEM",
+      "STORJ",
+      "STRAX",
+      "TAIKO",
+      "TOKAMAK",
+      "TREE",
+      "TRUST",
+      "TT",
+      "VANA",
+      "WAVES",
+      "WAXP",
+      "WCT",
+      "WET",
+      "YGG",
+      "ZBT",
+      "ZKC",
+      "ZKP"
+    ]
+  },
+  "collection_policy": {
+    "all_supported_historical_candles": true,
+    "include_seconds": false,
+    "base_timeframes": [
+      "1m",
+      "3m",
+      "5m",
+      "10m",
+      "15m",
+      "30m",
+      "60m",
+      "240m",
+      "1d",
+      "1w",
+      "1mo",
+      "1y"
+    ],
+    "second_timeframes": [
+      "1s"
+    ]
+  },
+  "notes": "dynamic top universe generated at runtime",
+  "updated_at": "2026-04-24T01:53:46.908078"
+}

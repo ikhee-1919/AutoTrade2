@@ -1,0 +1,33 @@
+{
+  "dataset_id": "upbit__KRW-BCH__3m",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-BCH",
+  "timeframe": "3m",
+  "start_at": "2025-01-01T22:21:00",
+  "end_at": "2026-04-24T04:45:00",
+  "row_count": 216400,
+  "created_at": "2026-04-24T04:51:21.777440",
+  "updated_at": "2026-04-24T04:51:22.453240",
+  "data_signature": "c8a1d9fec6436f5c31473e36908d4e819970cc16ab7ad03db8df5b03cf4fbaf1",
+  "quality_status": "warning",
+  "quality_report_summary": "rows=216400, dup=0, missing=12689, null=0, invalid=0, suspicious=13",
+  "quality_report": {
+    "status": "warning",
+    "row_count": 216400,
+    "duplicate_count": 0,
+    "missing_interval_count": 12689,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 13,
+    "summary_message": "rows=216400, dup=0, missing=12689, null=0, invalid=0, suspicious=13",
+    "detail_messages": [
+      "missing intervals detected: 12689"
+    ]
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T04:51:22.453231",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-BCH/3m/candles.csv",
+  "notes": null
+}

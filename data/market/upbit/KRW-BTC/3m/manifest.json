@@ -1,0 +1,33 @@
+{
+  "dataset_id": "upbit__KRW-BTC__3m",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-BTC",
+  "timeframe": "3m",
+  "start_at": "2025-01-01T14:21:00",
+  "end_at": "2026-04-24T03:21:00",
+  "row_count": 228600,
+  "created_at": "2026-04-24T03:25:34.005299",
+  "updated_at": "2026-04-24T03:25:34.715437",
+  "data_signature": "90984e11af6d79aa66adb6f9e6be9049709eaa186fc9a064102408f909a40c97",
+  "quality_status": "warning",
+  "quality_report_summary": "rows=228600, dup=0, missing=621, null=0, invalid=0, suspicious=6",
+  "quality_report": {
+    "status": "warning",
+    "row_count": 228600,
+    "duplicate_count": 0,
+    "missing_interval_count": 621,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 6,
+    "summary_message": "rows=228600, dup=0, missing=621, null=0, invalid=0, suspicious=6",
+    "detail_messages": [
+      "missing intervals detected: 621"
+    ]
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T03:25:34.715414",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-BTC/3m/candles.csv",
+  "notes": null
+}

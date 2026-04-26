@@ -154,11 +154,21 @@ export function BacktestComparePanel({
                 <p className="small">MDD: {item.max_drawdown.toFixed(2)}%</p>
                 <p className="small">평균이익: {item.summary_avg_profit.toFixed(2)}%</p>
                 <p className="small">평균손실: {item.summary_avg_loss.toFixed(2)}%</p>
+                <p className="small">PF: {item.profit_factor.toFixed(2)}</p>
+                <p className="small">Expectancy: {item.expectancy_per_trade.toFixed(2)}%</p>
+                <p className="small">최대 연속손실: {item.max_consecutive_losses}</p>
                 <p className="small">총 비용: {item.total_trading_cost.toFixed(4)}</p>
                 <p className="small">Cost Drag: {item.cost_drag_pct.toFixed(2)}%</p>
                 <p className="small">B&H: {item.benchmark_buy_and_hold_return_pct.toFixed(2)}%</p>
                 <p className="small">Excess: {item.strategy_excess_return_pct.toFixed(2)}%</p>
                 <p className="small">주요 거절사유: {item.top_reject_reason ?? "-"}</p>
+                <p className="small">
+                  Exit 집계:{" "}
+                  {Object.entries(item.exit_reason_counts ?? {})
+                    .slice(0, 2)
+                    .map(([k, v]) => `${k}:${v}`)
+                    .join(", ") || "-"}
+                </p>
               </div>
             ))}
           </div>
@@ -173,6 +183,10 @@ export function BacktestComparePanel({
                 <th>거래수</th>
                 <th>평균이익</th>
                 <th>평균손실</th>
+                <th>PF</th>
+                <th>Expectancy</th>
+                <th>연속손실</th>
+                <th>노출도</th>
                 <th>총비용</th>
                 <th>CostDrag</th>
                 <th>B&H</th>
@@ -195,6 +209,10 @@ export function BacktestComparePanel({
                   <td>{item.trade_count}</td>
                   <td>{item.summary_avg_profit.toFixed(2)}%</td>
                   <td>{item.summary_avg_loss.toFixed(2)}%</td>
+                  <td>{item.profit_factor.toFixed(2)}</td>
+                  <td>{item.expectancy_per_trade.toFixed(2)}%</td>
+                  <td>{item.max_consecutive_losses}</td>
+                  <td>{item.exposure_pct.toFixed(2)}%</td>
                   <td>{item.total_trading_cost.toFixed(4)}</td>
                   <td>{item.cost_drag_pct.toFixed(2)}%</td>
                   <td>{item.benchmark_buy_and_hold_return_pct.toFixed(2)}%</td>

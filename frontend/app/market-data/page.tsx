@@ -5,15 +5,26 @@ import { useEffect, useMemo, useState } from "react";
 
 import { SectionCard } from "@/components/section-card";
 import { api } from "@/lib/api";
-import { MarketDataBatchResult, MarketDataDatasetItem, MarketDataJob, MarketDataSummary } from "@/types/api";
+import {
+  MarketDataBatchResult,
+  MarketDataDatasetItem,
+  MarketDataJob,
+  MarketDataSummary,
+  Top10Universe,
+  Top10UniverseMissingResponse,
+  Top10UniverseSummary,
+} from "@/types/api";
 
-const DEFAULT_TIMEFRAMES = ["1m", "5m", "15m", "60m", "240m", "1d"];
+const DEFAULT_TIMEFRAMES = ["1m", "3m", "5m", "10m", "15m", "30m", "60m", "240m", "1d", "1w", "1mo", "1y"];
 const DEFAULT_SYMBOLS = ["KRW-BTC", "KRW-ETH", "KRW-SOL", "KRW-XRP"];
 
 export default function MarketDataPage() {
   const [datasets, setDatasets] = useState<MarketDataDatasetItem[]>([]);
   const [jobs, setJobs] = useState<MarketDataJob[]>([]);
   const [summary, setSummary] = useState<MarketDataSummary | null>(null);
+  const [top10Universe, setTop10Universe] = useState<Top10Universe | null>(null);
+  const [top10Summary, setTop10Summary] = useState<Top10UniverseSummary | null>(null);
+  const [top10Missing, setTop10Missing] = useState<Top10UniverseMissingResponse | null>(null);
   const [allSymbols, setAllSymbols] = useState<string[]>(DEFAULT_SYMBOLS);
 
   const [selectedSymbols, setSelectedSymbols] = useState<string[]>(["KRW-BTC", "KRW-ETH"]);
@@ -22,6 +33,8 @@ export default function MarketDataPage() {
   const [startDate, setStartDate] = useState("2025-01-01");
   const [endDate, setEndDate] = useState("2025-12-31");
   const [validateAfter, setValidateAfter] = useState(true);
+  const [includeSeconds, setIncludeSeconds] = useState(false);
+  const [overwriteExisting, setOverwriteExisting] = useState(false);
   const [useJob, setUseJob] = useState(true);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -44,16 +57,45 @@ export default function MarketDataPage() {
       setJobs(jobData);
       setSummary(summaryData);
       setAllSymbols(Array.from(new Set([...DEFAULT_SYMBOLS, ...symbolData.symbols])));
+      try {
+        const [u, s, m] = await Promise.all([
+          api.getTop10Universe(),
+          api.getTop10UniverseSummary(includeSeconds),
+          api.getTop10UniverseMissing(includeSeconds),
+        ]);
+        setTop10Universe(u);
+        setTop10Summary(s);
+        setTop10Missing(m);
+      } catch {
+        setTop10Universe(null);
+        setTop10Summary(null);
+        setTop10Missing(null);
+      }
     } catch {
       setDatasets([]);
       setJobs([]);
       setSummary(null);
+      setTop10Universe(null);
+      setTop10Summary(null);
+      setTop10Missing(null);
     }
   };
 
   useEffect(() => {
     void refreshAll();
   }, []);
+
+  useEffect(() => {
+    if (!top10Universe) return;
+    void api
+      .getTop10UniverseSummary(includeSeconds)
+      .then((s) => setTop10Summary(s))
+      .catch(() => setTop10Summary(null));
+    void api
+      .getTop10UniverseMissing(includeSeconds)
+      .then((m) => setTop10Missing(m))
+      .catch(() => setTop10Missing(null));
+  }, [includeSeconds, top10Universe]);
 
   const toggleSymbol = (symbol: string) => {
     setSelectedSymbols((prev) =>
@@ -112,9 +154,180 @@ export default function MarketDataPage() {
     await refreshAll();
   };
 
+  const refreshTop10Universe = async () => {
+    setLoading(true);
+    setMessage(null);
+    try {
+      const res = await api.refreshTop10Universe({ market_scope: "KRW", top_n: 10, use_job: useJob });
+      setMessage(res.mode === "job" ? `Top10 refresh job 등록: ${res.job_id}` : "Top10 유니버스 갱신 완료");
+      await refreshAll();
+    } catch (e) {
+      setMessage(e instanceof Error ? e.message : "Top10 유니버스 갱신 실패");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const collectTop10All = async () => {
+    setLoading(true);
+    setMessage(null);
+    try {
+      const res = await api.collectAllTop10Universe({
+        include_seconds: includeSeconds,
+        validate_after_collect: validateAfter,
+        overwrite_existing: overwriteExisting,
+        use_job: useJob,
+        start_date: mode === "full_collect" ? startDate : null,
+        end_date: endDate,
+      });
+      setMessage(res.mode === "job" ? `Top10 collect-all job 등록: ${res.job_id}` : "Top10 전체 수집 완료");
+      await refreshAll();
+    } catch (e) {
+      setMessage(e instanceof Error ? e.message : "Top10 전체 수집 실패");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateTop10All = async () => {
+    setLoading(true);
+    setMessage(null);
+    try {
+      const res = await api.updateAllTop10Universe({
+        include_seconds: includeSeconds,
+        validate_after_collect: validateAfter,
+        use_job: useJob,
+        end_date: endDate,
+      });
+      setMessage(res.mode === "job" ? `Top10 update-all job 등록: ${res.job_id}` : "Top10 전체 갱신 완료");
+      await refreshAll();
+    } catch (e) {
+      setMessage(e instanceof Error ? e.message : "Top10 전체 갱신 실패");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const retryTop10Missing = async () => {
+    setLoading(true);
+    setMessage(null);
+    try {
+      const res = await api.retryMissingTop10Universe({
+        include_seconds: includeSeconds,
+        validate_after_collect: validateAfter,
+        overwrite_existing: overwriteExisting,
+        use_job: useJob,
+        start_date: mode === "full_collect" ? startDate : null,
+        end_date: endDate,
+      });
+      setMessage(res.mode === "job" ? `Top10 retry-missing job 등록: ${res.job_id}` : "누락 조합 재수집 완료");
+      await refreshAll();
+    } catch (e) {
+      setMessage(e instanceof Error ? e.message : "누락 조합 재수집 실패");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div>
       <h1>데이터 관리 (멀티 타임프레임)</h1>
+
+      <SectionCard title="Top10 Universe (동적)" description="Upbit KRW 거래 가능 종목 중 시가총액 상위 10개를 동적으로 선정">
+        <div className="grid two">
+          <div className="card">
+            <div className="small">유니버스 상태</div>
+            <strong>{top10Universe ? top10Universe.universe_id : "미생성"}</strong>
+            <p className="small">생성시각: {top10Universe?.generated_at ? new Date(top10Universe.generated_at).toLocaleString() : "-"}</p>
+          </div>
+          <div className="card">
+            <div className="small">랭킹 소스 / 마켓 스코프</div>
+            <strong>{top10Universe?.ranking_source ?? "-"} / {top10Universe?.market_scope ?? "-"}</strong>
+            <p className="small">선정 종목 수: {top10Universe?.selected_count ?? 0}</p>
+          </div>
+        </div>
+
+        <div className="grid two" style={{ marginTop: 10 }}>
+          <div>
+            <label>include_seconds</label>
+            <select value={includeSeconds ? "on" : "off"} onChange={(e) => setIncludeSeconds(e.target.value === "on")}>
+              <option value="off">off</option>
+              <option value="on">on (최근 3개월 권장)</option>
+            </select>
+          </div>
+          <div>
+            <label>overwrite_existing</label>
+            <select value={overwriteExisting ? "on" : "off"} onChange={(e) => setOverwriteExisting(e.target.value === "on")}>
+              <option value="off">off</option>
+              <option value="on">on</option>
+            </select>
+          </div>
+        </div>
+
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 12 }}>
+          <button type="button" onClick={() => void refreshTop10Universe()} disabled={loading}>
+            상위 10개 새로 계산
+          </button>
+          <button type="button" onClick={() => void collectTop10All()} disabled={loading || !top10Universe}>
+            전체 데이터 수집
+          </button>
+          <button type="button" onClick={() => void updateTop10All()} disabled={loading || !top10Universe}>
+            전체 데이터 갱신
+          </button>
+          <button type="button" onClick={() => void retryTop10Missing()} disabled={loading || !top10Universe}>
+            누락 조합 재시도
+          </button>
+        </div>
+        {top10Universe ? (
+          <p className="small" style={{ marginTop: 8 }}>
+            selected: {top10Universe.selected_markets.join(", ")}
+          </p>
+        ) : null}
+      </SectionCard>
+
+      {top10Summary ? (
+        <SectionCard title="Top10 수집 요약" description="symbol/timeframe coverage 및 품질 상태">
+          <div className="grid two">
+            <div className="card">
+              <div className="small">총 조합 / 누락 / 실패</div>
+              <strong>
+                {top10Summary.total_combinations} / {top10Summary.missing_dataset_count} / {top10Summary.failed_dataset_count}
+              </strong>
+              <p className="small">missing list: {top10Missing?.total_missing ?? 0}</p>
+            </div>
+            <div className="card">
+              <div className="small">pass/warning/fail</div>
+              <strong>
+                {top10Summary.pass_count}/{top10Summary.warning_count}/{top10Summary.fail_count}
+              </strong>
+            </div>
+          </div>
+          <table style={{ marginTop: 10 }}>
+            <thead>
+              <tr>
+                <th>symbol</th>
+                <th>missing</th>
+                <th>failed</th>
+                <th>coverage</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(top10Summary.coverage_by_symbol).map(([symbol, row]) => (
+                <tr key={symbol}>
+                  <td>{symbol}</td>
+                  <td>{row.missing_count}</td>
+                  <td>{row.failed_count}</td>
+                  <td>
+                    {Object.entries(row.timeframes)
+                      .map(([tf, v]) => `${tf}:${v.quality_status ?? v.status ?? "-"}`)
+                      .join(" | ")}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </SectionCard>
+      ) : null}
 
       <SectionCard title="Batch Collect / Update" description="symbols x timeframes 조합 일괄 실행">
         <div className="grid two">

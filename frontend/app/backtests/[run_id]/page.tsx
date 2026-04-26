@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 import { SectionCard } from "@/components/section-card";
 import { EquityCurveChart } from "@/components/equity-curve-chart";
+import { BacktestChartPanel } from "@/components/chart/backtest-chart-panel";
 import { api } from "@/lib/api";
 import { BacktestRunResponse } from "@/types/api";
 
@@ -181,6 +182,34 @@ export default function BacktestDetailPage() {
             <strong>{data.summary.total_trading_cost.toFixed(4)}</strong>
           </div>
           <div className="card">
+            <div className="small">Profit Factor</div>
+            <strong>{(data.summary.profit_factor ?? 0).toFixed(2)}</strong>
+          </div>
+          <div className="card">
+            <div className="small">평균 이익(%)</div>
+            <strong>{(data.summary.avg_win_pct ?? 0).toFixed(2)}%</strong>
+          </div>
+          <div className="card">
+            <div className="small">평균 손실(%)</div>
+            <strong>{(data.summary.avg_loss_pct ?? 0).toFixed(2)}%</strong>
+          </div>
+          <div className="card">
+            <div className="small">연속 손실 최대</div>
+            <strong>{data.summary.max_consecutive_losses ?? 0}</strong>
+          </div>
+          <div className="card">
+            <div className="small">기대값/거래</div>
+            <strong>{(data.summary.expectancy_per_trade ?? 0).toFixed(2)}%</strong>
+          </div>
+          <div className="card">
+            <div className="small">노출도</div>
+            <strong>{(data.summary.exposure_pct ?? 0).toFixed(2)}%</strong>
+          </div>
+          <div className="card">
+            <div className="small">평균 보유시간(h)</div>
+            <strong>{(data.summary.avg_holding_time ?? 0).toFixed(2)}</strong>
+          </div>
+          <div className="card">
             <div className="small">Cost Drag</div>
             <strong>{data.summary.cost_drag_pct.toFixed(2)}%</strong>
           </div>
@@ -201,6 +230,16 @@ export default function BacktestDetailPage() {
 
       <SectionCard title="자산곡선" description="백테스트 기간 누적 자산 추이">
         <EquityCurveChart points={data.equity_curve} benchmarkPoints={data.benchmark?.benchmark_curve ?? []} />
+      </SectionCard>
+
+      <SectionCard title="차트 분석" description="캔들/지표 + run 기반 매수/매도 오버레이">
+        <BacktestChartPanel
+          runId={data.run_id}
+          symbol={data.symbol}
+          timeframe={data.timeframe}
+          startDate={data.start_date}
+          endDate={data.end_date}
+        />
       </SectionCard>
 
       <SectionCard title="비용 요약" description="수수료/슬리피지가 성과에 미친 영향">
@@ -256,6 +295,11 @@ export default function BacktestDetailPage() {
                 <th>Slippage</th>
                 <th>Total Cost</th>
                 <th>사유</th>
+                <th>진입 사유</th>
+                <th>보유시간(h)</th>
+                <th>Stop</th>
+                <th>R</th>
+                <th>MFE/MAE(%)</th>
               </tr>
             </thead>
             <tbody>
@@ -271,6 +315,44 @@ export default function BacktestDetailPage() {
                   <td>{trade.total_slippage_cost.toFixed(4)}</td>
                   <td>{trade.total_trading_cost.toFixed(4)}</td>
                   <td>{trade.reason}</td>
+                  <td>{trade.entry_reason ?? "-"}</td>
+                  <td>{trade.holding_time.toFixed(2)}</td>
+                  <td>{trade.stop_price?.toFixed(2) ?? "-"}</td>
+                  <td>{trade.r_multiple?.toFixed(2) ?? "-"}</td>
+                  <td>
+                    {(trade.max_favorable_excursion_pct ?? 0).toFixed(2)} / {(trade.max_adverse_excursion_pct ?? 0).toFixed(2)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </SectionCard>
+
+      <SectionCard title="월별 수익률" description="월 단위로 전략 성과 일관성 확인">
+        {(data.summary.monthly_returns ?? []).length === 0 ? (
+          <div className="placeholder">월별 수익률 데이터가 없습니다.</div>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>월</th>
+                <th>Gross(%)</th>
+                <th>Net(%)</th>
+                <th>B&H(%)</th>
+                <th>Excess(%)</th>
+                <th>거래수</th>
+              </tr>
+            </thead>
+            <tbody>
+              {(data.summary.monthly_returns ?? []).map((item) => (
+                <tr key={item.period}>
+                  <td>{item.period}</td>
+                  <td>{item.gross_return_pct.toFixed(2)}</td>
+                  <td>{item.net_return_pct.toFixed(2)}</td>
+                  <td>{item.benchmark_return_pct.toFixed(2)}</td>
+                  <td>{item.excess_return_pct.toFixed(2)}</td>
+                  <td>{item.trade_count}</td>
                 </tr>
               ))}
             </tbody>
@@ -279,6 +361,22 @@ export default function BacktestDetailPage() {
       </SectionCard>
 
       <SectionCard title="진단 분포" description="reject reason / regime 분포">
+        <div className="grid">
+          <div className="card">
+            <h2>Exit Reasons</h2>
+            {Object.keys(data.summary.exit_reason_counts ?? {}).length === 0 ? (
+              <div className="small">기록 없음</div>
+            ) : (
+              Object.entries(data.summary.exit_reason_counts ?? {}).map(([reason, count]) => (
+                <div key={reason} style={{ marginBottom: 8 }}>
+                  <div className="small">
+                    {reason}: {count}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
         <div className="grid two">
           <div className="card">
             <h2>Reject Reasons</h2>

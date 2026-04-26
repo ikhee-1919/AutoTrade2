@@ -17,6 +17,8 @@ class WalkforwardRunRequest(BaseModel):
     timeframe_mapping: dict[str, str] | None = None
     start_date: date
     end_date: date
+    indicator_start: date | None = None
+    warmup_days: int | None = Field(default=None, ge=0)
     train_window_size: int = Field(default=120, ge=10)
     test_window_size: int = Field(default=30, ge=5)
     step_size: int = Field(default=30, ge=1)
@@ -50,9 +52,21 @@ class WalkforwardSegmentResult(BaseModel):
     net_return_pct: float
     max_drawdown: float
     win_rate: float
+    profit_factor: float = 0.0
+    avg_win_pct: float = 0.0
+    avg_loss_pct: float = 0.0
+    max_consecutive_losses: int = 0
     benchmark_buy_and_hold_return_pct: float
     excess_return_pct: float
     timeframe_mapping: dict[str, str] | None = None
+    regime_counts: dict[str, int] = Field(default_factory=dict)
+    above_200_days: int = 0
+    below_200_days: int = 0
+    insufficient_regime_history_count: int = 0
+    role_history_counts: dict[str, int] = Field(default_factory=dict)
+    role_history_required: dict[str, int] = Field(default_factory=dict)
+    role_history_sufficient: bool = True
+    role_history_missing_roles: list[str] = Field(default_factory=list)
 
 
 class WalkforwardSummary(BaseModel):
@@ -66,6 +80,9 @@ class WalkforwardSummary(BaseModel):
     average_max_drawdown: float
     total_trade_count: int
     benchmark_comparison_summary: str | None = None
+    above_200_days: int = 0
+    below_200_days: int = 0
+    insufficient_regime_history_count: int = 0
 
 
 class WalkforwardDiagnostics(BaseModel):
@@ -73,6 +90,8 @@ class WalkforwardDiagnostics(BaseModel):
     losing_segments: int
     segments_beating_benchmark: int
     segments_underperforming_benchmark: int
+    regime_counts: dict[str, int] = Field(default_factory=dict)
+    insufficient_regime_history_count: int = 0
 
 
 class WalkforwardRunResponse(BaseModel):
@@ -86,6 +105,9 @@ class WalkforwardRunResponse(BaseModel):
     symbol: str
     timeframe: str
     timeframe_mapping: dict[str, str] | None = None
+    indicator_start: date | None = None
+    warmup_start: date | None = None
+    warmup_days: int | None = None
     requested_period: dict[str, date]
     train_window_size: int
     test_window_size: int

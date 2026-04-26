@@ -14,6 +14,8 @@ class BacktestRunRequest(BaseModel):
     timeframe_mapping: dict[str, str] | None = None
     start_date: date
     end_date: date
+    indicator_start: date | None = None
+    warmup_days: int | None = Field(default=None, ge=0)
     params: dict[str, Any] | None = None
     run_tag: str | None = None
     note: str | None = None
@@ -33,17 +35,38 @@ class BacktestSummary(BaseModel):
     total_return_pct: float
     gross_return_pct: float
     net_return_pct: float
+    buy_and_hold_return_pct: float = 0.0
+    excess_return_vs_buy_and_hold: float = 0.0
     trade_count: int
     win_rate: float
     max_drawdown: float
     avg_profit: float
     avg_loss: float
+    profit_factor: float = 0.0
+    avg_win_pct: float = 0.0
+    avg_loss_pct: float = 0.0
+    expectancy_per_trade: float = 0.0
+    max_consecutive_losses: int = 0
+    avg_holding_time: float = 0.0
+    exposure_pct: float = 0.0
     total_fees_paid: float
     total_slippage_cost: float
     total_trading_cost: float
+    fee_total: float = 0.0
+    slippage_total: float = 0.0
     fee_impact_pct: float
     slippage_impact_pct: float
     cost_drag_pct: float
+    exit_reason_counts: dict[str, int] = Field(default_factory=dict)
+    reject_reason_counts: dict[str, int] = Field(default_factory=dict)
+    regime_counts: dict[str, int] = Field(default_factory=dict)
+    regime_segment_summaries: list[dict[str, Any]] = Field(default_factory=list)
+    above_200_days: int = 0
+    below_200_days: int = 0
+    insufficient_regime_history_count: int = 0
+    above_200_return: float = 0.0
+    below_200_return: float = 0.0
+    monthly_returns: list[dict[str, Any]] = Field(default_factory=list)
 
 
 class BacktestTrade(BaseModel):
@@ -67,11 +90,35 @@ class BacktestTrade(BaseModel):
     exit_price: float
     pnl: float
     reason: str
+    gross_pnl_pct: float | None = None
+    net_pnl_pct: float | None = None
+    fees: float | None = None
+    slippage: float | None = None
+    holding_time: float = 0.0
+    entry_reason: str | None = None
+    exit_reason: str | None = None
+    stop_price: float | None = None
+    highest_price_during_trade: float | None = None
+    lowest_price_during_trade: float | None = None
+    r_multiple: float | None = None
+    entry_signal_score: float | None = None
+    exit_signal_score: float | None = None
+    max_favorable_excursion_pct: float | None = None
+    max_adverse_excursion_pct: float | None = None
 
 
 class BacktestDiagnostics(BaseModel):
     reject_reason_counts: dict[str, int]
     regime_counts: dict[str, int]
+    exit_reason_counts: dict[str, int] = Field(default_factory=dict)
+    regime_segment_summaries: list[dict[str, Any]] = Field(default_factory=list)
+    above_200_segments: list[dict[str, Any]] = Field(default_factory=list)
+    below_200_segments: list[dict[str, Any]] = Field(default_factory=list)
+    above_200_days: int = 0
+    below_200_days: int = 0
+    insufficient_regime_history_count: int = 0
+    above_200_return: float = 0.0
+    below_200_return: float = 0.0
 
 
 class BacktestDataSignature(BaseModel):
@@ -124,6 +171,10 @@ class BacktestRunResponse(BaseModel):
     symbol: str
     timeframe: str
     timeframe_mapping: dict[str, str] | None = None
+    indicator_start: date | None = None
+    warmup_start: date | None = None
+    trade_start: date
+    trade_end: date
     start_date: date
     end_date: date
     params_used: dict[str, Any]
@@ -151,6 +202,10 @@ class BacktestRecentItem(BaseModel):
     symbol: str
     timeframe: str
     timeframe_mapping: dict[str, str] | None = None
+    indicator_start: date | None = None
+    warmup_start: date | None = None
+    trade_start: date | None = None
+    trade_end: date | None = None
     start_date: date
     end_date: date
     params_used: dict[str, Any]
@@ -184,6 +239,10 @@ class BacktestCompareRunItem(BaseModel):
     timeframe: str
     timeframe_mapping: dict[str, str] | None = None
     timeframe_mapping_summary: str | None = None
+    indicator_start: date | None = None
+    warmup_start: date | None = None
+    trade_start: date | None = None
+    trade_end: date | None = None
     start_date: date
     end_date: date
     total_return_pct: float
@@ -194,12 +253,29 @@ class BacktestCompareRunItem(BaseModel):
     trade_count: int
     summary_avg_profit: float
     summary_avg_loss: float
+    profit_factor: float = 0.0
+    avg_win_pct: float = 0.0
+    avg_loss_pct: float = 0.0
+    expectancy_per_trade: float = 0.0
+    max_consecutive_losses: int = 0
+    avg_holding_time: float = 0.0
+    exposure_pct: float = 0.0
     total_fees_paid: float
     total_slippage_cost: float
     total_trading_cost: float
+    fee_total: float = 0.0
+    slippage_total: float = 0.0
     cost_drag_pct: float
     benchmark_buy_and_hold_return_pct: float
     strategy_excess_return_pct: float
+    exit_reason_counts: dict[str, int] = Field(default_factory=dict)
+    reject_reason_counts: dict[str, int] = Field(default_factory=dict)
+    regime_counts: dict[str, int] = Field(default_factory=dict)
+    above_200_days: int = 0
+    below_200_days: int = 0
+    insufficient_regime_history_count: int = 0
+    above_200_return: float = 0.0
+    below_200_return: float = 0.0
     top_reject_reason: str | None = None
     return_gap_vs_best: float
     mdd_gap_vs_best: float

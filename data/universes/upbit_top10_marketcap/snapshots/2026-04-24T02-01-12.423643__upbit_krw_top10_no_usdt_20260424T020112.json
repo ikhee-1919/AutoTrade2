@@ -1,0 +1,142 @@
+{
+  "universe_id": "upbit_krw_top10_no_usdt_20260424T020112",
+  "generated_at": "2026-04-24T02:01:12.423643",
+  "updated_at": "2026-04-24T02:01:12.423643",
+  "source_exchange": "upbit",
+  "market_scope": "KRW",
+  "ranking_source": "coingecko_coins_markets_usd",
+  "selected_count": 10,
+  "selected_markets": [
+    "KRW-BTC",
+    "KRW-ETH",
+    "KRW-XRP",
+    "KRW-USDC",
+    "KRW-SOL",
+    "KRW-TRX",
+    "KRW-DOGE",
+    "KRW-USDS",
+    "KRW-ADA",
+    "KRW-BCH"
+  ],
+  "selected_symbols": [
+    "BTC",
+    "ETH",
+    "XRP",
+    "USDC",
+    "SOL",
+    "TRX",
+    "DOGE",
+    "USDS",
+    "ADA",
+    "BCH"
+  ],
+  "selected_rows": [
+    {
+      "market": "KRW-BTC",
+      "symbol": "BTC",
+      "coin_id": "bitcoin",
+      "name": "Bitcoin",
+      "market_cap": 1570541947828.0,
+      "market_cap_rank": 1
+    },
+    {
+      "market": "KRW-ETH",
+      "symbol": "ETH",
+      "coin_id": "ethereum",
+      "name": "Ethereum",
+      "market_cap": 281591699419.0,
+      "market_cap_rank": 2
+    },
+    {
+      "market": "KRW-XRP",
+      "symbol": "XRP",
+      "coin_id": "ripple",
+      "name": "XRP",
+      "market_cap": 88916824275.0,
+      "market_cap_rank": 4
+    },
+    {
+      "market": "KRW-USDC",
+      "symbol": "USDC",
+      "coin_id": "usd-coin",
+      "name": "USDC",
+      "market_cap": 78048781855.0,
+      "market_cap_rank": 6
+    },
+    {
+      "market": "KRW-SOL",
+      "symbol": "SOL",
+      "coin_id": "solana",
+      "name": "Solana",
+      "market_cap": 49656461293.0,
+      "market_cap_rank": 7
+    },
+    {
+      "market": "KRW-TRX",
+      "symbol": "TRX",
+      "coin_id": "tron",
+      "name": "TRON",
+      "market_cap": 31146458468.0,
+      "market_cap_rank": 8
+    },
+    {
+      "market": "KRW-DOGE",
+      "symbol": "DOGE",
+      "coin_id": "dogecoin",
+      "name": "Dogecoin",
+      "market_cap": 15080928093.0,
+      "market_cap_rank": 10
+    },
+    {
+      "market": "KRW-USDS",
+      "symbol": "USDS",
+      "coin_id": "usds",
+      "name": "USDS",
+      "market_cap": 10962469879.0,
+      "market_cap_rank": 12
+    },
+    {
+      "market": "KRW-ADA",
+      "symbol": "ADA",
+      "coin_id": "cardano",
+      "name": "Cardano",
+      "market_cap": 9305588329.0,
+      "market_cap_rank": 15
+    },
+    {
+      "market": "KRW-BCH",
+      "symbol": "BCH",
+      "coin_id": "bitcoin-cash",
+      "name": "Bitcoin Cash",
+      "market_cap": 9222922268.0,
+      "market_cap_rank": 16
+    }
+  ],
+  "market_cap_snapshot": {
+    "exclude_symbols": [
+      "USDT"
+    ]
+  },
+  "collection_policy": {
+    "all_supported_historical_candles": true,
+    "include_seconds": false,
+    "base_timeframes": [
+      "1m",
+      "3m",
+      "5m",
+      "10m",
+      "15m",
+      "30m",
+      "60m",
+      "240m",
+      "1d",
+      "1w",
+      "1mo",
+      "1y"
+    ],
+    "second_timeframes": [
+      "1s"
+    ]
+  },
+  "notes": "USDT removed by operator request"
+}

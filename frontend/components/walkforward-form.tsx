@@ -1,9 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useEffect } from "react";
 
 import { api } from "@/lib/api";
-import { StrategyMeta, WalkforwardRunResponse } from "@/types/api";
+import { StrategyDetail, StrategyMeta, WalkforwardRunResponse } from "@/types/api";
 
 type WalkforwardFormProps = {
   strategies: StrategyMeta[];
@@ -35,6 +36,7 @@ export function WalkforwardForm({ strategies, symbols, onComplete }: Walkforward
   const [jobStatus, setJobStatus] = useState<string | null>(null);
   const [progress, setProgress] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
+  const [strategyDetail, setStrategyDetail] = useState<StrategyDetail | null>(null);
 
   const canRun = useMemo(
     () =>
@@ -48,8 +50,28 @@ export function WalkforwardForm({ strategies, symbols, onComplete }: Walkforward
     () => strategies.find((s) => s.strategy_id === strategyId),
     [strategies, strategyId],
   );
-  const isMtf = selectedStrategy?.mode === "multi_timeframe";
+  const isMtf = (strategyDetail?.mode ?? selectedStrategy?.mode) === "multi_timeframe";
   const tfOptions = ["1m", "5m", "15m", "30m", "60m", "240m", "1d"];
+
+  useEffect(() => {
+    async function loadStrategyDetail() {
+      if (!strategyId) return;
+      try {
+        const detail = await api.getStrategy(strategyId);
+        setStrategyDetail(detail);
+        const mapping = detail.default_timeframe_mapping ?? {};
+        if (mapping.trend) setTrendTimeframe(mapping.trend);
+        if (mapping.setup) setSetupTimeframe(mapping.setup);
+        if (mapping.entry) setEntryTimeframe(mapping.entry);
+        if (mapping.entry && !detail.mode?.includes("multi")) {
+          setTimeframe(mapping.entry);
+        }
+      } catch {
+        setStrategyDetail(null);
+      }
+    }
+    void loadStrategyDetail();
+  }, [strategyId]);
 
   const run = async () => {
     if (!canRun) return;
@@ -119,6 +141,14 @@ export function WalkforwardForm({ strategies, symbols, onComplete }: Walkforward
             </option>
           ))}
         </select>
+        {strategyDetail?.required_roles?.length ? (
+          <p className="small">
+            required roles: {strategyDetail.required_roles.join(", ")} / default mapping:{" "}
+            {Object.entries(strategyDetail.default_timeframe_mapping ?? {})
+              .map(([role, tf]) => `${role}:${tf}`)
+              .join(", ")}
+          </p>
+        ) : null}
       </div>
       <div>
         <label>종목</label>

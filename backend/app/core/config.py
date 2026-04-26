@@ -28,6 +28,14 @@ class Settings:
         return self.backend_dir / "app" / "data" / "market_data_datasets.json"
 
     @property
+    def top10_universe_current_file(self) -> Path:
+        return self.project_root / "data" / "universes" / "upbit_top10_marketcap" / "current.json"
+
+    @property
+    def top10_universe_snapshots_dir(self) -> Path:
+        return self.project_root / "data" / "universes" / "upbit_top10_marketcap" / "snapshots"
+
+    @property
     def collected_market_data_dir(self) -> Path:
         return self.project_root / "data" / "market"
 

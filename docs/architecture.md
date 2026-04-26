@@ -18,11 +18,82 @@
 - `backend/app/services/market_data_job_service.py`: market-data 단건/배치 비동기 실행
 - `backend/app/services/parameter_sweep_service.py`: grid sweep orchestration
 - `backend/app/services/parameter_sweep_job_service.py`: sweep 비동기 실행
+- `backend/app/services/chart_service.py`: candles/indicators/overlay 조회 및 계산
+- `backend/app/services/regime_classifier.py`: 200일선 기반 시장 상태 분류기
+- `backend/app/services/regime_analysis_service.py`: 레짐 구간 분석(above/below 200 segment)
 - `backend/app/strategy`: 전략 인터페이스 + 샘플 전략
 - `backend/app/data/providers`: CSV 공급자(향후 Upbit 공급자 교체)
 - `backend/app/data_collectors/upbit_collector.py`: 업비트 과거 캔들 수집기
 - `backend/app/repositories`: run/job 저장소(JSON)
 - `backend/app/execution`: future paper/live adapter 인터페이스
+
+## 정적 분석 차트
+
+### 차트 API
+- `/charts/candles`: symbol/timeframe/date range 캔들 조회
+- `/charts/indicators`: EMA20/50/120, RSI14, volume_ma20 계산
+- `/charts/backtest-overlay`: run_id 기준 매수/매도 오버레이 조회
+
+### 프론트 차트 레이어
+- `/charts`: 분석 워크스페이스(캔들 + 거래량 + RSI + indicator toggle)
+- `/backtests/[run_id]`: 상세 리포트 내부 차트 섹션에서 동일 컴포넌트 재사용
+- 차트는 ECharts 멀티 패널 구성으로 구현하여 오버레이/MACD/regime 확장 포인트 확보
+
+### 데이터 일관성
+- 차트 조회도 provider의 collected 우선/fallback 정책을 동일하게 사용
+- 응답에 dataset metadata를 포함해 source/sample/quality를 화면에서 확인
+- run overlay는 run metadata(`strategy_version`, `code_version`, `timeframe_mapping`)를 함께 노출
+
+## Warmup/Indicator Window 분리
+
+### 문제 배경
+- `insufficient_regime_history`는 전략 실패가 아니라, 레짐 계산용 일봉 히스토리 부족 상태를 의미합니다.
+- 따라서 실행 구간과 지표 계산 구간을 분리해야 합니다.
+
+### 현재 처리
+- 요청은 `indicator_start` 또는 `warmup_days`를 받을 수 있습니다.
+- 데이터 로드는 `indicator_start ~ trade_end`
+- 성과 집계는 `trade_start ~ trade_end`
+- run metadata에 아래를 함께 저장합니다.
+  - `indicator_start`
+  - `warmup_start`
+  - `trade_start`
+  - `trade_end`
+
+## 200일선 레짐 분류기
+
+### 분류 상태
+- `bull_above_200`
+- `above_200_weak`
+- `below_200_recovery`
+- `below_200_downtrend`
+- (메타) `insufficient_history`
+
+### 의도
+- 200일선을 단순 on/off 게이트가 아니라 “시장 상태 분류기”로 사용
+- 전략 거절 사유를 구조적으로 분해해 해석 가능성 확보
+
+## Regime별 전략 역할 분리
+
+- `mtf_confluence_pullback_v2`
+  - 목적: `bull_above_200` 메인 구간의 MTF 컨플루언스 진입
+  - 성격: 추세 지속형, 보수적 진입
+- `below_200_recovery_long_v1`
+  - 목적: `below_200_recovery` 전용 회복장 진입
+  - 성격: 회복 확인 후 진입, 손절/시간청산 상대적으로 짧게 운영
+- `below_200_downtrend`
+  - 정책: no-trade
+
+위 분리는 기존 메인 전략을 억지로 느슨하게 만들지 않고, 레짐별 전략을 독립적으로 검증/튜닝하기 위한 구조입니다.
+
+## Regime 분석 API
+
+- `GET /regime/analyze`
+  - daily 지표, 레짐 카운트, above/below 200 연속 구간, 구간 수익률 반환
+- `GET /regime/analyze/batch`
+  - 다중 심볼(BTC/ETH 등) 동시 분석 및 요약 반환
+
+이 API는 전략 실행 전 “해당 테스트 기간의 시장 상태”를 먼저 확인하는 용도로 설계되었습니다.
 
 ## 백테스트 현실화 핵심
 
@@ -56,6 +127,7 @@
 - single strategy: `evaluate(candles, params)`
 - mtf strategy: `evaluate_context(context, params)`
 - 공통 base 전략에서 `uses_context()`, `required_timeframe_roles()`, `default_timeframe_mapping()` 제공
+- 전략 컨텍스트는 `runtime_state`를 선택적으로 포함해, MTF 전략이 cooldown/보유시간 기반 판단을 수행할 수 있음
 
 ### Future Leak 방지 원칙
 - entry 시점 `as_of` 기준으로 role별 캔들은 `timestamp <= as_of`만 전략에 전달
@@ -67,6 +139,32 @@
 - `params_hash`
 - `data_signature`
 - `params_snapshot`(전략 파라미터 + execution_config)
+
+## Turtle Breakout v1 (Long-only)
+
+### 규칙 요약
+- 진입: 최근 `N`봉 최고 채널 종가 돌파(`breakout_entry_length`, 기본 20)
+- 추세 필터: `close > MA(trend_ma_length)` (기본 200, optional)
+- 손절: `ATR(atr_length) * atr_stop_multiple` (기본 ATR20*2.0)
+- 청산: 최근 `M`봉 최저 채널 하향 이탈(`breakout_exit_length`, 기본 10)
+
+### 엔진 연결 방식
+- 백테스트 엔진의 기존 exit contract를 유지하기 위해, exit channel 하향 이탈 시 `regime='bearish'`를 반환해 청산 경로를 재사용
+- 숏 진입은 구현하지 않고 long-only로 제한
+- 리스크는 sizing 엔진 대신 `debug_info.risk_metadata`로 기록
+
+## MTF Trend Pullback v2
+
+### 목적
+- `mtf_trend_pullback_v1`의 과도한 재진입/추격 진입을 줄이고 손실 구간 복구력을 높이기 위한 업그레이드 버전
+
+### 핵심 변경
+- 필수 3-role 매핑: `trend=1d`, `setup=60m`, `entry=15m`
+- 추세 게이트: `1d close>EMA50`, `EMA20>EMA50`, `EMA50 slope >= 0`
+- chase filter: `60m EMA20 거리` + `ATR extension` 동시 제한
+- 손절: `ATR + swing low` 기반 stop + `min/max stop pct` 리스크 범위 제한
+- 청산: 즉시 반전 청산 대신 `regime_reversal_confirm_bars` 확인 청산 + `daily_trend_bearish` + `time_stop`
+- 손절 후 cooldown: stop-loss 연속 횟수에 따라 진입 제한 시간 확대
 
 ## Walk-Forward Skeleton
 

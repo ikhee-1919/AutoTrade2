@@ -166,6 +166,91 @@ class MarketDataPreviewResponse(BaseModel):
     rows: list[dict[str, Any]]
 
 
+class Top10UniverseRefreshRequest(BaseModel):
+    market_scope: Literal["KRW", "BTC", "USDT"] = "KRW"
+    top_n: int = Field(default=10, ge=1, le=200)
+    use_job: bool = False
+
+
+class Top10UniverseCollectRequest(BaseModel):
+    include_seconds: bool = False
+    validate_after_collect: bool = True
+    overwrite_existing: bool = False
+    use_job: bool = False
+    start_date: date | None = None
+    end_date: date | None = None
+
+
+class Top10UniverseUpdateRequest(BaseModel):
+    include_seconds: bool = False
+    validate_after_collect: bool = True
+    use_job: bool = False
+    end_date: date | None = None
+
+
+class Top10UniverseResponse(BaseModel):
+    universe_id: str
+    generated_at: str
+    updated_at: str
+    source_exchange: str
+    market_scope: str
+    ranking_source: str
+    selected_count: int
+    selected_markets: list[str]
+    selected_symbols: list[str]
+    selected_rows: list[dict[str, Any]]
+    market_cap_snapshot: dict[str, Any] = Field(default_factory=dict)
+    collection_policy: dict[str, Any] = Field(default_factory=dict)
+    notes: str | None = None
+
+
+class Top10UniverseSummaryResponse(BaseModel):
+    universe_id: str | None = None
+    generated_at: str | None = None
+    market_scope: str | None = None
+    selected_markets: list[str] = Field(default_factory=list)
+    selected_symbols: list[str] = Field(default_factory=list)
+    included_timeframes: list[str] = Field(default_factory=list)
+    include_seconds: bool = False
+    total_combinations: int = 0
+    pass_count: int = 0
+    warning_count: int = 0
+    fail_count: int = 0
+    missing_dataset_count: int = 0
+    failed_dataset_count: int = 0
+    latest_updated_at: str | None = None
+    total_row_count: int = 0
+    coverage_by_symbol: dict[str, Any] = Field(default_factory=dict)
+
+
+class Top10UniverseMissingItem(BaseModel):
+    symbol: str
+    timeframe: str
+
+
+class Top10UniverseMissingResponse(BaseModel):
+    universe_id: str | None = None
+    include_seconds: bool = False
+    total_missing: int = 0
+    items: list[Top10UniverseMissingItem] = Field(default_factory=list)
+
+
+class Top10UniverseRetryMissingRequest(BaseModel):
+    include_seconds: bool = False
+    validate_after_collect: bool = True
+    overwrite_existing: bool = False
+    use_job: bool = False
+    start_date: date | None = None
+    end_date: date | None = None
+
+
+class Top10UniverseActionResponse(BaseModel):
+    mode: Literal["sync", "job"]
+    job_id: str | None = None
+    message: str | None = None
+    result: dict[str, Any] | None = None
+
+
 MarketDataJobStatus = Literal["queued", "running", "completed", "failed", "cancelled"]
 
 

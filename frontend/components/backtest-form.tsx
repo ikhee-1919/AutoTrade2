@@ -1,9 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { api } from "@/lib/api";
-import { BacktestRunResponse, StrategyMeta } from "@/types/api";
+import { BacktestRunResponse, StrategyDetail, StrategyMeta } from "@/types/api";
 
 type BacktestFormProps = {
   strategies: StrategyMeta[];
@@ -14,6 +14,7 @@ type BacktestFormProps = {
 export function BacktestForm({ strategies, symbols, onResult }: BacktestFormProps) {
   const [strategyId, setStrategyId] = useState(strategies[0]?.strategy_id ?? "");
   const [symbol, setSymbol] = useState(symbols[0] ?? "");
+  const [availableSymbols, setAvailableSymbols] = useState<string[]>(symbols);
   const [timeframe, setTimeframe] = useState("1d");
   const [trendTimeframe, setTrendTimeframe] = useState("60m");
   const [setupTimeframe, setSetupTimeframe] = useState("15m");
@@ -30,6 +31,7 @@ export function BacktestForm({ strategies, symbols, onResult }: BacktestFormProp
     "next_open",
   );
   const [benchmarkEnabled, setBenchmarkEnabled] = useState(true);
+  const [strategyDetail, setStrategyDetail] = useState<StrategyDetail | null>(null);
 
   const canRun = useMemo(
     () => Boolean(strategyId && symbol && startDate && endDate),
@@ -39,11 +41,81 @@ export function BacktestForm({ strategies, symbols, onResult }: BacktestFormProp
     () => strategies.find((s) => s.strategy_id === strategyId),
     [strategies, strategyId],
   );
-  const isMtf = selectedStrategy?.mode === "multi_timeframe";
+  const isMtf = (strategyDetail?.mode ?? selectedStrategy?.mode) === "multi_timeframe";
   const tfOptions = ["1m", "5m", "15m", "30m", "60m", "240m", "1d"];
+  const uniqueMtfTimeframes = useMemo(
+    () => Array.from(new Set([trendTimeframe, setupTimeframe, entryTimeframe])),
+    [trendTimeframe, setupTimeframe, entryTimeframe],
+  );
+
+  useEffect(() => {
+    setAvailableSymbols(symbols);
+    if (symbols.length > 0 && !symbols.includes(symbol)) {
+      setSymbol(symbols[0]);
+    }
+  }, [symbols, symbol]);
+
+  useEffect(() => {
+    async function loadStrategyDetail() {
+      if (!strategyId) return;
+      try {
+        const detail = await api.getStrategy(strategyId);
+        setStrategyDetail(detail);
+        const mapping = detail.default_timeframe_mapping ?? {};
+        if (mapping.trend) setTrendTimeframe(mapping.trend);
+        if (mapping.setup) setSetupTimeframe(mapping.setup);
+        if (mapping.entry) setEntryTimeframe(mapping.entry);
+        if (mapping.entry && !detail.mode?.includes("multi")) {
+          setTimeframe(mapping.entry);
+        }
+      } catch {
+        setStrategyDetail(null);
+      }
+    }
+    void loadStrategyDetail();
+  }, [strategyId]);
+
+  useEffect(() => {
+    async function refreshSymbols() {
+      try {
+        if (!isMtf) {
+          const payload = await api.listSymbolsByTimeframe(timeframe);
+          const next = payload.symbols;
+          setAvailableSymbols(next);
+          if (next.length > 0 && !next.includes(symbol)) {
+            setSymbol(next[0]);
+          }
+          return;
+        }
+
+        const lists = await Promise.all(
+          uniqueMtfTimeframes.map(async (tf) => {
+            const payload = await api.listSymbolsByTimeframe(tf);
+            return payload.symbols;
+          }),
+        );
+        const intersection = lists.reduce<string[]>((acc, cur) => {
+          if (acc.length === 0) return cur;
+          const set = new Set(cur);
+          return acc.filter((item) => set.has(item));
+        }, []);
+        setAvailableSymbols(intersection);
+        if (intersection.length > 0 && !intersection.includes(symbol)) {
+          setSymbol(intersection[0]);
+        }
+      } catch {
+        setAvailableSymbols([]);
+      }
+    }
+    void refreshSymbols();
+  }, [isMtf, timeframe, trendTimeframe, setupTimeframe, entryTimeframe, uniqueMtfTimeframes, symbol]);
 
   const run = async () => {
     if (!canRun) return;
+    if (!availableSymbols.includes(symbol)) {
+      setError("선택한 타임프레임 조합에서 사용 가능한 심볼 데이터가 없습니다.");
+      return;
+    }
     setLoading(true);
     setError(null);
     setJobStatus("queued");
@@ -109,16 +181,27 @@ export function BacktestForm({ strategies, symbols, onResult }: BacktestFormProp
             </option>
           ))}
         </select>
+        {strategyDetail?.required_roles?.length ? (
+          <p className="small">
+            required roles: {strategyDetail.required_roles.join(", ")} / default mapping:{" "}
+            {Object.entries(strategyDetail.default_timeframe_mapping ?? {})
+              .map(([role, tf]) => `${role}:${tf}`)
+              .join(", ")}
+          </p>
+        ) : null}
       </div>
       <div>
         <label>종목</label>
         <select value={symbol} onChange={(e) => setSymbol(e.target.value)}>
-          {symbols.map((s) => (
+          {availableSymbols.map((s) => (
             <option key={s} value={s}>
               {s}
             </option>
           ))}
         </select>
+        {availableSymbols.length === 0 ? (
+          <p className="error">현재 타임프레임 조합에 맞는 심볼 데이터가 없습니다.</p>
+        ) : null}
       </div>
       <div>
         <label>기본 타임프레임</label>

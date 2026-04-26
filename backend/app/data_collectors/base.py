@@ -6,6 +6,9 @@ from app.models.candle import Candle
 
 
 class HistoricalCandleCollector(ABC):
+    def fetch_markets(self) -> list[str]:
+        raise NotImplementedError
+
     @abstractmethod
     def fetch_ohlcv(
         self,

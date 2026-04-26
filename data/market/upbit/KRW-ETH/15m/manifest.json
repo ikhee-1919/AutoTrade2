@@ -1,0 +1,33 @@
+{
+  "dataset_id": "upbit__KRW-ETH__15m",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-ETH",
+  "timeframe": "15m",
+  "start_at": "2025-01-01T00:00:00",
+  "end_at": "2026-04-25T23:45:00",
+  "row_count": 45963,
+  "created_at": "2026-04-26T11:20:32.998705",
+  "updated_at": "2026-04-26T11:20:33.202553",
+  "data_signature": "eac65951e5a406e8690f8ab62e0966745e54d32e820a3bf20427fc3ad37f265b",
+  "quality_status": "warning",
+  "quality_report_summary": "rows=45963, dup=0, missing=117, null=0, invalid=0, suspicious=5",
+  "quality_report": {
+    "status": "warning",
+    "row_count": 45963,
+    "duplicate_count": 0,
+    "missing_interval_count": 117,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 5,
+    "summary_message": "rows=45963, dup=0, missing=117, null=0, invalid=0, suspicious=5",
+    "detail_messages": [
+      "missing intervals detected: 117"
+    ]
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-26T11:20:33.202532",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-ETH/15m/candles.csv",
+  "notes": null
+}

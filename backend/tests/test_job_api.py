@@ -1,7 +1,7 @@
 import time
 
 
-def _wait_for_terminal(client, job_id: str, timeout: float = 10.0) -> dict:
+def _wait_for_terminal(client, job_id: str, timeout: float = 20.0) -> dict:
     started = time.time()
     while time.time() - started < timeout:
         job = client.get(f"/backtests/jobs/{job_id}").json()

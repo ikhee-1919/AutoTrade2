@@ -1,0 +1,31 @@
+{
+  "dataset_id": "upbit__KRW-TRX__1mo",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-TRX",
+  "timeframe": "1mo",
+  "start_at": "2018-04-01T00:00:00",
+  "end_at": "2026-04-01T00:00:00",
+  "row_count": 97,
+  "created_at": "2026-04-24T02:24:51.250981",
+  "updated_at": "2026-04-24T02:24:51.287064",
+  "data_signature": "78b0b7bf95f7637a8706fb361d0767356bb0c91fe8138e36ee8b972489add7a6",
+  "quality_status": "pass",
+  "quality_report_summary": "rows=97, dup=0, missing=0, null=0, invalid=0, suspicious=0",
+  "quality_report": {
+    "status": "pass",
+    "row_count": 97,
+    "duplicate_count": 0,
+    "missing_interval_count": 0,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 0,
+    "summary_message": "rows=97, dup=0, missing=0, null=0, invalid=0, suspicious=0",
+    "detail_messages": []
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T02:24:51.287049",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-TRX/1mo/candles.csv",
+  "notes": null
+}

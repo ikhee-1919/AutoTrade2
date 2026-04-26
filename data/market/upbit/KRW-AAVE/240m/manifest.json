@@ -1,0 +1,33 @@
+{
+  "dataset_id": "upbit__KRW-AAVE__240m",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-AAVE",
+  "timeframe": "240m",
+  "start_at": "2021-10-27T08:00:00",
+  "end_at": "2026-04-24T00:00:00",
+  "row_count": 9838,
+  "created_at": "2026-04-24T02:37:59.334646",
+  "updated_at": "2026-04-24T02:37:59.412952",
+  "data_signature": "1d34ec48b7c77191e0ddea1b07f02f217d23a34d97a78ec813e8e97895c78999",
+  "quality_status": "warning",
+  "quality_report_summary": "rows=9838, dup=0, missing=1, null=0, invalid=0, suspicious=0",
+  "quality_report": {
+    "status": "warning",
+    "row_count": 9838,
+    "duplicate_count": 0,
+    "missing_interval_count": 1,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 0,
+    "summary_message": "rows=9838, dup=0, missing=1, null=0, invalid=0, suspicious=0",
+    "detail_messages": [
+      "missing intervals detected: 1"
+    ]
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T02:37:59.412946",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-AAVE/240m/candles.csv",
+  "notes": null
+}

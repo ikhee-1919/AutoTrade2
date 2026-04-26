@@ -1,0 +1,33 @@
+{
+  "dataset_id": "upbit__KRW-CHIP__1m",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-CHIP",
+  "timeframe": "1m",
+  "start_at": "2026-04-21T13:05:00",
+  "end_at": "2026-04-24T01:53:00",
+  "row_count": 3648,
+  "created_at": "2026-04-24T01:53:22.010825",
+  "updated_at": "2026-04-24T02:01:34.766285",
+  "data_signature": "1c0c9b1eff31fa77d9e57105ddcd84e69f784cad656691364c0699b35b3fcdee",
+  "quality_status": "warning",
+  "quality_report_summary": "rows=3648, dup=0, missing=1, null=0, invalid=0, suspicious=0",
+  "quality_report": {
+    "status": "warning",
+    "row_count": 3648,
+    "duplicate_count": 0,
+    "missing_interval_count": 1,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 0,
+    "summary_message": "rows=3648, dup=0, missing=1, null=0, invalid=0, suspicious=0",
+    "detail_messages": [
+      "missing intervals detected: 1"
+    ]
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T02:01:34.766278",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-CHIP/1m/candles.csv",
+  "notes": null
+}

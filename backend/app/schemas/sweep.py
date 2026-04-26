@@ -38,6 +38,10 @@ class SweepCombinationResult(BaseModel):
     max_drawdown: float = 0.0
     trade_count: int = 0
     win_rate: float = 0.0
+    profit_factor: float = 0.0
+    avg_win_pct: float = 0.0
+    avg_loss_pct: float = 0.0
+    max_consecutive_losses: int = 0
     benchmark_buy_and_hold_return_pct: float = 0.0
     excess_return_pct: float = 0.0
     status: Literal["completed", "failed"]

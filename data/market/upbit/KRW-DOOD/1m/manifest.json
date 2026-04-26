@@ -1,0 +1,33 @@
+{
+  "dataset_id": "upbit__KRW-DOOD__1m",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-DOOD",
+  "timeframe": "1m",
+  "start_at": "2025-10-07T07:35:00",
+  "end_at": "2026-04-24T03:03:00",
+  "row_count": 165957,
+  "created_at": "2026-04-24T03:06:43.209620",
+  "updated_at": "2026-04-24T03:06:43.895240",
+  "data_signature": "dc4db50ad1b2a09643746028a9c3806a15a57416b0a8c438bf9ed37aaf9f5c86",
+  "quality_status": "warning",
+  "quality_report_summary": "rows=165957, dup=0, missing=120332, null=0, invalid=0, suspicious=1845",
+  "quality_report": {
+    "status": "warning",
+    "row_count": 165957,
+    "duplicate_count": 0,
+    "missing_interval_count": 120332,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 1845,
+    "summary_message": "rows=165957, dup=0, missing=120332, null=0, invalid=0, suspicious=1845",
+    "detail_messages": [
+      "missing intervals detected: 120332"
+    ]
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T03:06:43.895215",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-DOOD/1m/candles.csv",
+  "notes": null
+}

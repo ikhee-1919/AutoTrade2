@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.routes import backtests, health, market, market_data, strategies, sweeps, walkforward
+from app.api.routes import backtests, charts, health, market, market_data, regime, strategies, sweeps, walkforward
 
 app = FastAPI(
     title="Upbit Trading Console Backend",
@@ -24,3 +24,5 @@ app.include_router(walkforward.router)
 app.include_router(sweeps.router)
 app.include_router(market_data.router)
 app.include_router(market.router)
+app.include_router(charts.router)
+app.include_router(regime.router)

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime, time, timedelta
 import hashlib
 import json
 from statistics import mean, median
@@ -46,6 +46,7 @@ class WalkforwardService:
         warmup_needed = strategy.warmup_candles(params)
         timeframe_mapping = self._resolve_timeframe_mapping(strategy, request)
         entry_timeframe = timeframe_mapping.get("entry", request.timeframe)
+        indicator_start = self._resolve_indicator_start(request, timeframe_mapping, warmup_needed)
 
         candles = self._data_provider.load_ohlcv(
             symbol=request.symbol,
@@ -67,18 +68,29 @@ class WalkforwardService:
         if progress_callback:
             progress_callback(0, len(segments), None)
 
+        # Preload MTF bundle once for role-history diagnostics.
+        role_bundle = self._data_provider.load_timeframe_bundle(
+            symbol=request.symbol,
+            timeframe_mapping=timeframe_mapping,
+            start_date=indicator_start,
+            end_date=request.end_date,
+        )
+        role_rows = role_bundle.get("candles_by_role", {})
+        role_required = self._required_role_history(strategy_id=request.strategy_id, params=params)
+
         segment_results: list[dict] = []
         for idx, seg in enumerate(segments):
             if should_cancel and should_cancel():
                 raise ValueError(f"Walk-forward cancelled at segment {idx}")
-            warmup_start_idx = max(seg["test_start_idx"] - warmup_needed, 0)
             segment_request = BacktestRunRequest(
                 strategy_id=request.strategy_id,
                 symbol=request.symbol,
                 timeframe=entry_timeframe,
                 timeframe_mapping=timeframe_mapping,
-                start_date=candles[warmup_start_idx].timestamp.date(),
+                start_date=seg["test_start"],
                 end_date=seg["test_end"],
+                indicator_start=indicator_start,
+                warmup_days=request.warmup_days,
                 params=params,
                 run_tag=request.run_tag,
                 note=f"walk-forward segment {idx}",
@@ -96,6 +108,11 @@ class WalkforwardService:
             run_result = self._backtest_service.run(segment_request)
             segment_summary = run_result["summary"]
             segment_benchmark = run_result.get("benchmark") or {}
+            history_diag = self._segment_role_history_diag(
+                role_rows=role_rows,
+                role_required=role_required,
+                segment_test_start=seg["test_start"],
+            )
             segment_results.append(
                 {
                     "segment_index": idx,
@@ -116,6 +133,10 @@ class WalkforwardService:
                     ),
                     "max_drawdown": segment_summary["max_drawdown"],
                     "win_rate": segment_summary["win_rate"],
+                    "profit_factor": segment_summary.get("profit_factor", 0.0),
+                    "avg_win_pct": segment_summary.get("avg_win_pct", 0.0),
+                    "avg_loss_pct": segment_summary.get("avg_loss_pct", 0.0),
+                    "max_consecutive_losses": segment_summary.get("max_consecutive_losses", 0),
                     "benchmark_buy_and_hold_return_pct": segment_benchmark.get(
                         "benchmark_buy_and_hold_return_pct",
                         0.0,
@@ -125,6 +146,20 @@ class WalkforwardService:
                         0.0,
                     ),
                     "timeframe_mapping": run_result.get("timeframe_mapping", timeframe_mapping),
+                    "regime_counts": run_result.get("summary", {}).get(
+                        "regime_counts",
+                        run_result.get("diagnostics", {}).get("regime_counts", {}),
+                    ),
+                    "above_200_days": run_result.get("summary", {}).get("above_200_days", 0),
+                    "below_200_days": run_result.get("summary", {}).get("below_200_days", 0),
+                    "insufficient_regime_history_count": run_result.get("summary", {}).get(
+                        "insufficient_regime_history_count",
+                        run_result.get("diagnostics", {}).get("insufficient_regime_history_count", 0),
+                    ),
+                    "role_history_counts": history_diag["counts"],
+                    "role_history_required": history_diag["required"],
+                    "role_history_sufficient": history_diag["sufficient"],
+                    "role_history_missing_roles": history_diag["missing_roles"],
                 }
             )
             if progress_callback:
@@ -150,6 +185,9 @@ class WalkforwardService:
             "symbol": request.symbol,
             "timeframe": entry_timeframe,
             "timeframe_mapping": timeframe_mapping,
+            "indicator_start": indicator_start,
+            "warmup_start": indicator_start,
+            "warmup_days": request.warmup_days,
             "requested_period": {
                 "start_date": request.start_date,
                 "end_date": request.end_date,
@@ -164,6 +202,7 @@ class WalkforwardService:
                 "strategy_params": params,
                 "execution_config": execution_config,
                 "timeframe_mapping": timeframe_mapping,
+                "indicator_start": indicator_start.isoformat(),
             },
             "benchmark_enabled": request.benchmark_enabled,
             "run_tag": request.run_tag,
@@ -181,9 +220,74 @@ class WalkforwardService:
                     "start_date": request.start_date.isoformat(),
                     "end_date": request.end_date.isoformat(),
                 },
+                "indicator_start": indicator_start.isoformat(),
+                "warmup_start": indicator_start.isoformat(),
+                "warmup_days": request.warmup_days,
             }
         )
         return response
+
+    def _required_role_history(self, strategy_id: str, params: dict) -> dict[str, int]:
+        # Conservative role lookback defaults.
+        required = {
+            "entry": 60,
+            "regime": 240,
+            "trend": 120,
+            "setup": 120,
+            "trigger": 120,
+            "execution": 80,
+        }
+        if strategy_id.startswith("below_200_recovery_long_v1"):
+            swing = int(params.get("swing_lookback", 8))
+            required["regime"] = int(params.get("regime_sma_length", 200)) + 2
+            required["trend"] = max(
+                int(params.get("trend_ema_slow", 50)) + swing * 2 + 2,
+                int(params.get("structure_break_confirm_bars", 2)) + 2,
+            )
+            required["setup"] = max(
+                int(params.get("setup_rsi_length", 14)) + 2,
+                swing * 2 + 2,
+            )
+            required["trigger"] = max(
+                int(params.get("trigger_ema_length", 20)) + 2,
+                int(params.get("trigger_local_high_lookback", 5)) + 2,
+                int(params.get("trigger_volume_sma_length", 20)) + 2,
+                int(params.get("atr_length", 14)) + 2,
+            )
+            required["execution"] = max(
+                int(params.get("execution_ema_length", 20)) + 2,
+                int(params.get("execution_atr_length", 14)) + 2,
+            )
+        return required
+
+    def _segment_role_history_diag(
+        self,
+        role_rows: dict[str, list],
+        role_required: dict[str, int],
+        segment_test_start: date,
+    ) -> dict:
+        as_of = datetime.combine(segment_test_start, time.min)
+        counts: dict[str, int] = {}
+        required: dict[str, int] = {}
+        missing: list[str] = []
+        for role, rows in role_rows.items():
+            count = 0
+            for candle in rows:
+                if candle.timestamp <= as_of:
+                    count += 1
+                else:
+                    break
+            need = int(role_required.get(role, role_required.get("entry", 60)))
+            counts[role] = count
+            required[role] = need
+            if count < need:
+                missing.append(role)
+        return {
+            "counts": counts,
+            "required": required,
+            "sufficient": len(missing) == 0,
+            "missing_roles": missing,
+        }
 
     def rerun(self, walkforward_run_id: str) -> dict:
         previous = self._walkforward_repository.get_by_id(walkforward_run_id)
@@ -197,6 +301,12 @@ class WalkforwardService:
             timeframe_mapping=previous.get("timeframe_mapping"),
             start_date=datetime.fromisoformat(previous["requested_period"]["start_date"]).date(),
             end_date=datetime.fromisoformat(previous["requested_period"]["end_date"]).date(),
+            indicator_start=(
+                datetime.fromisoformat(previous["indicator_start"]).date()
+                if previous.get("indicator_start")
+                else None
+            ),
+            warmup_days=previous.get("warmup_days"),
             train_window_size=previous["train_window_size"],
             test_window_size=previous["test_window_size"],
             step_size=previous["step_size"],
@@ -229,6 +339,16 @@ class WalkforwardService:
         return {
             **run,
             "created_at": datetime.fromisoformat(run["created_at"]),
+            "indicator_start": (
+                datetime.fromisoformat(run["indicator_start"]).date()
+                if run.get("indicator_start")
+                else None
+            ),
+            "warmup_start": (
+                datetime.fromisoformat(run["warmup_start"]).date()
+                if run.get("warmup_start")
+                else None
+            ),
             "requested_period": {
                 "start_date": datetime.fromisoformat(run["requested_period"]["start_date"]).date(),
                 "end_date": datetime.fromisoformat(run["requested_period"]["end_date"]).date(),
@@ -374,6 +494,9 @@ class WalkforwardService:
         returns = [float(seg["net_return_pct"]) for seg in segments]
         mdds = [float(seg["max_drawdown"]) for seg in segments]
         trades = [int(seg["trade_count"]) for seg in segments]
+        above_days = [int(seg.get("above_200_days", 0)) for seg in segments]
+        below_days = [int(seg.get("below_200_days", 0)) for seg in segments]
+        insufficient = [int(seg.get("insufficient_regime_history_count", 0)) for seg in segments]
 
         compounded_equity = 1.0
         for value in returns:
@@ -395,6 +518,9 @@ class WalkforwardService:
             "average_max_drawdown": round(mean(mdds), 4) if mdds else 0.0,
             "total_trade_count": sum(trades),
             "benchmark_comparison_summary": benchmark_summary,
+            "above_200_days": sum(above_days),
+            "below_200_days": sum(below_days),
+            "insufficient_regime_history_count": sum(insufficient),
         }
 
     def _build_diagnostics(self, segments: list[dict]) -> dict:
@@ -402,11 +528,19 @@ class WalkforwardService:
         losing = sum(1 for seg in segments if seg["net_return_pct"] <= 0)
         beating = sum(1 for seg in segments if seg["excess_return_pct"] > 0)
         underperforming = sum(1 for seg in segments if seg["excess_return_pct"] <= 0)
+        regime_counts: dict[str, int] = {}
+        for seg in segments:
+            for key, value in (seg.get("regime_counts") or {}).items():
+                regime_counts[key] = regime_counts.get(key, 0) + int(value)
         return {
             "profitable_segments": profitable,
             "losing_segments": losing,
             "segments_beating_benchmark": beating,
             "segments_underperforming_benchmark": underperforming,
+            "regime_counts": regime_counts,
+            "insufficient_regime_history_count": sum(
+                int(seg.get("insufficient_regime_history_count", 0)) for seg in segments
+            ),
         }
 
     def _build_interpretation(self, summary: dict, diagnostics: dict) -> str:
@@ -445,3 +579,19 @@ class WalkforwardService:
             return output.strip() or "unknown-local"
         except Exception:  # noqa: BLE001 - metadata fallback only
             return "unknown-local"
+
+    def _resolve_indicator_start(
+        self,
+        request: WalkforwardRunRequest,
+        timeframe_mapping: dict[str, str],
+        strategy_warmup: int,
+    ) -> date:
+        if request.indicator_start is not None:
+            if request.indicator_start > request.start_date:
+                raise ValueError("indicator_start must be <= start_date")
+            return request.indicator_start
+        explicit = request.warmup_days if request.warmup_days is not None else None
+        has_daily_role = any(tf == "1d" for tf in timeframe_mapping.values())
+        baseline_days = 400 if has_daily_role else 30
+        warmup_days = explicit if explicit is not None else max(baseline_days, int(strategy_warmup))
+        return request.start_date - timedelta(days=warmup_days)

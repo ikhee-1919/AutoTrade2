@@ -5,29 +5,29 @@
   "symbol": "KRW-BTC",
   "timeframe": "60m",
   "start_at": "2025-01-01T00:00:00",
-  "end_at": "2025-12-31T23:00:00",
-  "row_count": 8743,
-  "created_at": "2026-04-23T11:19:43.228844",
-  "updated_at": "2026-04-23T11:19:43.271737",
-  "data_signature": "8ecbbf95f508950aae89698edd13643a5628561f357c6e494a0080088a8f81d2",
+  "end_at": "2026-04-25T23:00:00",
+  "row_count": 11499,
+  "created_at": "2026-04-26T11:20:40.727440",
+  "updated_at": "2026-04-26T11:20:40.786658",
+  "data_signature": "f0ffa7c928c9185c9ec9754a4e99f1d42b84854c7d35a12aa28f725a8ada3ed4",
   "quality_status": "warning",
-  "quality_report_summary": "rows=8743, dup=0, missing=17, null=0, invalid=0, suspicious=0",
+  "quality_report_summary": "rows=11499, dup=0, missing=21, null=0, invalid=0, suspicious=0",
   "quality_report": {
     "status": "warning",
-    "row_count": 8743,
+    "row_count": 11499,
     "duplicate_count": 0,
-    "missing_interval_count": 17,
+    "missing_interval_count": 21,
     "null_count": 0,
     "invalid_ohlc_count": 0,
     "suspicious_gap_count": 0,
-    "summary_message": "rows=8743, dup=0, missing=17, null=0, invalid=0, suspicious=0",
+    "summary_message": "rows=11499, dup=0, missing=21, null=0, invalid=0, suspicious=0",
     "detail_messages": [
-      "missing intervals detected: 17"
+      "missing intervals detected: 21"
     ]
   },
   "collector_version": "upbit-v1",
   "code_version": "unknown-local",
-  "last_checked_at": "2026-04-23T11:19:43.271718",
+  "last_checked_at": "2026-04-26T11:20:40.786639",
   "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-BTC/60m/candles.csv",
   "notes": null
 }

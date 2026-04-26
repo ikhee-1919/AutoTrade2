@@ -5,29 +5,29 @@
   "symbol": "KRW-BTC",
   "timeframe": "5m",
   "start_at": "2025-01-01T18:05:00",
-  "end_at": "2025-12-31T23:55:00",
-  "row_count": 104600,
-  "created_at": "2026-04-23T11:19:36.892500",
-  "updated_at": "2026-04-23T11:19:37.241242",
-  "data_signature": "12337f21b1b724383b35b6902c5abf91a0d275551ccc3fae50626333baec3a0b",
+  "end_at": "2026-04-25T10:40:00",
+  "row_count": 137400,
+  "created_at": "2026-04-25T10:44:23.557156",
+  "updated_at": "2026-04-25T10:44:23.557156",
+  "data_signature": "45e5e009fd41397ec41bffd7ea1a936b5d59b89848bf4ba9dc3a2501ccba2fed",
   "quality_status": "warning",
-  "quality_report_summary": "rows=104600, dup=0, missing=303, null=0, invalid=0, suspicious=5",
+  "quality_report_summary": "rows=137400, dup=0, missing=464, null=0, invalid=0, suspicious=7",
   "quality_report": {
     "status": "warning",
-    "row_count": 104600,
+    "row_count": 137400,
     "duplicate_count": 0,
-    "missing_interval_count": 303,
+    "missing_interval_count": 464,
     "null_count": 0,
     "invalid_ohlc_count": 0,
-    "suspicious_gap_count": 5,
-    "summary_message": "rows=104600, dup=0, missing=303, null=0, invalid=0, suspicious=5",
+    "suspicious_gap_count": 7,
+    "summary_message": "rows=137400, dup=0, missing=464, null=0, invalid=0, suspicious=7",
     "detail_messages": [
-      "missing intervals detected: 303"
+      "missing intervals detected: 464"
     ]
   },
   "collector_version": "upbit-v1",
   "code_version": "unknown-local",
-  "last_checked_at": "2026-04-23T11:19:37.241222",
+  "last_checked_at": "2026-04-25T10:44:23.557156",
   "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-BTC/5m/candles.csv",
   "notes": null
 }

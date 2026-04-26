@@ -2,6 +2,9 @@ import {
   BacktestJob,
   BacktestCompareResponse,
   BacktestRunResponse,
+  ChartBacktestOverlayResponse,
+  ChartCandlesResponse,
+  ChartIndicatorsResponse,
   MarketDataCollectRequest,
   MarketDataBatchRequest,
   MarketDataBatchResult,
@@ -12,7 +15,13 @@ import {
   MarketDataPreview,
   MarketDataSummary,
   MarketDataUpdateRequest,
+  Top10Universe,
+  Top10UniverseActionResponse,
+  Top10UniverseMissingResponse,
+  Top10UniverseSummary,
   RecentBacktestItem,
+  RegimeAnalyzeResponse,
+  RegimeBatchAnalyzeResponse,
   SignalResponse,
   StrategyDetail,
   StrategyMeta,
@@ -62,6 +71,8 @@ export const api = {
       body: JSON.stringify({ params }),
     }),
   listSymbols: () => request<{ symbols: string[] }>("/symbols"),
+  listSymbolsByTimeframe: (timeframe: string) =>
+    request<{ symbols: string[] }>(`/symbols?timeframe=${encodeURIComponent(timeframe)}`),
   runBacktest: (payload: {
     strategy_id: string;
     symbol: string;
@@ -70,6 +81,8 @@ export const api = {
     start_date: string;
     end_date: string;
     params?: Record<string, number>;
+    indicator_start?: string;
+    warmup_days?: number;
     fee_rate?: number;
     entry_fee_rate?: number;
     exit_fee_rate?: number;
@@ -93,6 +106,8 @@ export const api = {
     start_date: string;
     end_date: string;
     params?: Record<string, number>;
+    indicator_start?: string;
+    warmup_days?: number;
     fee_rate?: number;
     entry_fee_rate?: number;
     exit_fee_rate?: number;
@@ -145,9 +160,65 @@ export const api = {
     }),
   getBacktestDetail: (runId: string) =>
     request<BacktestRunResponse>(`/backtests/${encodeURIComponent(runId)}`),
+  getRegimeAnalysis: (payload: {
+    symbol: string;
+    indicator_start: string;
+    analysis_start: string;
+    analysis_end: string;
+  }) =>
+    request<RegimeAnalyzeResponse>(
+      `/regime/analyze?symbol=${encodeURIComponent(payload.symbol)}&indicator_start=${encodeURIComponent(payload.indicator_start)}&analysis_start=${encodeURIComponent(payload.analysis_start)}&analysis_end=${encodeURIComponent(payload.analysis_end)}`,
+    ),
+  getRegimeAnalysisBatch: (payload: {
+    symbols: string[];
+    indicator_start: string;
+    analysis_start: string;
+    analysis_end: string;
+  }) => {
+    const q = new URLSearchParams({
+      indicator_start: payload.indicator_start,
+      analysis_start: payload.analysis_start,
+      analysis_end: payload.analysis_end,
+    });
+    for (const symbol of payload.symbols) {
+      q.append("symbols", symbol);
+    }
+    return request<RegimeBatchAnalyzeResponse>(`/regime/analyze/batch?${q.toString()}`);
+  },
   getSignals: (symbol: string, strategyId: string, timeframe = "1d") =>
     request<SignalResponse>(
       `/signals/${encodeURIComponent(symbol)}?strategy_id=${encodeURIComponent(strategyId)}&timeframe=${encodeURIComponent(timeframe)}`,
+    ),
+  getChartCandles: (payload: {
+    symbol: string;
+    timeframe: string;
+    start_date: string;
+    end_date: string;
+  }) =>
+    request<ChartCandlesResponse>(
+      `/charts/candles?symbol=${encodeURIComponent(payload.symbol)}&timeframe=${encodeURIComponent(payload.timeframe)}&start_date=${encodeURIComponent(payload.start_date)}&end_date=${encodeURIComponent(payload.end_date)}`,
+    ),
+  getChartIndicators: (payload: {
+    symbol: string;
+    timeframe: string;
+    start_date: string;
+    end_date: string;
+    indicators?: string[];
+  }) => {
+    const q = new URLSearchParams({
+      symbol: payload.symbol,
+      timeframe: payload.timeframe,
+      start_date: payload.start_date,
+      end_date: payload.end_date,
+    });
+    for (const indicator of payload.indicators ?? []) {
+      q.append("indicators", indicator);
+    }
+    return request<ChartIndicatorsResponse>(`/charts/indicators?${q.toString()}`);
+  },
+  getBacktestOverlay: (runId: string) =>
+    request<ChartBacktestOverlayResponse>(
+      `/charts/backtest-overlay?run_id=${encodeURIComponent(runId)}`,
     ),
   runWalkforward: (payload: WalkforwardRunRequest) =>
     request<WalkforwardRunResponse>("/walkforward/run", {
@@ -317,5 +388,53 @@ export const api = {
   retryMarketDataJob: (jobId: string) =>
     request<MarketDataJob>(`/market-data/jobs/${encodeURIComponent(jobId)}/retry`, {
       method: "POST",
+    }),
+  refreshTop10Universe: (payload: { market_scope?: "KRW" | "BTC" | "USDT"; top_n?: number; use_job?: boolean }) =>
+    request<Top10UniverseActionResponse>("/market-data/top10-universe/refresh", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+  getTop10Universe: () => request<Top10Universe>("/market-data/top10-universe"),
+  collectAllTop10Universe: (payload: {
+    include_seconds?: boolean;
+    validate_after_collect?: boolean;
+    overwrite_existing?: boolean;
+    use_job?: boolean;
+    start_date?: string | null;
+    end_date?: string | null;
+  }) =>
+    request<Top10UniverseActionResponse>("/market-data/top10-universe/collect-all", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+  updateAllTop10Universe: (payload: {
+    include_seconds?: boolean;
+    validate_after_collect?: boolean;
+    use_job?: boolean;
+    end_date?: string | null;
+  }) =>
+    request<Top10UniverseActionResponse>("/market-data/top10-universe/update-all", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+  getTop10UniverseSummary: (includeSeconds = false) =>
+    request<Top10UniverseSummary>(
+      `/market-data/top10-universe/summary?include_seconds=${includeSeconds ? "true" : "false"}`,
+    ),
+  getTop10UniverseMissing: (includeSeconds = false) =>
+    request<Top10UniverseMissingResponse>(
+      `/market-data/top10-universe/missing?include_seconds=${includeSeconds ? "true" : "false"}`,
+    ),
+  retryMissingTop10Universe: (payload: {
+    include_seconds?: boolean;
+    validate_after_collect?: boolean;
+    overwrite_existing?: boolean;
+    use_job?: boolean;
+    start_date?: string | null;
+    end_date?: string | null;
+  }) =>
+    request<Top10UniverseActionResponse>("/market-data/top10-universe/retry-missing", {
+      method: "POST",
+      body: JSON.stringify(payload),
     }),
 };

@@ -48,6 +48,27 @@ def test_incremental_update_and_dedup(service_bundle) -> None:
     assert updated["duplicate_removed_count"] >= 0
 
 
+def test_eth_15m_coverage_collect(service_bundle) -> None:
+    service = service_bundle["market_data_service"]
+    result = service.collect(
+        MarketDataCollectRequest(
+            source="upbit",
+            symbol="KRW-ETH",
+            timeframe="15m",
+            start_date=date(2025, 1, 1),
+            end_date=date(2026, 4, 25),
+            overwrite=False,
+        )
+    )
+    assert result["saved_count"] > 0
+    detail = service.get_dataset(result["dataset_id"])
+    manifest = detail["manifest"]
+    assert manifest["start_at"] is not None
+    assert manifest["end_at"] is not None
+    assert manifest["start_at"][:10] <= "2025-01-01"
+    assert manifest["end_at"][:10] >= "2026-04-25"
+
+
 def test_quality_validation_detects_issues(service_bundle) -> None:
     service = service_bundle["market_data_service"]
     rows = [

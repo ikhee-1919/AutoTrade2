@@ -1,0 +1,33 @@
+{
+  "dataset_id": "upbit__KRW-DEEP__1m",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-DEEP",
+  "timeframe": "1m",
+  "start_at": "2025-04-22T05:35:00",
+  "end_at": "2026-04-24T02:52:00",
+  "row_count": 253687,
+  "created_at": "2026-04-24T03:03:31.262969",
+  "updated_at": "2026-04-24T03:03:32.100794",
+  "data_signature": "848ae11610b8b946e7df128fa78f4dae179488893e84cfa6bbf2f257e9f98ce3",
+  "quality_status": "warning",
+  "quality_report_summary": "rows=253687, dup=0, missing=274631, null=0, invalid=0, suspicious=4693",
+  "quality_report": {
+    "status": "warning",
+    "row_count": 253687,
+    "duplicate_count": 0,
+    "missing_interval_count": 274631,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 4693,
+    "summary_message": "rows=253687, dup=0, missing=274631, null=0, invalid=0, suspicious=4693",
+    "detail_messages": [
+      "missing intervals detected: 274631"
+    ]
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T03:03:32.100767",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-DEEP/1m/candles.csv",
+  "notes": null
+}

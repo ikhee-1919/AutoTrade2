@@ -1,0 +1,33 @@
+{
+  "dataset_id": "upbit__KRW-DOGE__10m",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-DOGE",
+  "timeframe": "10m",
+  "start_at": "2025-01-01T12:40:00",
+  "end_at": "2026-04-24T04:00:00",
+  "row_count": 68600,
+  "created_at": "2026-04-24T04:02:05.920284",
+  "updated_at": "2026-04-24T04:02:06.162797",
+  "data_signature": "3a77d606c3ebdf9c182def972af50c23780af1be1b4ae367c7e18cc71b97bc93",
+  "quality_status": "warning",
+  "quality_report_summary": "rows=68600, dup=0, missing=181, null=0, invalid=0, suspicious=6",
+  "quality_report": {
+    "status": "warning",
+    "row_count": 68600,
+    "duplicate_count": 0,
+    "missing_interval_count": 181,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 6,
+    "summary_message": "rows=68600, dup=0, missing=181, null=0, invalid=0, suspicious=6",
+    "detail_messages": [
+      "missing intervals detected: 181"
+    ]
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T04:02:06.162777",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-DOGE/10m/candles.csv",
+  "notes": null
+}

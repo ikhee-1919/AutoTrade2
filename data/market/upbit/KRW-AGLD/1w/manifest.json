@@ -1,0 +1,31 @@
+{
+  "dataset_id": "upbit__KRW-AGLD__1w",
+  "source": "upbit",
+  "exchange": "upbit",
+  "symbol": "KRW-AGLD",
+  "timeframe": "1w",
+  "start_at": "2024-11-11T00:00:00",
+  "end_at": "2026-04-20T00:00:00",
+  "row_count": 76,
+  "created_at": "2026-04-24T02:59:08.360002",
+  "updated_at": "2026-04-24T02:59:08.402981",
+  "data_signature": "854d9b6b59db639d3bb4e04db2cce088bdd92f96060baf36eeeb22979386bd79",
+  "quality_status": "pass",
+  "quality_report_summary": "rows=76, dup=0, missing=0, null=0, invalid=0, suspicious=0",
+  "quality_report": {
+    "status": "pass",
+    "row_count": 76,
+    "duplicate_count": 0,
+    "missing_interval_count": 0,
+    "null_count": 0,
+    "invalid_ohlc_count": 0,
+    "suspicious_gap_count": 0,
+    "summary_message": "rows=76, dup=0, missing=0, null=0, invalid=0, suspicious=0",
+    "detail_messages": []
+  },
+  "collector_version": "upbit-v1",
+  "code_version": "unknown-local",
+  "last_checked_at": "2026-04-24T02:59:08.402957",
+  "path": "/Users/gyeom/Desktop/Auto Trade Program/data/market/upbit/KRW-AGLD/1w/candles.csv",
+  "notes": null
+}
